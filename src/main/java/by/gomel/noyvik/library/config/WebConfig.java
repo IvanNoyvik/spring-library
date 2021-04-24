@@ -8,7 +8,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
-@ComponentScan("by.gomel.noyvik.library")
+@ComponentScan("by.gomel.noyvik.library.controller")
 public class WebConfig implements WebMvcConfigurer {
 
     @Override

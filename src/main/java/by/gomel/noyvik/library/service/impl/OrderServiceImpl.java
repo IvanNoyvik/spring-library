@@ -4,8 +4,8 @@ import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Book;
 import by.gomel.noyvik.library.model.Order;
 import by.gomel.noyvik.library.model.User;
-import by.gomel.noyvik.library.persistance.dao.BookDao;
-import by.gomel.noyvik.library.persistance.dao.OrderDao;
+import by.gomel.noyvik.library.persistence.dao.BookDao;
+import by.gomel.noyvik.library.persistence.dao.OrderDao;
 import by.gomel.noyvik.library.service.OrderService;
 
 import java.time.LocalDate;

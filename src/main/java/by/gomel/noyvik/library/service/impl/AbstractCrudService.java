@@ -1,7 +1,7 @@
 package by.gomel.noyvik.library.service.impl;
 
-import by.gomel.noyvik.library.persistance.connection.ProviderDao;
-import by.gomel.noyvik.library.persistance.dao.CrudDao;
+import by.gomel.noyvik.library.persistence.connection.ProviderDao;
+import by.gomel.noyvik.library.persistence.dao.CrudDao;
 import by.gomel.noyvik.library.service.CrudService;
 
 import java.lang.reflect.ParameterizedType;

@@ -3,8 +3,8 @@ package by.gomel.noyvik.library.service.impl;
 import by.gomel.noyvik.library.exception.DaoPartException;
 import by.gomel.noyvik.library.model.Author;
 import by.gomel.noyvik.library.model.Book;
-import by.gomel.noyvik.library.persistance.dao.AuthorDao;
-import by.gomel.noyvik.library.persistance.dao.BookDao;
+import by.gomel.noyvik.library.persistence.dao.AuthorDao;
+import by.gomel.noyvik.library.persistence.dao.BookDao;
 import by.gomel.noyvik.library.service.BookService;
 
 public class BookServiceImpl extends AbstractCrudService<Book> implements BookService {

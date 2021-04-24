@@ -6,9 +6,9 @@ import by.gomel.noyvik.library.model.Authenticate;
 import by.gomel.noyvik.library.model.Order;
 import by.gomel.noyvik.library.model.Status;
 import by.gomel.noyvik.library.model.User;
-import by.gomel.noyvik.library.persistance.dao.OrderDao;
-import by.gomel.noyvik.library.persistance.dao.StatusDao;
-import by.gomel.noyvik.library.persistance.dao.UserDao;
+import by.gomel.noyvik.library.persistence.dao.OrderDao;
+import by.gomel.noyvik.library.persistence.dao.StatusDao;
+import by.gomel.noyvik.library.persistence.dao.UserDao;
 import by.gomel.noyvik.library.service.UserService;
 
 import java.time.LocalDate;

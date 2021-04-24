@@ -2,7 +2,7 @@ package by.gomel.noyvik.library.service.impl;
 
 import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Genre;
-import by.gomel.noyvik.library.persistance.dao.GenreDao;
+import by.gomel.noyvik.library.persistence.dao.GenreDao;
 import by.gomel.noyvik.library.service.GenreService;
 
 public class GenreServiceImpl extends AbstractCrudService<Genre> implements GenreService {

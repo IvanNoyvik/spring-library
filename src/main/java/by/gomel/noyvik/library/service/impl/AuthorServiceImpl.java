@@ -2,7 +2,7 @@ package by.gomel.noyvik.library.service.impl;
 
 import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Author;
-import by.gomel.noyvik.library.persistance.dao.AuthorDao;
+import by.gomel.noyvik.library.persistence.dao.AuthorDao;
 import by.gomel.noyvik.library.service.AuthorService;
 
 public class AuthorServiceImpl extends AbstractCrudService<Author> implements AuthorService {
