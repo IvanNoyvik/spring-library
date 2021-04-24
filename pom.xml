@@ -10,9 +10,16 @@
 
     <properties>
         <spring.version>5.2.14.RELEASE</spring.version>
+        <spring-data-jpa.version>2.3.9.RELEASE</spring-data-jpa.version>
+
         <servlet-api.version>3.1.0</servlet-api.version>
         <jsp-api.version>2.2</jsp-api.version>
         <jstl.version>1.2</jstl.version>
+
+        <hibernate-hikaricp.version>5.4.30.Final</hibernate-hikaricp.version>
+        <h2.version>1.4.200</h2.version>
+
+        <lombok.version>1.18.18</lombok.version>
     </properties>
 
     <packaging>war</packaging>
@@ -23,6 +30,23 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-hikaricp</artifactId>
+            <version>${hibernate-hikaricp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
         </dependency>
 
 
@@ -44,6 +68,13 @@
             <version>${jstl.version}</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
     </dependencies>
 
 
@@ -54,8 +85,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
 
