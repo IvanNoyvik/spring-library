@@ -1,6 +1,6 @@
 # Build Artifacts
 build
-../jpa-hibernate-library/target
+../spring-library/target
 out
 *.bak
 
