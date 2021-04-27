@@ -6,7 +6,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -39,7 +38,6 @@ public class TestController {
         List<Book> books = bookService.findAll();
         ModelAndView modelAndView = new ModelAndView(target);
         modelAndView.addObject(BOOKS, books);
-        View view = modelAndView.getView();
 //        request.setAttribute(BOOKS, books);
         //        return new ModelAndView("main");
         return modelAndView;
