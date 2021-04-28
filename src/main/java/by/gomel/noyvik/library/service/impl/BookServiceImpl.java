@@ -6,21 +6,29 @@ import by.gomel.noyvik.library.model.Book;
 import by.gomel.noyvik.library.persistence.repository.AuthorRepository;
 import by.gomel.noyvik.library.persistence.repository.BookRepository;
 import by.gomel.noyvik.library.service.BookService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
 
-    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository) {
-        this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
-    }
 
+
+
+    @Override
+    public Page<Book> findPageBooks(int page){
+
+        return bookRepository.findAll(PageRequest.of(page, 5));
+
+    }
 
     @Override
     public byte[] findImageById(Long id) {

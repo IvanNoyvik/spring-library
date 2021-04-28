@@ -53,14 +53,26 @@
 
                         <h1>${book.title} <span>(${book.author.author})</span></h1>
 
-                        <c:url value="/front" var="image">
-                            <c:param name="bookId" value="${book.id}"/>
-                            <c:param name="command" value="GetImage"/>
-                        </c:url>
+<%--todo проверіть работаетлі без запроса, when be image--%>
                         <div>
-                            <img src="${image}" alt="CSS Template" width="100"
-                                 height="100"/>
+                            <c:choose>
+                                <c:when test="${!empty book.image}">
+                                    <img src="${book.image}" alt="CSS Template" width="100"
+                                         height="100"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template" width="100"
+                                         height="100"/>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
+<%--                        <c:url value="/getImage" var="image">--%>
+<%--                            <c:param name="bookId" value="${book.id}"/>--%>
+<%--                        </c:url>--%>
+<%--                        <div>--%>
+<%--                            <img src="${image}" alt="CSS Template" width="100"--%>
+<%--                                 height="100"/>--%>
+<%--                        </div>--%>
 
 
                         <div class="product_info">
@@ -100,6 +112,12 @@
 
                 </c:forEach>
 
+                <c:forEach var="page" begin="1" end="${requestScope.countPage}" >
+                    <c:url value="/main" var="bookPage">
+                        <c:param name="page" value="${page-1}"/>
+                    </c:url>
+                    <a href="<c:out value="${bookPage}"/>">${page}</a>
+                </c:forEach>
             </c:if>
 
         </div>

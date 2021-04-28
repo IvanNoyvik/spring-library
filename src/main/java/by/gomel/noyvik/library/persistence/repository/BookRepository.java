@@ -1,6 +1,8 @@
 package by.gomel.noyvik.library.persistence.repository;
 
 import by.gomel.noyvik.library.model.Book;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,4 +24,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     boolean existsByTitleAndAuthorAuthor(String title, String author);
 
 
+
+    @Override
+    @Query(value = "SELECT b FROM Book b LEFT JOIN FETCH b.author",
+            countQuery = "select count(b) from Book b")
+    Page<Book> findAll(Pageable pageable);
 }

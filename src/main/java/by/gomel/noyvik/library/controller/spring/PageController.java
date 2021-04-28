@@ -3,10 +3,12 @@ package by.gomel.noyvik.library.controller.spring;
 import by.gomel.noyvik.library.model.Book;
 import by.gomel.noyvik.library.service.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static by.gomel.noyvik.library.controller.constant.CommandConstant.BOOKS;
@@ -20,26 +22,51 @@ public class PageController {
 //    private final OrderService orderService;
 //    private final MessageService messageService;
 
+    private void setResp(ModelAndView modelAndView, String resp){
 
-    @GetMapping("/main123")
-    protected String mainPage(HttpServletRequest request) {
-//todo
-        List<Book> books = bookService.findAll();
-
-        request.setAttribute(BOOKS, books);
-        //        return new ModelAndView("main");
-        return ("test");
+        if (resp != null){
+            modelAndView.addObject("resp", resp);
+        }
     }
 
-//    @GetMapping(value = "/test", params = "target")
-//    protected ModelAndView bookTest(@Param("target") String target) {
-//
-//        List<Book> books = bookService.findAll();
-//        ModelAndView modelAndView = new ModelAndView(target);
-//        modelAndView.addObject(BOOKS, books);
-////        request.setAttribute(BOOKS, books);
-//        //        return new ModelAndView("main");
-//        return modelAndView;
-//    }
+    @GetMapping({"/main", "/"})
+    public ModelAndView mainPage(@RequestParam Integer page, @RequestParam String resp) {
+
+        ModelAndView modelAndView = new ModelAndView("main");
+
+        if (page == null){
+            page = 0;
+        }
+
+        Page<Book> pageBooks = bookService.findPageBooks(page);
+        int countPage = pageBooks.getTotalPages();
+        List<Book> books = pageBooks.getContent();
+
+        modelAndView.addObject(BOOKS, books);
+        modelAndView.addObject("countPage", countPage);
+
+        setResp(modelAndView, resp);
+        return modelAndView;
+    }
+
+    @GetMapping("/registration")
+    public ModelAndView registrationPage(@RequestParam String resp) {
+
+        ModelAndView modelAndView = new ModelAndView("registration");
+        setResp(modelAndView, resp);
+
+        return modelAndView;
+    }
+
+    @GetMapping("/login")
+    public ModelAndView loginPage(@RequestParam String resp) {
+
+        ModelAndView modelAndView = new ModelAndView("login");
+        setResp(modelAndView, resp);
+
+        return modelAndView;
+    }
+
+
 
 }
