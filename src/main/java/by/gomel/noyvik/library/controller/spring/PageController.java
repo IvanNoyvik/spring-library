@@ -29,14 +29,10 @@ public class PageController {
         }
     }
 
-    @GetMapping({"/main", "/"})
-    public ModelAndView mainPage(@RequestParam Integer page, @RequestParam String resp) {
+    @GetMapping(value = {"/main", "/"}, params = "page")
+    public ModelAndView mainPage(@RequestParam Integer page) {
 
         ModelAndView modelAndView = new ModelAndView("main");
-
-        if (page == null){
-            page = 0;
-        }
 
         Page<Book> pageBooks = bookService.findPageBooks(page);
         int countPage = pageBooks.getTotalPages();
@@ -45,24 +41,36 @@ public class PageController {
         modelAndView.addObject(BOOKS, books);
         modelAndView.addObject("countPage", countPage);
 
-        setResp(modelAndView, resp);
+        return modelAndView;
+    }
+
+    @GetMapping(value = {"/main", "/"})
+    public ModelAndView mainPage() {
+
+        ModelAndView modelAndView = new ModelAndView("main");
+
+        Page<Book> pageBooks = bookService.findPageBooks(0);
+        int countPage = pageBooks.getTotalPages();
+        List<Book> books = pageBooks.getContent();
+
+        modelAndView.addObject(BOOKS, books);
+        modelAndView.addObject("countPage", countPage);
+
         return modelAndView;
     }
 
     @GetMapping("/registration")
-    public ModelAndView registrationPage(@RequestParam String resp) {
+    public ModelAndView registrationPage() {
 
         ModelAndView modelAndView = new ModelAndView("registration");
-        setResp(modelAndView, resp);
 
         return modelAndView;
     }
 
     @GetMapping("/login")
-    public ModelAndView loginPage(@RequestParam String resp) {
+    public ModelAndView loginPage() {
 
         ModelAndView modelAndView = new ModelAndView("login");
-        setResp(modelAndView, resp);
 
         return modelAndView;
     }

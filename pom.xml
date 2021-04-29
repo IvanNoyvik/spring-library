@@ -22,6 +22,7 @@
         <h2.version>1.4.200</h2.version>
 
         <lombok.version>1.18.18</lombok.version>
+        <validator.version>7.0.1.Final</validator.version>
     </properties>
 
     <packaging>war</packaging>
@@ -44,6 +45,11 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-hikaricp</artifactId>
             <version>${hibernate-hikaricp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${validator.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>

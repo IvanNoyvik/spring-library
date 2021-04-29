@@ -1,5 +1,6 @@
 package by.gomel.noyvik.library.model;
 
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class Authenticate {
 
     @Id
     private Long id;
+    @Size
     private String login;
     private String password;
     @Column(name = "UNLOCKED_DATE")
