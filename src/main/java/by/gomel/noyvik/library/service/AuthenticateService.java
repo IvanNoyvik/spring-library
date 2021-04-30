@@ -5,7 +5,7 @@ import by.gomel.noyvik.library.model.User;
 
 import java.util.Map;
 
-public interface AuthenticateService extends CrudService<Authenticate> {
+public interface AuthenticateService {
 
 
 

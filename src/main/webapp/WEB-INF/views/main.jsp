@@ -113,11 +113,9 @@
                 </c:forEach>
 
                 <c:forEach var="page" begin="1" end="${requestScope.countPage}" >
-                    <c:url value="/main" var="bookPage">
-                        <c:param name="page" value="${page-1}"/>
-                    </c:url>
-                    <a href="<c:out value="${bookPage}"/>">${page}</a>
+                    <a href="<c:url value="/main/${page-1}"/>">${page}</a>
                 </c:forEach>
+
             </c:if>
 
         </div>

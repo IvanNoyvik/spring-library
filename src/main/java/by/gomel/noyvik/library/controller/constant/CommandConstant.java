@@ -14,8 +14,9 @@ public interface CommandConstant {
 
 
 
-    String LOGIN_PATTERN_REGX = "[a-zA-Z0-9]{3,40}";
-    Pattern LOGIN_PATTERN = Pattern.compile(LOGIN_PATTERN_REGX);
+    String LOGIN_REGEX = "[a-zA-Z_0-9]{3,40}";
+    String PASSWORD_REGEX = "[a-zA-Z0-9]{1,40}";
+    Pattern LOGIN_PATTERN = Pattern.compile(LOGIN_REGEX);
     //command
 
     //resp message
@@ -59,6 +60,7 @@ public interface CommandConstant {
     String FORWARD = "forward";
 
 
+    String ROLE_USER = "User";
     String USER = "user";
     String USERS = "users";
     String USER_ID = "userId";

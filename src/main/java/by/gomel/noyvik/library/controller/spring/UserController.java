@@ -1,19 +1,22 @@
 package by.gomel.noyvik.library.controller.spring;
 
 import by.gomel.noyvik.library.model.Authenticate;
-import by.gomel.noyvik.library.model.Book;
+import by.gomel.noyvik.library.model.User;
 import by.gomel.noyvik.library.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.Map;
 
-import static by.gomel.noyvik.library.controller.constant.CommandConstant.BOOKS;
+import static by.gomel.noyvik.library.controller.constant.CommandConstant.LOGIN_FAIL;
+import static by.gomel.noyvik.library.controller.constant.CommandConstant.USER;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,18 +28,43 @@ public class UserController {
 
 
     @PostMapping(value = "/login")
-    public ModelAndView login(@Vali@RequestParam Authenticate authenticate) {
+    public ModelAndView login(@Valid @ModelAttribute Authenticate authenticate, HttpSession session, BindingResult br) {
 
-        ModelAndView modelAndView = new ModelAndView("main");
+        ModelAndView modelAndView = new ModelAndView("redirect:/main");
 
-        userService.login(authenticate);
-        int countPage = pageBooks.getTotalPages();
-        List<Book> books = pageBooks.getContent();
+        if (br.hasErrors()){
+            Map<String, Object> model = br.getModel();
+            modelAndView.addObject(model);
+            System.out.println();
+            return modelAndView;
 
-        modelAndView.addObject(BOOKS, books);
-        modelAndView.addObject("countPage", countPage);
+        }
+        User user = userService.login(authenticate);
+
+        if (user == null){
+            modelAndView.addObject("error", LOGIN_FAIL);
+//            modelAndView.setViewName("redirect:/main");
+            return modelAndView;
+        } else {
+            session.setAttribute(USER, user);
+        }
 
         return modelAndView;
+    }
+
+    @PostMapping(value = "/registration")
+    public ModelAndView registration(@Valid @RequestParam User user , BindingResult br){
+
+        if (br.hasErrors()){
+
+            return new ModelAndView("redirect:/main");
+
+        }
+
+        userService.createNewUser(user);
+
+
+        return new ModelAndView("redirect:/login");
     }
 
 

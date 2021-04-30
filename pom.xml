@@ -22,7 +22,7 @@
         <h2.version>1.4.200</h2.version>
 
         <lombok.version>1.18.18</lombok.version>
-        <validator.version>7.0.1.Final</validator.version>
+        <validator.version>5.4.3.Final</validator.version>
     </properties>
 
     <packaging>war</packaging>
@@ -49,8 +49,9 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${validator.version}</version>
+            <version>5.4.3.Final</version>
         </dependency>
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -82,7 +83,6 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
-
     </dependencies>
 
 

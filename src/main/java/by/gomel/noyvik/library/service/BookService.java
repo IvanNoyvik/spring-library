@@ -3,7 +3,7 @@ package by.gomel.noyvik.library.service;
 import by.gomel.noyvik.library.model.Book;
 import org.springframework.data.domain.Page;
 
-public interface BookService extends CrudService<Book> {
+public interface BookService {
 
 
     Page<Book> findPageBooks(int page);

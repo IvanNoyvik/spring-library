@@ -11,8 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
@@ -76,38 +74,6 @@ public class BookServiceImpl implements BookService {
             throw new SecurityException();
         }
 
-
-    }
-
-
-
-
-
-
-    //todo
-    @Override
-    public Book findById(Long id) {
-        return null;
-    }
-
-    @Override
-    public List<Book> findAll() {
-
-        return bookRepository.findAll();
-    }
-
-    @Override
-    public Book save(Book book) {
-        return null;
-    }
-
-    @Override
-    public Book update(Book book) {
-        return null;
-    }
-
-    @Override
-    public void deleteById(Long id) {
 
     }
 }

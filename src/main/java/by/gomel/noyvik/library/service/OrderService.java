@@ -6,7 +6,7 @@ import by.gomel.noyvik.library.model.User;
 import java.util.List;
 
 
-public interface OrderService extends CrudService<Order> {
+public interface OrderService  {
 
     List<Order> findByBookId(Long id);
 

@@ -56,26 +56,25 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
-            <form class="login100-form validate-form" action="/front" method="post">
+            <form class="login100-form validate-form" action="/registration" method="post">
 					<span class="login100-form-title p-b-43">
 						Login to continue
 					</span>
-                <input type="hidden" value="Registration" name="command">
 
-                <div class="wrap-input100 validate-input" data-validate="Login is required">
-                    <input class="input100" type="text" name="login" pattern="[A-Za-zА-Яа-яЁё0-9]{3,20}">
+                <div class="wrap-input100 validate-input" data-validate="Valid login is: aBv3_09c">
+                    <input class="input100" type="text" name="login" pattern="[A-Za-z_0-9]{3,40}">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Login</span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="text" name="password" pattern="[A-Za-zА-Яа-яЁё0-9]{1,40}">
+                    <input class="input100" type="password" name="password" pattern="[A-Za-z0-9]{1,40}">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Password</span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="name is required">
-                    <input class="input100" type="text" name="name" pattern="[A-Za-zА-Яа-яЁё0-9]{3,20}">
+                    <input class="input100" type="text" name="name" pattern="[A-Za-zА-Яа-яЁё0-9]{3,40}">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Name</span>
                 </div>
@@ -98,18 +97,10 @@
 
                 <div class="login100-form-social flex-c-m">
 
-                    <c:url value="/front" var="login">
-                        <c:param name="command" value="Forward"/>
-                        <c:param name="forward" value="login"/>
-                    </c:url>
-                    <li><a href="<c:out value="${login}"/>"
-                           class="login100-form-social-item flex-c-m bg1 m-r-5">Login</a></li>
+                    <li><a href="<c:url value="/login"/>" class="login100-form-social-item flex-c-m bg1 m-r-5">Login</a>
+                    </li>
 
-                    <c:url value="/front" var="back">
-                        <c:param name="command" value="Forward"/>
-                        <c:param name="forward" value="main"/>
-                    </c:url>
-                    <li><a href="<c:out value="${back}"/>" class="login100-form-social-item flex-c-m bg2 m-r-5">Back to
+                    <li><a href="<c:url value="/main"/>" class="login100-form-social-item flex-c-m bg2 m-r-5">Back to
                         menu</a></li>
                 </div>
             </form>

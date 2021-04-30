@@ -1,6 +1,7 @@
 package by.gomel.noyvik.library.model;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @Email(message = "validation.email.Email.message")
     private String email;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY,
@@ -49,6 +52,10 @@ public class User {
         this.email = email;
 
     }
+
+//    public User (String name, String email){
+//     todo
+//    }
 
     public void addAuthenticate(Authenticate authenticate) {
         this.authenticate = authenticate;

@@ -13,7 +13,7 @@
 
         <ul>
             <!-- MAIN -->
-            <li><a href="<c:url value="/main?page=0"/>" class="current">Main</a></li>
+            <li><a href="<c:url value="/main"/>" class="current">Main</a></li>
 
         </ul>
 

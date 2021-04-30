@@ -1,9 +1,9 @@
 package by.gomel.noyvik.library.persistence.repository;
 
 import by.gomel.noyvik.library.model.Message;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface MessageDao extends JpaRepository<Message, Long> {
+public interface MessageDao extends CrudRepository<Message, Long> {
 
 
 

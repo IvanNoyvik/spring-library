@@ -56,22 +56,22 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
-            <form class="login100-form validate-form" action="/front" method="post">
+            <form class="login100-form validate-form" action="/login" method="post">
 					<span class="login100-form-title p-b-43">
 						Login to continue
 					</span>
                 <input type="hidden" value="Login" name="command">
 
 
-                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="text" name="login" pattern="[A-Za-zА-Яа-яЁё0-9]{3,20}">
+                <div class="wrap-input100 validate-input" data-validate="Valid login is: aBv3_09c">
+                    <input class="input100" type="text" name="login" pattern="[A-Za-z_0-9]{3,40}">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Login</span>
                 </div>
 
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" name="password" pattern="[A-Za-zА-Яа-яЁё0-9]{1,40}">
+                    <input class="input100" type="password" name="password" pattern="[A-Za-z0-9]{1,40}">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Password</span>
                 </div>

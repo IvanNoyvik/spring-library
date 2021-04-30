@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -29,8 +29,8 @@ public class PageController {
         }
     }
 
-    @GetMapping(value = {"/main", "/"}, params = "page")
-    public ModelAndView mainPage(@RequestParam Integer page) {
+    @GetMapping(value = "/main/{page}")
+    public ModelAndView mainPage(@PathVariable Integer page) {
 
         ModelAndView modelAndView = new ModelAndView("main");
 
