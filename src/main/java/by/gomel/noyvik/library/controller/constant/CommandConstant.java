@@ -8,6 +8,10 @@ public interface CommandConstant {
 
     String POSTFIX = ".jsp";
     String PREFIX = "/";
+    String TARGET = "target";
+    String RESPONSE = "resp";
+    String REDIRECT_ACTION = "redirect:/";
+
 
     String COMMAND_PATH = "by.gomel.noyvik.library.controller.commands.%sCommand";
     String ATTRIBUTE_SETTER_PATH = "by.gomel.noyvik.library.controller.attribute.%sAttributeSetter";
@@ -48,7 +52,7 @@ public interface CommandConstant {
     String EDIT_BOOK_FAIL = "Failed to change data";
     String BLOCK = "Your account is blocked";
     String UNKNOWN_COMMAND = "UNKNOWN_COMMAND";
-    String ERROR_PROCESS = "/redirect?target=main&resp=Incorrect or unsupported operations";
+    String ERROR_PROCESS = "Incorrect or unsupported operations";
     String UNKNOWN_OPERATION = "Unknown or unsupported operations";
     String PARSE_NUMBER_EXCEPTION = "You entered invalid data";
 

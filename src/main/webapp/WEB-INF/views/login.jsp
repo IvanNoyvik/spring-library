@@ -64,14 +64,14 @@
 
 
                 <div class="wrap-input100 validate-input" data-validate="Valid login is: aBv3_09c">
-                    <input class="input100" type="text" name="login" pattern="[A-Za-z_0-9]{3,40}">
+                    <input class="input100" type="text" name="login" <%--pattern="[A-Za-z_0-9]{3,40}"--%>>
                     <span class="focus-input100"></span>
                     <span class="label-input100">Login</span>
                 </div>
 
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" name="password" pattern="[A-Za-z0-9]{1,40}">
+                    <input class="input100" type="password" name="password" <%--pattern="[A-Za-z0-9]{1,40}"--%>>
                     <span class="focus-input100"></span>
                     <span class="label-input100">Password</span>
                 </div>
