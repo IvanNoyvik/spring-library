@@ -10,7 +10,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 //    List<Object[]> findAllWithOrder();
 
-    @Query("from User u join fetch u.authenticate a join fetch u.status where a.login = :login and a.password = :password")
+    @Query("from User u left join fetch u.authenticate a left join fetch u.status left join fetch u.roles " +
+            "where a.login = :login and a.password = :password")
     User findByLoginAndPassword(@Param("login") String login, @Param("password") String password);
 
     User findByAuthenticateLogin(String login);

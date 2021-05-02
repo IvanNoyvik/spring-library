@@ -33,6 +33,7 @@
                     <li>You name: ${sessionScope.user.name}</li>
                     <li>You email: ${sessionScope.user.email}</li>
                 </ul>
+<%--                todo edit user pageController--%>
                 <a href="<c:url value="/editUser.jsp" />" style="margin-left: 50px;">Edit profile...</a>
             </c:if>
 
@@ -45,9 +46,7 @@
 
             <div class="templatemo_content_left_section">
                 <c:if test="${sessionScope.user.roles.contains(applicationScope.admin)}">
-                    <form action="<c:url value="/front"/>" method="get">
-                        <input type="hidden" name="command" value="Forward"/>
-                        <input type="hidden" name="forward" value="admin"/>
+                    <form action="<c:url value="/admin"/>" method="get">
                         <h1><input type="submit" value="Admin panel"/></h1>
                     </form>
                 </c:if>
@@ -80,8 +79,8 @@
                             <%--todo проверіть работаетлі без запроса, when be image--%>
                         <div>
                             <c:choose>
-                                <c:when test="${!empty book.image}">
-                                    <img src="${book.image}" alt="CSS Template" width="100"
+                                <c:when test="${!empty order.book.image}">
+                                    <img src="${order.book.image}" alt="CSS Template" width="100"
                                          height="100"/>
                                 </c:when>
                                 <c:otherwise>
@@ -98,9 +97,7 @@
                                 <h3>Book is expired
                                     return the book to the library</h3>
 
-                                <div class="detail_button"><a
-                                        href="<c:url value="/front?command=ReturnOrder&id=${order.id}"/>">Return</a>
-                                </div>
+
                             </c:if>
                             <c:if test="${applicationScope.now.now() < order.dateReceiving.plusDays(order.duration)}">
                                 <h3> Expected return date: ${order.dateReceiving.plusDays(order.duration)} </h3>
@@ -108,20 +105,19 @@
                                     days
                                     left </h3>
 
-                                <c:url value="/front" var="bookContent">
-                                    <c:param name="command" value="Forward"/>
-                                    <c:param name="forward" value="bookContent"/>
+                                <c:url value="/bookContent" var="bookContent">
                                     <c:param name="bookId" value="${order.book.id}"/>
                                 </c:url>
                                 <div class="buy_now_button"><a class="buy_now_button"
                                                                href="<c:out value="${bookContent}"/>">Read</a>
                                 </div>
 
-                                <div class="detail_button"><a
-                                        href="<c:url value="/front?command=ReturnOrder&id=${order.id}"/>">Return
-                                    book</a>
-                                </div>
                             </c:if>
+
+                            <div class="detail_button"><a
+                                <%--                                        todo ReturnOrder--%>
+                                    href="<c:url value="/returnOrder?id=${order.id}"/>">Return</a>
+                            </div>
                         </div>
                     </div>
 

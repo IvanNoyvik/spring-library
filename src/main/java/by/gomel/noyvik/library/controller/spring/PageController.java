@@ -5,6 +5,8 @@ import by.gomel.noyvik.library.model.Order;
 import by.gomel.noyvik.library.model.User;
 import by.gomel.noyvik.library.service.BookService;
 import by.gomel.noyvik.library.service.OrderService;
+import by.gomel.noyvik.library.service.RoleService;
+import by.gomel.noyvik.library.util.CurrentDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -22,14 +24,15 @@ import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
 public class PageController {
 
     private final BookService bookService;
-//    private final UserService userService;
+    //    private final UserService userService;
     private final OrderService orderService;
+    private final RoleService roleService;//todo listener
 //    private final MessageService messageService;
 
-    private void setResp(ModelAndView modelAndView, HttpServletRequest request){
+    private void setResp(ModelAndView modelAndView, HttpServletRequest request) {
 
         String resp = request.getParameter(RESPONSE);
-        if (resp != null){
+        if (resp != null) {
             modelAndView.addObject("resp", resp);
         }
     }
@@ -53,6 +56,13 @@ public class PageController {
     public ModelAndView mainPage(HttpServletRequest request) {
 
         ModelAndView modelAndView = new ModelAndView("main");
+
+
+        if (request.getServletContext().getAttribute("now") == null) {
+            request.getServletContext().setAttribute("now", new CurrentDate());
+            request.getServletContext().setAttribute("admin", roleService.getRole(ROLE_ADMIN));
+        } //todo listener
+
 
         Page<Book> pageBooks = bookService.findPageBooks(0);
         int countPage = pageBooks.getTotalPages();
@@ -89,7 +99,7 @@ public class PageController {
         ModelAndView modelAndView = new ModelAndView(PROFILE_JSP);
         User user = (User) request.getSession().getAttribute(USER);
 
-        if (user == null){
+        if (user == null) {
             modelAndView.addObject(RESPONSE, ERROR_PROCESS);
             modelAndView.setViewName(REDIRECT_ACTION + MAIN_JSP);
             return modelAndView;
@@ -102,7 +112,6 @@ public class PageController {
         setResp(modelAndView, request);
         return modelAndView;
     }
-
 
 
 }

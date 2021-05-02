@@ -65,6 +65,8 @@ public interface CommandConstant {
 
 
     String ROLE_USER = "User";
+    String ROLE_ADMIN = "Administrator";
+
     String USER = "user";
     String USERS = "users";
     String USER_ID = "userId";
