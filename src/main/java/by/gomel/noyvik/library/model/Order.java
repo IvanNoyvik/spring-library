@@ -4,6 +4,8 @@ package by.gomel.noyvik.library.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
 
 @EqualsAndHashCode(exclude = {"book", "user"})
@@ -20,7 +22,12 @@ public class Order {
     private Long id;
     @Column(name = "DATE_RECEIVING")
     private LocalDate dateReceiving;
+
+    @Min(value = 1, message = "validation.order.duration.message")
+    @Max(value = 180, message = "validation.order.duration.message")
     private int duration;
+
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "BOOKS_ID", referencedColumnName = "ID")

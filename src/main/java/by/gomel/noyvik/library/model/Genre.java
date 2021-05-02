@@ -2,8 +2,11 @@ package by.gomel.noyvik.library.model;
 
 
 import lombok.*;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,6 +22,10 @@ public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "validation.genre.NotEmpty.message")
+    @NotBlank(message = "validation.genre.NotEmpty.message")
+    @NotEmpty(message = "validation.genre.NotEmpty.message")
     private String genre;
 
 

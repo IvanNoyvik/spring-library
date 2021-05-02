@@ -1,9 +1,16 @@
 package by.gomel.noyvik.library.model;
 
+
 import lombok.*;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
+
+import static by.gomel.noyvik.library.controller.constant.CommandConstant.LOGIN_REGEX;
+import static by.gomel.noyvik.library.controller.constant.CommandConstant.PASSWORD_REGEX;
 
 @NoArgsConstructor
 @Setter
@@ -16,7 +23,15 @@ public class Authenticate {
 
     @Id
     private Long id;
+
+    @NotNull(message = "validation.login.NotEmpty.message")
+    @NotEmpty(message = "validation.login.NotEmpty.message")
+    @Pattern(regexp = LOGIN_REGEX, message = "validation.login.Pattern.message")
     private String login;
+
+    @NotNull(message = "validation.password.NotEmpty.message")
+    @NotEmpty(message = "validation.password.NotEmpty.message")
+    @Pattern(regexp = PASSWORD_REGEX, message = "validation.password.Pattern.message")
     private String password;
     @Column(name = "UNLOCKED_DATE")
     private LocalDate unlockedDate = LocalDate.now();

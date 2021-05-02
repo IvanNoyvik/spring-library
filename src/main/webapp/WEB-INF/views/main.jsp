@@ -18,9 +18,10 @@
     <div id="templatemo_header">
         <div id="templatemo_special_offers">
             <p>
-                <c:if test="${!empty requestScope.resp and requestScope.resp != null}">
-                    <span class="resp"><c:out value="${requestScope.resp}"/></span>
+                <c:if test="${!empty resp and resp != null}">
+                    <span class="resp"><c:out value="${resp}"/></span>
                 </c:if>
+
             </p>
         </div>
 
@@ -53,14 +54,26 @@
 
                         <h1>${book.title} <span>(${book.author.author})</span></h1>
 
-                        <c:url value="/front" var="image">
-                            <c:param name="bookId" value="${book.id}"/>
-                            <c:param name="command" value="GetImage"/>
-                        </c:url>
+<%--todo проверіть работаетлі без запроса, when be image--%>
                         <div>
-                            <img src="${image}" alt="CSS Template" width="100"
-                                 height="100"/>
+                            <c:choose>
+                                <c:when test="${!empty book.image}">
+                                    <img src="${book.image}" alt="CSS Template" width="100"
+                                         height="100"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template" width="100"
+                                         height="100"/>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
+<%--                        <c:url value="/getImage" var="image">--%>
+<%--                            <c:param name="bookId" value="${book.id}"/>--%>
+<%--                        </c:url>--%>
+<%--                        <div>--%>
+<%--                            <img src="${image}" alt="CSS Template" width="100"--%>
+<%--                                 height="100"/>--%>
+<%--                        </div>--%>
 
 
                         <div class="product_info">
@@ -98,6 +111,10 @@
 
                     </div>
 
+                </c:forEach>
+
+                <c:forEach var="page" begin="1" end="${requestScope.countPage}" >
+                    <a href="<c:url value="/main/${page-1}"/>">${page}</a>
                 </c:forEach>
 
             </c:if>
