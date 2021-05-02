@@ -57,7 +57,6 @@ public class PageController {
 
         ModelAndView modelAndView = new ModelAndView("main");
 
-        //g
 
         if (request.getServletContext().getAttribute("now") == null) {
             request.getServletContext().setAttribute("now", new CurrentDate());
