@@ -14,6 +14,8 @@ public interface UserService {
 
     User createNewUser(User user);
 
+    User updateUser(User userForUpdate);
+
 //    User registration(String login, String password, String name, String email);
 //
 //    Map<User, Integer> findUserWithCountOverdueOrder();

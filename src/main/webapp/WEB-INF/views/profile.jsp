@@ -33,8 +33,8 @@
                     <li>You name: ${sessionScope.user.name}</li>
                     <li>You email: ${sessionScope.user.email}</li>
                 </ul>
-<%--                todo edit user pageController--%>
-                <a href="<c:url value="/editUser.jsp" />" style="margin-left: 50px;">Edit profile...</a>
+
+                <a href="<c:url value="/editUser" />" style="margin-left: 50px;">Edit profile...</a>
             </c:if>
 
         </div>

@@ -109,6 +109,7 @@ public interface CommandConstant {
     String REGISTRATION_JSP = "registration";
     String LOGIN_JSP = "login";
     String PROFILE_JSP = "profile";
+    String EDIT_USER_JSP = "editUser";
     String BOOK_JSP = "book";
     String BLOCK_JSP = "block";
     String ADMIN_JSP = "admin";

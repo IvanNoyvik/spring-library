@@ -20,3 +20,7 @@
 ////        sce.getServletContext().setAttribute("admin", roleRepository.findByRole(ROLE_ADMIN));
 //    }
 //}
+
+
+//todo listener  problem
+//validation not message from property

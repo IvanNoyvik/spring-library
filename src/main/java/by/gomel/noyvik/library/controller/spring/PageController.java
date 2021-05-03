@@ -114,4 +114,11 @@ public class PageController {
     }
 
 
+    @GetMapping("/editUser")
+    public ModelAndView editUserPage(HttpServletRequest request) {
+
+        ModelAndView modelAndView = new ModelAndView("editUser");
+        setResp(modelAndView, request);
+        return modelAndView;
+    }
 }
