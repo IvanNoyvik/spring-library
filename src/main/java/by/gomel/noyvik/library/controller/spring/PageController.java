@@ -1,11 +1,10 @@
 package by.gomel.noyvik.library.controller.spring;
 
 import by.gomel.noyvik.library.model.Book;
+import by.gomel.noyvik.library.model.Message;
 import by.gomel.noyvik.library.model.Order;
 import by.gomel.noyvik.library.model.User;
-import by.gomel.noyvik.library.service.BookService;
-import by.gomel.noyvik.library.service.OrderService;
-import by.gomel.noyvik.library.service.RoleService;
+import by.gomel.noyvik.library.service.*;
 import by.gomel.noyvik.library.util.CurrentDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
 
@@ -24,10 +24,10 @@ import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
 public class PageController {
 
     private final BookService bookService;
-    //    private final UserService userService;
+    private final UserService userService;
     private final OrderService orderService;
     private final RoleService roleService;//todo listener
-//    private final MessageService messageService;
+    private final MessageService messageService;
 
     private void setResp(ModelAndView modelAndView, HttpServletRequest request) {
 
@@ -55,7 +55,7 @@ public class PageController {
     @GetMapping(value = {"/main", "/"})
     public ModelAndView mainPage(HttpServletRequest request) {
 
-        ModelAndView modelAndView = new ModelAndView("main");
+        ModelAndView modelAndView = new ModelAndView(MAIN_JSP);
 
 
         if (request.getServletContext().getAttribute("now") == null) {
@@ -78,7 +78,7 @@ public class PageController {
     @GetMapping("/registration")
     public ModelAndView registrationPage(HttpServletRequest request) {
 
-        ModelAndView modelAndView = new ModelAndView("registration");
+        ModelAndView modelAndView = new ModelAndView(REGISTRATION_JSP);
 
         setResp(modelAndView, request);
         return modelAndView;
@@ -87,7 +87,7 @@ public class PageController {
     @GetMapping("/login")
     public ModelAndView loginPage(HttpServletRequest request) {
 
-        ModelAndView modelAndView = new ModelAndView("login");
+        ModelAndView modelAndView = new ModelAndView(LOGIN_JSP);
 
         setResp(modelAndView, request);
         return modelAndView;
@@ -117,8 +117,102 @@ public class PageController {
     @GetMapping("/editUser")
     public ModelAndView editUserPage(HttpServletRequest request) {
 
-        ModelAndView modelAndView = new ModelAndView("editUser");
+        ModelAndView modelAndView = new ModelAndView(EDIT_BOOK_JSP);
         setResp(modelAndView, request);
         return modelAndView;
     }
+
+    @GetMapping("/book/{bookId}")
+    public ModelAndView bookPage(HttpServletRequest request, @PathVariable Long bookId) {
+
+        ModelAndView modelAndView = new ModelAndView(BOOK_JSP);
+
+        Book book = bookService.findBookById(bookId);
+        request.setAttribute(BOOK, book);
+
+        User user = (User) request.getSession().getAttribute(USER);
+
+        if (user != null) {
+            boolean haveBook = orderService.userHaveBook(bookId, user.getId());
+            request.setAttribute(HAVE_BOOK, haveBook);
+
+            if (userService.isAdministrator(user)) {
+                List<Order> orders = orderService.findByBookId(bookId);
+                request.setAttribute(ORDERS, orders);
+
+            }
+
+        }
+
+        setResp(modelAndView, request);
+        return modelAndView;
+    }
+
+    @GetMapping("/bookContent/{bookId}")
+    public ModelAndView bookContentPage(HttpServletRequest request, @PathVariable Long bookId) {
+
+        ModelAndView modelAndView = new ModelAndView(BOOK_CONTENT_JSP);
+
+        Book book = bookService.findBookById(bookId);
+        request.setAttribute(BOOK, book);
+
+        setResp(modelAndView, request);
+        return modelAndView;
+    }
+
+
+    @GetMapping("/editBook/{bookId}")
+    public ModelAndView editBookPage(HttpServletRequest request, @PathVariable Long bookId) {
+
+        ModelAndView modelAndView = new ModelAndView(EDIT_BOOK_JSP);
+
+        Book book = bookService.findBookById(bookId);
+        request.setAttribute(BOOK, book);
+
+        setResp(modelAndView, request);
+        return modelAndView;
+    }
+
+//    @GetMapping("/addBook")
+//    public ModelAndView addBookPage(HttpServletRequest request) {
+//
+//        ModelAndView modelAndView = new ModelAndView(ADD_BOOK_JSP);
+//
+//        List<Genre> genres = genreService.findAll();
+//        request.setAttribute(GENRES, genres);
+//        List<Author> authors = authorService.findAll();
+//        request.setAttribute(AUTHORS, authors);
+//
+//        setResp(modelAndView, request);
+//        return modelAndView;
+//    }
+
+
+    @GetMapping("/admin")
+    public ModelAndView adminPage(HttpServletRequest request) {
+
+        ModelAndView modelAndView = new ModelAndView(ADMIN_JSP);
+
+        User user = (User) request.getSession().getAttribute(USER);
+        if (user != null && userService.isAdministrator(user)) {
+//
+            List<Order> orders = orderService.findAllOverdueOrder();
+            request.setAttribute(ORDERS, orders);
+
+            Map<User, Integer> userWithCountOverdueOrder = userService.findUserWithCountOverdueOrder();
+            request.setAttribute(USERS, userWithCountOverdueOrder);
+//
+        List<Message> messages = messageService.findAll();
+        request.setAttribute(MESSAGES, messages);
+
+            setResp(modelAndView, request);
+            return modelAndView;
+        } else {
+
+            return new ModelAndView(MAIN_JSP, RESPONSE, ERROR_PROCESS);
+        }
+
+    }
+
+
 }

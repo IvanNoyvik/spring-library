@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 @RequiredArgsConstructor
-public class BookController {
+public class BookController extends ModelController {
 
     private final BookService bookService;
 //    private final UserService userService;
@@ -16,6 +16,15 @@ public class BookController {
 
 
 
+
+
+
+
+
+
+
+
+// show books image
 //        long bookId = Long.parseLong(request.getParameter(BOOK_ID));
 //        byte[] image = PROVIDER_SERVICE.getBookService().findImageById(bookId);
 //

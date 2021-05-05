@@ -15,7 +15,7 @@ public class ApplicationConfig {
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-        source.setBasename("classpath:messages");
+        source.setBasename("messages");
         return source;
     }
 

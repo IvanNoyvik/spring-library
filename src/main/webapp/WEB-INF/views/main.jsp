@@ -84,14 +84,14 @@
                             <c:if test="${(book.quantity > 0)}">
                                 <h3>${book.quantity} pcs in stock</h3>
                                 <c:if test="${!empty sessionScope.user and (sessionScope.user.status.status eq 'OK')}">
-                                    <form accept-charset="UTF-8" action="<c:url value="/front"/>" method="post">
+                                    <form accept-charset="UTF-8" action="<c:url value="/addOrder"/>" method="post">
                                         <label>Duration
-                                            <input class="duration-main" name="days" type="text"
+                                            <input class="duration-main" name="duration" type="text"
                                                    required="" placeholder="(1-180)in days..."
                                                    pattern="^0*[1-9]\d*$"/>
                                         </label>
-                                        <input name="command" type="hidden" value="AddOrder"/>
                                         <input name="bookId" type="hidden" value="${book.id}"/>
+                                        <input name="userId" type="hidden" value="${sessionScope.user.id}"/>
                                         <input type="submit" value="Add in my library"/>
                                     </form>
 
@@ -99,12 +99,7 @@
                                 </c:if>
                             </c:if>
 
-                            <c:url value="/front" var="bookInfo">
-                                <c:param name="command" value="Forward"/>
-                                <c:param name="forward" value="book"/>
-                                <c:param name="bookId" value="${book.id}"/>
-                            </c:url>
-                            <div class="detail_button"><a href="<c:out value="${bookInfo}"/>">Detail</a></div>
+                            <div class="detail_button"><a href="<c:url value="/book/${book.id}"/>">Detail</a></div>
 
 
                         </div>

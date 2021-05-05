@@ -17,4 +17,6 @@ public interface BookService {
     Book save(String title, String description, int quantity, String[] genres, String author);
 
     Book update(Long bookId, String title, String description, int quantity, String[] genres, String author);
+
+    Book findBookById(Long bookId);
 }

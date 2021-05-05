@@ -3,6 +3,8 @@ package by.gomel.noyvik.library.service.impl;
 import by.gomel.noyvik.library.exception.DaoPartException;
 import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Authenticate;
+import by.gomel.noyvik.library.model.Order;
+import by.gomel.noyvik.library.model.Role;
 import by.gomel.noyvik.library.model.User;
 import by.gomel.noyvik.library.persistence.repository.RoleRepository;
 import by.gomel.noyvik.library.persistence.repository.StatusRepository;
@@ -14,6 +16,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
 
@@ -61,7 +67,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRED)
     public User createNewUser(User user) {
 
-        if (isExists(user.getAuthenticate().getLogin())){
+        if (isExists(user.getAuthenticate().getLogin())) {
             throw new ServiceException(USER_EXISTS);
         }
 
@@ -78,8 +84,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(userForUpdate);
     }
 
-}
-//
+    @Override
+    public boolean isAdministrator(User user) {
+
+        return user.getRoles().stream().map(Role::getRole).anyMatch(s -> s.equalsIgnoreCase(ROLE_ADMIN));
+
+    }
+
+
+    //
 //    @Override
 //    public User registration(String login, String password, String name, String email) {
 //
@@ -107,25 +120,26 @@ public class UserServiceImpl implements UserService {
 //    }
 //
 //
-//    @Override
-//    public Map<User, Integer> findUserWithCountOverdueOrder() {
-//
-//        List<Object[]> allUsersWithOrder = userDao.findAllWithOrder();
-//
-//        Map<User, List<Order>> userWithAllOrders = mapper(allUsersWithOrder);
-//
-//        Map<User, Integer> userWithCountOverdueOrder = new LinkedHashMap<>();
-//
-//        for (User user : userWithAllOrders.keySet()) {
-//
-//            Integer countOverdueOrder = getCountOverdueOrder(userWithAllOrders.get(user));
-//            userWithCountOverdueOrder.put(user, countOverdueOrder);
-//
-//        }
-//
-//        return userWithCountOverdueOrder;
-//    }
-//
+    @Override
+    public Map<User, Integer> findUserWithCountOverdueOrder() {
+
+        List<Object[]> allUsersWithOrder = userRepository.findAllWithOrder();
+
+        Map<User, List<Order>> userWithAllOrders = mapper(allUsersWithOrder);
+
+        Map<User, Integer> userWithCountOverdueOrder = new LinkedHashMap<>();
+
+        for (User user : userWithAllOrders.keySet()) {
+
+            Integer countOverdueOrder = getCountOverdueOrder(userWithAllOrders.get(user));
+            userWithCountOverdueOrder.put(user, countOverdueOrder);
+
+        }
+
+        return userWithCountOverdueOrder;
+    }
+
+    //
 //    @Override
 //    public boolean changeStatus(Long userId, String status, int duration) {
 //        try {
@@ -157,34 +171,35 @@ public class UserServiceImpl implements UserService {
 //    }
 //
 //
-//    private Map<User, List<Order>> mapper(List<Object[]> userOrderList) {
-//
-//        Map<User, List<Order>> userWithAllOrders = new LinkedHashMap<>();
-//
-//        for (Object[] userOrder : userOrderList) {
-//
-//            User user = (User) userOrder[0];
-//            Order order = (Order) userOrder[1];
-//
-//            if (!userWithAllOrders.containsKey(user)) {
-//                List<Order> orders = new ArrayList<>();
-//                if (order != null) {
-//                    orders.add(order);
-//                }
-//                userWithAllOrders.put(user, orders);
-//            } else {
-//                if (order != null) {
-//                    userWithAllOrders.get(user).add(order);
-//                }
-//            }
-//        }
-//        return userWithAllOrders;
-//    }
-//
-//    private int getCountOverdueOrder(List<Order> orders) {
-//
-//        return (int) orders.stream().
-//                filter(o -> o.getDateReceiving().plusDays(o.getDuration()).isBefore(LocalDate.now()))
-//                .count();
-//
-//    }
+    private Map<User, List<Order>> mapper(List<Object[]> userOrderList) {
+
+        Map<User, List<Order>> userWithAllOrders = new LinkedHashMap<>();
+
+        for (Object[] userOrder : userOrderList) {
+
+            User user = (User) userOrder[0];
+            Order order = (Order) userOrder[1];
+
+            if (!userWithAllOrders.containsKey(user)) {
+                List<Order> orders = new ArrayList<>();
+                if (order != null) {
+                    orders.add(order);
+                }
+                userWithAllOrders.put(user, orders);
+            } else {
+                if (order != null) {
+                    userWithAllOrders.get(user).add(order);
+                }
+            }
+        }
+        return userWithAllOrders;
+    }
+
+    private int getCountOverdueOrder(List<Order> orders) {
+
+        return (int) orders.stream().
+                filter(o -> o.getDateReceiving().plusDays(o.getDuration()).isBefore(LocalDate.now()))
+                .count();
+
+    }
+}

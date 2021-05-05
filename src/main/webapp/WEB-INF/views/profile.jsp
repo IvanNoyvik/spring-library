@@ -46,9 +46,9 @@
 
             <div class="templatemo_content_left_section">
                 <c:if test="${sessionScope.user.roles.contains(applicationScope.admin)}">
-                    <form action="<c:url value="/admin"/>" method="get">
-                        <h1><input type="submit" value="Admin panel"/></h1>
-                    </form>
+                    <div class="buy_now_button"><a class="buy_now_button"
+                                                   href="<c:url value="/admin"/>">Admin panel</a>
+                    </div>
                 </c:if>
             </div>
 
@@ -105,18 +105,24 @@
                                     days
                                     left </h3>
 
-                                <c:url value="/bookContent" var="bookContent">
-                                    <c:param name="bookId" value="${order.book.id}"/>
-                                </c:url>
+
                                 <div class="buy_now_button"><a class="buy_now_button"
-                                                               href="<c:out value="${bookContent}"/>">Read</a>
+                                                               href="<c:url value="/bookContent/${order.book.id}"/>">Read</a>
                                 </div>
 
                             </c:if>
 
-                            <div class="detail_button"><a
-                                <%--                                        todo ReturnOrder--%>
-                                    href="<c:url value="/returnOrder?id=${order.id}"/>">Return</a>
+<%--                            <div class="detail_button">--%>
+<%--                                <a--%>
+<%--                                &lt;%&ndash;                                        todo ReturnOrder&ndash;%&gt;--%>
+<%--                                    href="<c:url value="/returnOrder?id=${order.id}"/>">Return</a>--%>
+<%--                            </div>--%>
+                            <div class="detail_button">
+                                <form action="<c:url value="/returnOrder"/>" method="post">
+                                    <input type="hidden" value="${order.id}" name="id"/>
+                                    <input type="hidden" value="${order.book.id}" name="bookId"/>
+                                    <input type="submit" value="Return"/>
+                                </form>
                             </div>
                         </div>
                     </div>

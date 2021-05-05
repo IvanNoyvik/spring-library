@@ -1,7 +1,6 @@
 package by.gomel.noyvik.library.service;
 
 import by.gomel.noyvik.library.model.Order;
-import by.gomel.noyvik.library.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,7 +18,7 @@ public interface OrderService  {
 
     boolean userHaveBook(Long bookId, Long userId);
 
-    Order addOrder(User user, Long bookID, int duration);
+    Order addOrder(Long bookId, Long userId, int duration);
 
-
+    boolean returnOrder(Long id, Long bookId);
 }

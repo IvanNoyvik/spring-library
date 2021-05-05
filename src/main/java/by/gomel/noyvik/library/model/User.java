@@ -1,9 +1,9 @@
 package by.gomel.noyvik.library.model;
 
 import lombok.*;
-import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

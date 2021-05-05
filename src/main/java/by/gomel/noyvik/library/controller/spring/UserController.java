@@ -5,38 +5,30 @@ import by.gomel.noyvik.library.model.Authenticate;
 import by.gomel.noyvik.library.model.User;
 import by.gomel.noyvik.library.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.List;
 
 import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
 
 @Controller
 @RequiredArgsConstructor
-public class UserController {
+public class UserController extends ModelController{
 
     private final UserService userService;
 
 //    private final OrderService orderService;
 //    private final MessageService messageService;
 
-    @Autowired
-    private MessageSource messageSource;
 
     @PostMapping(value = "/registration")
-    public ModelAndView registration(@Valid @RequestParam User user, BindingResult br) {
+    public ModelAndView registration(@Valid @ModelAttribute User user, BindingResult br) {
 
         ModelAndView modelAndView = new ModelAndView();
         String viewName = REDIRECT_ACTION;
@@ -118,23 +110,7 @@ public class UserController {
 
     }
 
-    private ModelAndView addRespObjectAndViewNameInModelAndView(ModelAndView modelAndView, String viewName, String resp, String jspPage) {
-        modelAndView.addObject(RESPONSE, resp);
-        viewName += jspPage;
-        modelAndView.setViewName(viewName);
-        return modelAndView;
-    }
 
-    private ModelAndView setErrorsInModelAndView(BindingResult br, ModelAndView modelAndView, String viewName, String jspPage) {
-        List<FieldError> fieldErrors = br.getFieldErrors();
-        String resp = "";
-        for (ObjectError error : fieldErrors) {
-
-            resp += messageSource.getMessage(error, null) + "\n";
-        }
-
-        return addRespObjectAndViewNameInModelAndView(modelAndView, viewName, resp, jspPage);
-    }
 
 
 }

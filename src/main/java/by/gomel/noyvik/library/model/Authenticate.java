@@ -2,9 +2,9 @@ package by.gomel.noyvik.library.model;
 
 
 import lombok.*;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
@@ -31,7 +31,7 @@ public class Authenticate {
 
     @NotNull(message = "validation.password.NotEmpty.message")
     @NotEmpty(message = "validation.password.NotEmpty.message")
-    @Pattern(regexp = PASSWORD_REGEX, message = "validation.password.Pattern.message")
+    @Pattern(regexp = PASSWORD_REGEX, message = "{validation.password.Pattern.message}")
     private String password;
     @Column(name = "UNLOCKED_DATE")
     private LocalDate unlockedDate = LocalDate.now();
