@@ -34,7 +34,7 @@
                     <li>You email: ${sessionScope.user.email}</li>
                 </ul>
 
-                <a href="<c:url value="/editUser" />" style="margin-left: 50px;">Edit profile...</a>
+                <a href="<c:url value="/page/editUser" />" style="margin-left: 50px;">Edit profile...</a>
             </c:if>
 
         </div>

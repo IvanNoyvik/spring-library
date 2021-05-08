@@ -15,12 +15,8 @@
 //    @Override
 //    public void onApplicationEvent(ContextRefreshedEvent event) {
 //        System.out.println();
-////        event.getApplicationContext().getBean()
+//        event.getApplicationContext().
 ////        sce.getServletContext().setAttribute("now", new CurrentDate());
 ////        sce.getServletContext().setAttribute("admin", roleRepository.findByRole(ROLE_ADMIN));
 //    }
 //}
-
-
-//todo listener  problem
-//validation not message from property

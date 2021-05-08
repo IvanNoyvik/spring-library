@@ -9,6 +9,7 @@ import by.gomel.noyvik.library.persistence.repository.OrderRepository;
 import by.gomel.noyvik.library.persistence.repository.UserRepository;
 import by.gomel.noyvik.library.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +51,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor = {ServiceException.class/*, Exception.class*/})
+    @Modifying
     public Order addOrder(Long bookId, Long userId, int duration) {
 
         Book book = bookRepository.findById(bookId).orElseThrow(() -> new ServiceException("book not find"));
@@ -75,6 +77,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
+    @Modifying
     public boolean returnOrder(Long id, Long bookId) {
 
         try {

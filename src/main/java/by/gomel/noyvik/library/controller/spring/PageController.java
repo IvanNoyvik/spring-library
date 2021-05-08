@@ -1,9 +1,6 @@
 package by.gomel.noyvik.library.controller.spring;
 
-import by.gomel.noyvik.library.model.Book;
-import by.gomel.noyvik.library.model.Message;
-import by.gomel.noyvik.library.model.Order;
-import by.gomel.noyvik.library.model.User;
+import by.gomel.noyvik.library.model.*;
 import by.gomel.noyvik.library.service.*;
 import by.gomel.noyvik.library.util.CurrentDate;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +25,8 @@ public class PageController {
     private final OrderService orderService;
     private final RoleService roleService;//todo listener
     private final MessageService messageService;
+    private final GenreService genreService;
+    private final AuthorService authorService;
 
     private void setResp(ModelAndView modelAndView, HttpServletRequest request) {
 
@@ -75,19 +74,10 @@ public class PageController {
         return modelAndView;
     }
 
-    @GetMapping("/registration")
-    public ModelAndView registrationPage(HttpServletRequest request) {
+    @GetMapping("/page/{jspPage}")
+    public ModelAndView registrationPage(HttpServletRequest request, @PathVariable String jspPage) {
 
-        ModelAndView modelAndView = new ModelAndView(REGISTRATION_JSP);
-
-        setResp(modelAndView, request);
-        return modelAndView;
-    }
-
-    @GetMapping("/login")
-    public ModelAndView loginPage(HttpServletRequest request) {
-
-        ModelAndView modelAndView = new ModelAndView(LOGIN_JSP);
+        ModelAndView modelAndView = new ModelAndView(jspPage);
 
         setResp(modelAndView, request);
         return modelAndView;
@@ -114,13 +104,7 @@ public class PageController {
     }
 
 
-    @GetMapping("/editUser")
-    public ModelAndView editUserPage(HttpServletRequest request) {
 
-        ModelAndView modelAndView = new ModelAndView(EDIT_BOOK_JSP);
-        setResp(modelAndView, request);
-        return modelAndView;
-    }
 
     @GetMapping("/book/{bookId}")
     public ModelAndView bookPage(HttpServletRequest request, @PathVariable Long bookId) {
@@ -168,24 +152,28 @@ public class PageController {
 
         Book book = bookService.findBookById(bookId);
         request.setAttribute(BOOK, book);
+        List<Genre> genres = genreService.findAll();
+        request.setAttribute(GENRES, genres);
+        List<Author> authors = authorService.findAll();
+        request.setAttribute(AUTHORS, authors);
 
         setResp(modelAndView, request);
         return modelAndView;
     }
 
-//    @GetMapping("/addBook")
-//    public ModelAndView addBookPage(HttpServletRequest request) {
-//
-//        ModelAndView modelAndView = new ModelAndView(ADD_BOOK_JSP);
-//
-//        List<Genre> genres = genreService.findAll();
-//        request.setAttribute(GENRES, genres);
-//        List<Author> authors = authorService.findAll();
-//        request.setAttribute(AUTHORS, authors);
-//
-//        setResp(modelAndView, request);
-//        return modelAndView;
-//    }
+    @GetMapping("/addBook")
+    public ModelAndView addBookPage(HttpServletRequest request) {
+
+        ModelAndView modelAndView = new ModelAndView(ADD_BOOK_JSP);
+
+        List<Genre> genres = genreService.findAll();
+        request.setAttribute(GENRES, genres);
+        List<Author> authors = authorService.findAll();
+        request.setAttribute(AUTHORS, authors);
+
+        setResp(modelAndView, request);
+        return modelAndView;
+    }
 
 
     @GetMapping("/admin")
@@ -195,15 +183,15 @@ public class PageController {
 
         User user = (User) request.getSession().getAttribute(USER);
         if (user != null && userService.isAdministrator(user)) {
-//
+
             List<Order> orders = orderService.findAllOverdueOrder();
             request.setAttribute(ORDERS, orders);
 
             Map<User, Integer> userWithCountOverdueOrder = userService.findUserWithCountOverdueOrder();
             request.setAttribute(USERS, userWithCountOverdueOrder);
-//
-        List<Message> messages = messageService.findAll();
-        request.setAttribute(MESSAGES, messages);
+
+            List<Message> messages = messageService.findAll();
+            request.setAttribute(MESSAGES, messages);
 
             setResp(modelAndView, request);
             return modelAndView;

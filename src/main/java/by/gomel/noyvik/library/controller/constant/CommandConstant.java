@@ -40,8 +40,12 @@ public interface CommandConstant {
     String BOOK_EXISTS = "This book already exists";
     String ADD_AUTHOR_FAIL = "Failed to add author";
     String ADD_AUTHOR_OK = "Author added";
+    String AUTHOR_EXISTS = "This author already exists";
+
     String ADD_GENRE_FAIL = "Failed to add genre";
     String ADD_GENRE_OK = "Genre added";
+    String GENRE_EXISTS = "This genre already exists";
+
     String CHANGE_STATUS_FAIL = "Status change error";
     String CHANGE_STATUS_OK = "Status changed";
     String DELETE_USER_FAIL = "Delete user error";

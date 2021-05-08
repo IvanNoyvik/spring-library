@@ -24,19 +24,19 @@ public class Authenticate {
     @Id
     private Long id;
 
-    @NotNull(message = "validation.login.NotEmpty.message")
-    @NotEmpty(message = "validation.login.NotEmpty.message")
-    @Pattern(regexp = LOGIN_REGEX, message = "validation.login.Pattern.message")
+    @NotNull(message = "{validation.login.NotEmpty.message}")
+    @NotEmpty(message = "{validation.login.NotEmpty.message}")
+    @Pattern(regexp = LOGIN_REGEX, message = "{validation.login.Pattern.message}")
     private String login;
 
-    @NotNull(message = "validation.password.NotEmpty.message")
-    @NotEmpty(message = "validation.password.NotEmpty.message")
+    @NotNull(message = "{validation.password.NotEmpty.message}")
+    @NotEmpty(message = "{validation.password.NotEmpty.message}")
     @Pattern(regexp = PASSWORD_REGEX, message = "{validation.password.Pattern.message}")
     private String password;
     @Column(name = "UNLOCKED_DATE")
     private LocalDate unlockedDate = LocalDate.now();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @MapsId
     private User user;
 

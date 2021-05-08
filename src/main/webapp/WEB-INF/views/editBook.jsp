@@ -26,13 +26,6 @@
 
 
         <div id="templatemo_new_books">
-            <c:if test="${sessionScope.user.roles.contains(applicationScope.admin)}">
-                <%--                <form action="<c:url value="/front"/>" method="post" >--%>
-                <%--                    <input type="hidden" name="command" value="Forward"/>--%>
-                <%--                    <input type="hidden" name="forward" value="editBook"/>--%>
-                <%--                    <h1><input type="submit" value="Edit book"/></h1>--%>
-                <%--                </form>--%>
-            </c:if>
 
         </div>
     </div>
@@ -76,9 +69,8 @@
                 </div>
 
 
-                <form action="<c:url value="/front"/>" method="post">
-                    <input name="command" type="hidden" value="EditBook"/>
-                    <input name="bookId" type="hidden" value="${requestScope.book.id}"/>
+                <form action="<c:url value="/editBook"/>" method="post">
+                    <input name="id" type="hidden" value="${requestScope.book.id}"/>
 
                     <label>Title: </label>
                     <input name="title" required type="text" value="${requestScope.book.title}"/>
@@ -125,11 +117,7 @@
                         <input type="submit" value="Edit book"/>
 
 
-                        <c:url value="/front" var="Cancel">
-                            <c:param name="command" value="Forward"/>
-                            <c:param name="forward" value="main"/>
-                        </c:url>
-                        <div class="buy_now_button"><a href="<c:out value="${Cancel}"/>">Cancel</a></div>
+                        <div class="buy_now_button"><a href="<c:url value="/main"/>">Cancel</a></div>
 
                     </div>
 

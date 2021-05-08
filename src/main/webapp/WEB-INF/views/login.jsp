@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -85,11 +86,14 @@
                     <c:if test="${!empty requestScope.resp}">
                         <span class="error"><c:out value="${requestScope.resp}"/></span>
                     </c:if>
+                    <form:errors path="login" cssClass="error"/>
+                    <form:errors path="password" cssClass="error"/>
+                    <form:errors path="email" cssClass="error"/>
                 </div>
 
                 <div class="login100-form-social flex-c-m">
 
-                    <li><a href="<c:url value="/registration"/>" class="login100-form-social-item flex-c-m bg1 m-r-5">Registration</a>
+                    <li><a href="<c:url value="/page/registration"/>" class="login100-form-social-item flex-c-m bg1 m-r-5">Registration</a>
                     </li>
 
                     <li><a href="<c:url value="/main"/>" class="login100-form-social-item flex-c-m bg2 m-r-5">Back to

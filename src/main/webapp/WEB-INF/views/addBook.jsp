@@ -49,8 +49,7 @@
 
                 <h1>Create new book: </h1>
 
-                <form action="<c:url value="/front"/>" method="post">
-                    <input name="command" type="hidden" value="AddBook"/>
+                <form action="<c:url value="/addBook"/>" method="post">
 
                     <label>Title:
                         <input name="title" required type="text" value="title"/>
@@ -86,12 +85,7 @@
 
                         <input type="submit" value="Add book"/>
 
-
-                        <c:url value="/front" var="Cancel">
-                            <c:param name="command" value="Forward"/>
-                            <c:param name="forward" value="main"/>
-                        </c:url>
-                        <div class="buy_now_button"><a href="<c:out value="${Cancel}"/>">Cancel</a></div>
+                        <div class="buy_now_button"><a href="<c:url value="/main"/>">Cancel</a></div>
                     </div>
 
                     <div class="cleaner_with_height">&nbsp;</div>

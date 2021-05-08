@@ -29,31 +29,29 @@
         <div id="admin_new_books">
             <ul>
                 <li>
-                    <form accept-charset="UTF-8" action="<c:url value="/front"/>" method="post">
+                    <form accept-charset="UTF-8" action="<c:url value="/addGenre"/>" method="post">
                         <label>Enter genre<br/>
                             <input name="genre" type="text" class="genre-inp"
                                    required="" placeholder="Enter genre..."/>
                         </label><br/>
-                        <input name="command" type="hidden" value="AddGenre"/>
                         <input type="submit" value="Add genre"/>
                     </form>
                 </li>
                 <li>
-                    <form accept-charset="UTF-8" action="<c:url value="/front"/>" method="post">
+                    <form accept-charset="UTF-8" action="<c:url value="/addAuthor"/>" method="post">
                         <label>Enter author<br/>
                             <input name="author" type="text" class="author-inp"
                                    required="" placeholder="Enter author..."/>
                         </label><br/>
-                        <input name="command" type="hidden" value="AddAuthor"/>
                         <input type="submit" value="Add author"/>
                     </form>
                 </li>
                 <li>
-                    <form accept-charset="UTF-8" action="<c:url value="/front"/>" method="post">
-                        <input name="forward" type="hidden" value="addBook"/>
-                        <input name="command" type="hidden" value="Forward"/>
-                        <input type="submit" value="Add book"/>
-                    </form>
+                    <c:if test="${sessionScope.user.roles.contains(applicationScope.admin)}">
+                        <div class="buy_now_button"><a class="buy_now_button"
+                                                       href="<c:url value="/addBook"/>">Add Book</a>
+                        </div>
+                    </c:if>
                 </li>
             </ul>
         </div>

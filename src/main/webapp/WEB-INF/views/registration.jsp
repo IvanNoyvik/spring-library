@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -62,19 +62,19 @@
 					</span>
 
                 <div class="wrap-input100 validate-input" data-validate="Valid login is: aBv3_09c">
-                    <input class="input100" type="text" name="login" pattern="[A-Za-z_0-9]{3,40}">
+                    <input class="input100" type="text" name="authenticate.login" <%--pattern="[A-Za-z_0-9]{3,40}"--%>>
                     <span class="focus-input100"></span>
                     <span class="label-input100">Login</span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" name="password" pattern="[A-Za-z0-9]{1,40}">
+                    <input class="input100" type="password" name="authenticate.password" <%--pattern="[A-Za-z0-9]{1,40}"--%>>
                     <span class="focus-input100"></span>
                     <span class="label-input100">Password</span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="name is required">
-                    <input class="input100" type="text" name="name" pattern="[A-Za-zА-Яа-яЁё0-9]{3,40}">
+                    <input class="input100" type="text" name="name" <%--pattern="[A-Za-zА-Яа-яЁё0-9]{3,40}"--%>>
                     <span class="focus-input100"></span>
                     <span class="label-input100">Name</span>
                 </div>
@@ -93,11 +93,14 @@
                     <c:if test="${!empty requestScope.resp}">
                         <span class="error"><c:out value="${requestScope.resp}"/></span>
                     </c:if>
+                    <form:errors path="authenticate.login" cssClass="error"/>
+                    <form:errors path="authenticate.password" cssClass="error"/>
+                    <form:errors path="email" cssClass="error"/>
                 </div>
 
                 <div class="login100-form-social flex-c-m">
 
-                    <li><a href="<c:url value="/login"/>" class="login100-form-social-item flex-c-m bg1 m-r-5">Login</a>
+                    <li><a href="<c:url value="/page/login"/>" class="login100-form-social-item flex-c-m bg1 m-r-5">Login</a>
                     </li>
 
                     <li><a href="<c:url value="/main"/>" class="login100-form-social-item flex-c-m bg2 m-r-5">Back to

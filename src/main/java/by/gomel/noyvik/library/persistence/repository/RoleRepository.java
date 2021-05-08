@@ -7,9 +7,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface RoleRepository extends CrudRepository<Role, Long> {
 
-    @Query("from Role r left join fetch r.users where r.role = :role")
+    @Query("from Role r left join fetch r.users u join fetch u.authenticate where r.role = :role")
     Role findByRole(@Param("role") String role);
-
 
 
 }

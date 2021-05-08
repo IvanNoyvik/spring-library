@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +24,7 @@ public class User {
     private Long id;
     private String name;
 
-    @Email(message = "validation.email.Email.message")
+    @Email(message = "{validation.email.Email.message}")
     private String email;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY,
@@ -106,6 +107,12 @@ public class User {
     public void removeOrder(Order order) {
         orders.remove(order);
         order.setUser(null);
+    }
+
+    public int getCountOverdueOrder() {
+        return (int) orders.stream().
+                filter(o -> o.getDateReceiving().plusDays(o.getDuration()).isBefore(LocalDate.now()))
+                .count();
     }
 
 }

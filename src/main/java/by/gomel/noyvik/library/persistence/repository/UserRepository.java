@@ -18,9 +18,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     User findByAuthenticateLogin(String login);
 
-    @Query("SELECT distinct u, o from User u left join fetch u.status " +
-            "left join fetch u.authenticate left join TREAT (u.orders as Order ) o order by u.status.id desc")
-    List<Object[]> findAllWithOrder();
+    @Query("SELECT distinct u from User u left join fetch u.status " +
+            "left join fetch u.authenticate left join fetch u.orders order by u.status.id desc")
+    List<User> findAllWithOrder();
 
 
 //    User changeStatus(User user, String status, int duration);

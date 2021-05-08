@@ -30,50 +30,49 @@ public class UserController extends ModelController{
     @PostMapping(value = "/registration")
     public ModelAndView registration(@Valid @ModelAttribute User user, BindingResult br) {
 
-        ModelAndView modelAndView = new ModelAndView();
-        String viewName = REDIRECT_ACTION;
-
         if (br.hasErrors()) {
 
-            return setErrorsInModelAndView(br, modelAndView, viewName, REGISTRATION_JSP);
+//            new ModelAndView(REDIRECT_ACTION+REGISTRATION_JSP, "error", br);
+            return new ModelAndView(REDIRECT_ACTION+REGISTRATION_JSP, "error", br);
 
         }
-
         try {
 
             userService.createNewUser(user);
 
         } catch (ServiceException e) {
-            return addRespObjectAndViewNameInModelAndView(modelAndView, viewName, USER_EXISTS, REGISTRATION_JSP);
+
+            return new ModelAndView(REDIRECT_ACTION+REGISTRATION_JSP, RESPONSE, USER_EXISTS);
+
 
         } catch (Exception e) {
-            return addRespObjectAndViewNameInModelAndView(modelAndView, viewName, REGISTRATION_FAIL, REGISTRATION_JSP);
-        }
+            return new ModelAndView(REDIRECT_ACTION+REGISTRATION_JSP, RESPONSE, REGISTRATION_FAIL);
 
-        return addRespObjectAndViewNameInModelAndView(modelAndView, viewName, REGISTRATION_OK, MAIN_JSP);
+        }
+        return new ModelAndView(REDIRECT_ACTION+MAIN_JSP, RESPONSE, REGISTRATION_OK);
+
     }
 
     @PostMapping(value = "/login")
     public ModelAndView login(@Valid @ModelAttribute Authenticate authenticate, BindingResult br, HttpSession session) {
 
-        ModelAndView modelAndView = new ModelAndView();
-        String viewName = REDIRECT_ACTION;
 
         if (br.hasErrors()) {
 
-            return setErrorsInModelAndView(br, modelAndView, viewName, LOGIN_JSP);
-
+//todo return view validation
         }
 
         User user = userService.login(authenticate);
 
         if (user == null) {
-            return addRespObjectAndViewNameInModelAndView(modelAndView, viewName, LOGIN_FAIL, LOGIN_JSP);
+
+            return new ModelAndView(REDIRECT_ACTION+LOGIN_JSP, RESPONSE, LOGIN_FAIL);
+
         } else {
             session.setAttribute(USER, user);
         }
+        return new ModelAndView(REDIRECT_ACTION+MAIN_JSP, RESPONSE, LOGIN_OK + user.getName());
 
-        return addRespObjectAndViewNameInModelAndView(modelAndView, viewName, LOGIN_OK + user.getName(), MAIN_JSP);
     }
 
 
@@ -88,11 +87,9 @@ public class UserController extends ModelController{
     @PostMapping(value = "/editUser")
     public ModelAndView editUser(@Valid @ModelAttribute User user, BindingResult br, HttpSession session) {
 
-        ModelAndView modelAndView = new ModelAndView();
-        String viewName = REDIRECT_ACTION;
 
         if (br.hasErrors()) {
-            return setErrorsInModelAndView(br, modelAndView, viewName, EDIT_USER_JSP);
+//            return setErrorsInModelAndView(br, modelAndView, viewName, EDIT_USER_JSP);
         }
 
         try {
@@ -103,10 +100,11 @@ public class UserController extends ModelController{
             userService.updateUser(userForUpdate);
 
         } catch (Exception e) {
-            return addRespObjectAndViewNameInModelAndView(modelAndView, viewName, EDIT_USER_FAIL, EDIT_USER_JSP);
-        }
+            return new ModelAndView(REDIRECT_ACTION+EDIT_USER_JSP, RESPONSE, EDIT_USER_FAIL);
 
-        return addRespObjectAndViewNameInModelAndView(modelAndView, viewName, EDIT_USER_OK, PROFILE_JSP);
+        }
+        return new ModelAndView(REDIRECT_ACTION+PROFILE_JSP, RESPONSE, EDIT_USER_OK);
+
 
     }
 

@@ -24,15 +24,15 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "validation.book.title.NotEmpty.message")
-    @NotBlank(message = "validation.book.title.NotEmpty.message")
-    @NotEmpty(message = "validation.book.title.NotEmpty.message")
+    @NotNull(message = "{validation.book.title.NotEmpty.message}")
+    @NotBlank(message = "{validation.book.title.NotEmpty.message}")
+    @NotEmpty(message = "{validation.book.title.NotEmpty.message}")
     private String title;
 
     private String description;
     private byte[] image;
 
-    @PositiveOrZero(message = "validation.book.quantity.PositiveOrZero.message")
+    @PositiveOrZero(message = "{validation.book.quantity.PositiveOrZero.message}")
     private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)

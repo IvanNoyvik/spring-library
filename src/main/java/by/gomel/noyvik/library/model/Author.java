@@ -22,9 +22,9 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "validation.author.NotEmpty.message")
-    @NotBlank(message = "validation.author.NotEmpty.message")
-    @NotEmpty(message = "validation.author.NotEmpty.message")
+    @NotNull(message = "{validation.author.NotEmpty.message}")
+    @NotBlank(message = "{validation.author.NotEmpty.message}")
+    @NotEmpty(message = "{validation.author.NotEmpty.message}")
     private String author;
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY,

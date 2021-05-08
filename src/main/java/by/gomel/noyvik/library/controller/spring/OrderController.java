@@ -17,7 +17,7 @@ import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
 
 @Controller
 @RequiredArgsConstructor
-public class OrderController extends ModelController {
+public class OrderController {
 
 //    private final BookService bookService;
 //    private final UserService userService;
@@ -30,11 +30,9 @@ public class OrderController extends ModelController {
     public ModelAndView addOrder(@RequestParam("bookId") Long bookId, @RequestParam("userId") Long userId,
                                  @Valid @ModelAttribute Order order, BindingResult br) {
 
-        ModelAndView modelAndView = new ModelAndView();
-        String viewName = REDIRECT_ACTION;
 
         if (br.hasErrors()) {
-            return setErrorsInModelAndView(br, modelAndView, viewName, MAIN_JSP);
+//            return setErrorsInModelAndView(br, modelAndView, viewName, MAIN_JSP);
         }
 
         try {
@@ -43,31 +41,33 @@ public class OrderController extends ModelController {
             orderService.addOrder(bookId, userId, duration);
 
         } catch (ServiceException e) {
-            return addRespObjectAndViewNameInModelAndView(modelAndView, viewName, ERROR_PROCESS, MAIN_JSP);
+            return new ModelAndView(REDIRECT_ACTION+MAIN_JSP, RESPONSE, ERROR_PROCESS);
+
 
         } catch (Exception e) {
-            return addRespObjectAndViewNameInModelAndView(modelAndView, viewName, ADD_ORDER_FAIL, MAIN_JSP);
-        }
+            return new ModelAndView(REDIRECT_ACTION+MAIN_JSP, RESPONSE, ADD_ORDER_FAIL);
 
-        return addRespObjectAndViewNameInModelAndView(modelAndView, viewName, ADD_ORDER_OK, PROFILE_JSP);
+        }
+        return new ModelAndView(REDIRECT_ACTION+PROFILE_JSP, RESPONSE, ADD_ORDER_OK);
+
     }
 
 
     @PostMapping(value = "/returnOrder")
     public ModelAndView returnOrder(@RequestParam("id") Long id, @RequestParam("bookId") Long bookId) {
 
-        ModelAndView modelAndView = new ModelAndView();
-        String viewName = REDIRECT_ACTION;
 
         try {
 
             orderService.returnOrder(id, bookId);
 
         } catch (ServiceException e) {
-            return addRespObjectAndViewNameInModelAndView(modelAndView, viewName, RETURN_ORDER_FAIL, MAIN_JSP);
-        }
 
-        return addRespObjectAndViewNameInModelAndView(modelAndView, viewName, RETURN_ORDER_OK, MAIN_JSP);
+            return new ModelAndView(REDIRECT_ACTION+MAIN_JSP, RESPONSE, RETURN_ORDER_FAIL);
+
+        }
+        return new ModelAndView(REDIRECT_ACTION+MAIN_JSP, RESPONSE, RETURN_ORDER_OK);
+
     }
 
 
