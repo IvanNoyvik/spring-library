@@ -84,13 +84,17 @@
                                               var="genre">${genre.genre}/</c:forEach>)
                         </span></h2>
 
-                <c:url value="/front" var="image">
-                    <c:param name="bookId" value="${requestScope.book.id}"/>
-                    <c:param name="command" value="GetImage"/>
-                </c:url>
                 <div>
-                    <img src="${image}" alt="CSS Template" width="150"
-                         height="150"/>
+                    <c:choose>
+                        <c:when test="${!empty requestScope.book.image}">
+                            <img src="<c:url value="/getImage/${requestScope.book.id}"/>" alt="CSS Template" width="100"
+                                 height="100"/>
+                        </c:when>
+                        <c:otherwise>
+                            <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template" width="100"
+                                 height="100"/>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
 
                 <div class="product_info">

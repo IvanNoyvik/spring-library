@@ -39,4 +39,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("from Book b left join fetch b.author left join fetch b.genres where b.id = :bookId")
     Book findFullBookById(@Param("bookId") Long bookId);
 
+
+    @Transactional
+    @Modifying
+    @Query("update Book set image = :image where id = :id")
+    void imageBulkUpdate(@Param("id") Long id, @Param("image") byte[] image);
 }

@@ -28,4 +28,32 @@ public class SpringWebAppInitializer extends AbstractAnnotationConfigDispatcherS
     protected Filter[] getServletFilters() {
         return new Filter[]{new CharacterEncodingFilter()};
     }
+
+//    private String TMP_FOLDER = "/tmp";
+//    private int MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
+
+//    @Override
+//    public void onStartup(ServletContext sc) throws ServletException {
+//
+//        ServletRegistration.Dynamic appServlet = sc.addServlet("mvc", new DispatcherServlet(
+//                new GenericWebApplicationContext()));
+//
+//        appServlet.setLoadOnStartup(1);
+//
+//        MultipartConfigElement multipartConfigElement = new MultipartConfigElement(TMP_FOLDER,
+//                MAX_UPLOAD_SIZE, MAX_UPLOAD_SIZE * 2, MAX_UPLOAD_SIZE / 2);
+//
+//        appServlet.setMultipartConfig(multipartConfigElement);
+//    }
+    //
+//
+//    private MultipartConfigElement getMultipartConfigElement() {
+//        MultipartConfigElement multipartConfigElement = new MultipartConfigElement(file.getAbsolutePath());
+//    return multipartConfigElement;
+//    }
+//
+//    @Override
+//    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+//        registration.setMultipartConfig(getMultipartConfigElement());
+//    }
 }

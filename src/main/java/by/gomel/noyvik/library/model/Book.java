@@ -39,7 +39,7 @@ public class Book {
     @JoinColumn(name = "AUTHORS_ID", referencedColumnName = "ID")
     private Author author;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     private Set<Genre> genres = new HashSet<>();
 
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY,

@@ -220,9 +220,8 @@
                                 </td>
                                 <td class="table-text-center">
                                     <h3>
-                                        <form accept-charset="UTF-8" action="<c:url value="/front"/>" method="post">
-                                            <input name="command" type="hidden" value="DeleteUser"/>
-                                            <input name="userId" type="hidden" value="${userMap.key.id}"/>
+                                        <form accept-charset="UTF-8" action="<c:url value="/deleteUser"/>" method="post">
+                                            <input name="id" type="hidden" value="${userMap.key.id}"/>
                                             <input class="submit-delete" type="submit" value="Delete"/>
                                         </form>
                                     </h3>

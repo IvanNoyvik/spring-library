@@ -2,6 +2,7 @@ package by.gomel.noyvik.library.service;
 
 import by.gomel.noyvik.library.model.Book;
 import org.springframework.data.domain.Page;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface BookService {
 
@@ -10,7 +11,7 @@ public interface BookService {
 
     byte[] findImageById(Long id);
 
-    void addImage(Long id, byte[] image);
+    void addImage(Long id, MultipartFile file);
 
     boolean findByTitleAndAuthor(String title, String author);
 

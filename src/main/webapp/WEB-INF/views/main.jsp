@@ -54,11 +54,10 @@
 
                         <h1>${book.title} <span>(${book.author.author})</span></h1>
 
-<%--todo проверіть работаетлі без запроса, when be image--%>
                         <div>
                             <c:choose>
                                 <c:when test="${!empty book.image}">
-                                    <img src="${book.image}" alt="CSS Template" width="100"
+                                    <img src="<c:url value="/getImage/${book.id}"/>" alt="CSS Template" width="100"
                                          height="100"/>
                                 </c:when>
                                 <c:otherwise>
@@ -67,13 +66,7 @@
                                 </c:otherwise>
                             </c:choose>
                         </div>
-<%--                        <c:url value="/getImage" var="image">--%>
-<%--                            <c:param name="bookId" value="${book.id}"/>--%>
-<%--                        </c:url>--%>
-<%--                        <div>--%>
-<%--                            <img src="${image}" alt="CSS Template" width="100"--%>
-<%--                                 height="100"/>--%>
-<%--                        </div>--%>
+
 
 
                         <div class="product_info">

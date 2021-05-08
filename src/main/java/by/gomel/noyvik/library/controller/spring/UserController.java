@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +20,7 @@ import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
 
 @Controller
 @RequiredArgsConstructor
-public class UserController extends ModelController{
+public class UserController extends ModelController {
 
     private final UserService userService;
 
@@ -33,7 +34,7 @@ public class UserController extends ModelController{
         if (br.hasErrors()) {
 
 //            new ModelAndView(REDIRECT_ACTION+REGISTRATION_JSP, "error", br);
-            return new ModelAndView(REDIRECT_ACTION+REGISTRATION_JSP, "error", br);
+            return new ModelAndView(REDIRECT_ACTION + REGISTRATION_JSP, "error", br);
 
         }
         try {
@@ -42,14 +43,14 @@ public class UserController extends ModelController{
 
         } catch (ServiceException e) {
 
-            return new ModelAndView(REDIRECT_ACTION+REGISTRATION_JSP, RESPONSE, USER_EXISTS);
+            return new ModelAndView(REDIRECT_ACTION + REGISTRATION_JSP, RESPONSE, USER_EXISTS);
 
 
         } catch (Exception e) {
-            return new ModelAndView(REDIRECT_ACTION+REGISTRATION_JSP, RESPONSE, REGISTRATION_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + REGISTRATION_JSP, RESPONSE, REGISTRATION_FAIL);
 
         }
-        return new ModelAndView(REDIRECT_ACTION+MAIN_JSP, RESPONSE, REGISTRATION_OK);
+        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, REGISTRATION_OK);
 
     }
 
@@ -66,12 +67,12 @@ public class UserController extends ModelController{
 
         if (user == null) {
 
-            return new ModelAndView(REDIRECT_ACTION+LOGIN_JSP, RESPONSE, LOGIN_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + LOGIN_JSP, RESPONSE, LOGIN_FAIL);
 
         } else {
             session.setAttribute(USER, user);
         }
-        return new ModelAndView(REDIRECT_ACTION+MAIN_JSP, RESPONSE, LOGIN_OK + user.getName());
+        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, LOGIN_OK + user.getName());
 
     }
 
@@ -100,15 +101,29 @@ public class UserController extends ModelController{
             userService.updateUser(userForUpdate);
 
         } catch (Exception e) {
-            return new ModelAndView(REDIRECT_ACTION+EDIT_USER_JSP, RESPONSE, EDIT_USER_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + EDIT_USER_JSP, RESPONSE, EDIT_USER_FAIL);
 
         }
-        return new ModelAndView(REDIRECT_ACTION+PROFILE_JSP, RESPONSE, EDIT_USER_OK);
+        return new ModelAndView(REDIRECT_ACTION + PROFILE_JSP, RESPONSE, EDIT_USER_OK);
 
 
     }
 
+    @PostMapping(value = "/deleteUser")
+    public ModelAndView deleteUser(@RequestParam Long id) {
 
+        try {
+
+            userService.deleteById(id);
+
+        } catch (Exception e) {
+            return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, DELETE_USER_FAIL);
+
+        }
+        return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, DELETE_USER_OK);
+
+
+    }
 
 
 }

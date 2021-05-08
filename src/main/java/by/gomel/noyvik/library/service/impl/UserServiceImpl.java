@@ -140,6 +140,14 @@ public class UserServiceImpl implements UserService {
         return userWithCountOverdueOrder;
     }
 
+    @Override
+    @Modifying
+    @Transactional
+    public void deleteById(Long id) {
+//todo repo native queru
+        userRepository.deleteById(id);
+    }
+
     //
 //    @Override
 //    public boolean changeStatus(Long userId, String status, int duration) {

@@ -52,16 +52,22 @@
 
                 <div class="image_panel">
                     <form action="<c:url value="/addImage"/>" method="post" enctype="multipart/form-data">
-                        <input name="bookId" type="hidden" value="${requestScope.book.id}"/>
+                        <input name="id" type="hidden" value="${requestScope.book.id}"/>
 
-                        <c:url value="/front" var="image">
-                            <c:param name="bookId" value="${requestScope.book.id}"/>
-                            <c:param name="command" value="GetImage"/>
-                        </c:url>
                         <div>
-                            <img src="${image}" alt="CSS Template" width="150"
-                                 height="150"/>
+                            <c:choose>
+                                <c:when test="${!empty requestScope.book.image}">
+                                    <img src="<c:url value="/getImage/${requestScope.book.id}"/>" alt="CSS Template" width="100"
+                                         height="100"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template" width="100"
+                                         height="100"/>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
+
+
                         <input type="file" name="image" accept="image/*"/>
                         <input type="submit" value="Add/change Image"/>
 

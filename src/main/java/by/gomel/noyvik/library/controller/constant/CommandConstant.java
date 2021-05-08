@@ -92,7 +92,9 @@ public interface CommandConstant {
     String AUTHORS = "authors";
     String QUANTITY = "quantity";
     String IMAGE = "image";
-    String NO_IMAGE = "/static/main/images/no_image.png";
+//    String NO_IMAGE = "/static/main/images/no_image.png";
+//    String NO_IMAGE = "/../../static/main/images/no_image.png";
+    String NO_IMAGE = "/image/no_image.png";
     String DESCRIPTION = "description";
 
     String ORDERS = "orders";

@@ -23,6 +23,8 @@ public interface UserService {
 //    User registration(String login, String password, String name, String email);
 //
     Map<User, Integer> findUserWithCountOverdueOrder();
+
+    void deleteById(Long id);
 //
 //    boolean changeStatus(Long userId, String status, int duration);
 }

@@ -7,12 +7,12 @@ import by.gomel.noyvik.library.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
 
@@ -32,51 +32,48 @@ public class BookController {
 
 
         if (br.hasErrors()) {
+
 //            return setErrorsInModelAndView(br, modelAndView, viewName, EDIT_USER_JSP);
         }
 
-        if (user != null && userService.isAdministrator(user)){
+        if (user != null && userService.isAdministrator(user)) {
 
-//            book.se
-//            bookService.update()
+            try {
+
+                bookService.update(book);
+
+            } catch (Exception e) {
+
+                return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), RESPONSE, EDIT_BOOK_FAIL);
+
+            }
+
+            return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), RESPONSE, EDIT_BOOK_OK);
+
         }
 
-        try {
 
-
-        } catch (Exception e) {
-            return new ModelAndView(REDIRECT_ACTION+EDIT_USER_JSP, RESPONSE, EDIT_USER_FAIL);
-
-        }
-        return new ModelAndView(REDIRECT_ACTION+PROFILE_JSP, RESPONSE, EDIT_USER_OK);
+        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, ERROR_PROCESS);
 
 
     }
 
 
+    @PostMapping("/addImage")
+    public ModelAndView addImage(@RequestParam Long id, @RequestParam("image") MultipartFile image) {
+
+        bookService.addImage(id, image);
+
+        return new ModelAndView(REDIRECT_ACTION + EDIT_BOOK_JSP + "/" + id, RESPONSE, EDIT_BOOK_OK);
+
+    }
 
 
+    @GetMapping("/getImage/{id}")
+    public @ResponseBody byte[] getImage(@PathVariable Long id) throws IOException {
 
+        return bookService.findImageById(id);
 
-
-
-
-// show books image
-//        long bookId = Long.parseLong(request.getParameter(BOOK_ID));
-//        byte[] image = PROVIDER_SERVICE.getBookService().findImageById(bookId);
-//
-//        if (image != null) {
-//
-//            try (ServletOutputStream outputStream = response.getOutputStream()) {
-//                outputStream.write(image);
-//            }
-//
-//        } else {
-//
-//            response.sendRedirect(request.getContextPath() + NO_IMAGE);
-//        }
-//
-//
-//    }
+    }
 
 }

@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "books")
+@EqualsAndHashCode(of = "genre")
 @ToString(exclude = "books")
 @Getter
 @Setter
