@@ -3,6 +3,7 @@ package by.gomel.noyvik.library.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @NoArgsConstructor
@@ -19,6 +20,7 @@ public class Message {
     private Long id;
     @Column(name = "DATE_SENT")
     private LocalDate dateSent;
+    @Size(max = 255, message = "{validation.message.content.message}")
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)

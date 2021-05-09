@@ -202,8 +202,7 @@ public class PageController {
 
     @GetMapping("/block")
     public ModelAndView userAuthenticatePages() {
-        ModelAndView modelAndView = new ModelAndView(BLOCK_JSP);
-        return modelAndView;
+        return new ModelAndView(BLOCK_JSP);
     }
 
 

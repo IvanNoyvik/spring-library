@@ -19,8 +19,13 @@
         <div id="templatemo_special_offers">
             <p>
                 <c:if test="${!empty requestScope.resp}">
-                    <span class="resp"><c:out value="${requestScope.resp}"/></span>
+                <span class="resp"><c:out value="${requestScope.resp}"/></span>
                 </c:if>
+                <c:if test="${error != null}">
+            <h3 style="color:red;">* ${error}</h3>
+            </c:if>
+
+
             </p>
         </div>
 
@@ -29,10 +34,7 @@
             <p>
             <h2>Your account is blocked</h2>
             <p>
-                <c:url value="/front" var="logout">
-                    <c:param name="command" value="Logout"/>
-                </c:url>
-            <li><a href="<c:out value="${logout}"/>" class="current">Logout</a></li>
+              <li><a href="<c:url value="/logout"/>" class="current">Logout</a></li>
         </div>
     </div>
 
@@ -53,10 +55,9 @@
         <div id="templatemo_content_right">
 
             <h2>Send an unlock request to the administrator</h2>
-            <form accept-charset="UTF-8" action="<c:url value="/front"/>" method="post">
+            <form accept-charset="UTF-8" action="<c:url value="/sentMessage"/>" method="post">
                 <fieldset>
-                    <input name="command" type="hidden" value="SentMessage"/> <br/>
-                    <textarea name="context" cols="30" rows="5">Enter text</textarea><br/>
+                    <textarea name="context" cols="30" rows="5">Enter text ... max 255 chars</textarea><br/>
                     <input type="submit" value="Sent"/> <br/>
                 </fieldset>
             </form>

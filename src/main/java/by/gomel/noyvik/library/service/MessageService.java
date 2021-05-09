@@ -8,4 +8,6 @@ public interface MessageService {
 
 
     List<Message> findAll();
+
+    void save(Message message);
 }

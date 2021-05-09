@@ -1,6 +1,5 @@
 package by.gomel.noyvik.library.controller.spring;
 
-import by.gomel.noyvik.library.exception.LockedLoginException;
 import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Authenticate;
 import by.gomel.noyvik.library.model.User;
@@ -64,23 +63,23 @@ public class UserController extends ModelController {
 //todo return view validation
         }
 
-        try {
 
-            User user = userService.login(authenticate);
+        User user = userService.login(authenticate);
 
-            if (user == null) {
+        if (user == null) {
 
-                return new ModelAndView(REDIRECT_ACTION + LOGIN_JSP, RESPONSE, LOGIN_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + LOGIN_JSP, RESPONSE, LOGIN_FAIL);
 
-            } else {
-                session.setAttribute(USER, user);
-            }
-            return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, LOGIN_OK + user.getName());
-
-        } catch (LockedLoginException e) {
-            return new ModelAndView(REDIRECT_ACTION + BLOCK_JSP);
-
+        } else {
+            session.setAttribute(USER, user);
         }
+
+        if (user.getStatus().getStatus().equals(LOCKED)) {
+
+            return new ModelAndView(REDIRECT_ACTION + BLOCK_JSP);
+        }
+
+        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, LOGIN_OK + user.getName());
 
     }
 
@@ -135,7 +134,7 @@ public class UserController extends ModelController {
     public ModelAndView сhangeStatus(@RequestParam Long userId, @RequestParam String status,
                                      @RequestParam(defaultValue = "0") int duration) {
 
-        if (duration >= 0 && duration <= 180){
+        if (duration >= 0 && duration <= 180) {
 
             try {
 

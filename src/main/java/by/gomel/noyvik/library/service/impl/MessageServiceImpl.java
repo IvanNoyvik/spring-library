@@ -6,6 +6,7 @@ import by.gomel.noyvik.library.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,5 +19,13 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> findAll() {
        return messageRepository.findAllWithUserLink();
+    }
+
+    @Override
+    public void save(Message message) {
+
+        message.setDateSent(LocalDate.now());
+
+        messageRepository.save(message);
     }
 }
