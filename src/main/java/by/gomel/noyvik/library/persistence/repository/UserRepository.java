@@ -1,9 +1,11 @@
 package by.gomel.noyvik.library.persistence.repository;
 
 import by.gomel.noyvik.library.model.User;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +23,11 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("SELECT distinct u from User u left join fetch u.status " +
             "left join fetch u.authenticate left join fetch u.orders order by u.status.id desc")
     List<User> findAllWithOrder();
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE from USERS_ROLES where USERS_ID = :id", nativeQuery = true)
+    void deleteConstraintFromUsersRolesTableByUserId(@Param("id") Long id);
 
 
 //    User changeStatus(User user, String status, int duration);

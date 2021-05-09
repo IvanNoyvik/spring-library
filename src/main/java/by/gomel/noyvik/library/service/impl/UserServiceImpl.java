@@ -144,8 +144,10 @@ public class UserServiceImpl implements UserService {
     @Modifying
     @Transactional
     public void deleteById(Long id) {
-//todo repo native queru
+
+        userRepository.deleteConstraintFromUsersRolesTableByUserId(id);
         userRepository.deleteById(id);
+
     }
 
     //
