@@ -1,6 +1,6 @@
 package by.gomel.noyvik.library.exception;
 
-public class ControllerException extends RuntimeException {
+public class ControllerException extends ApplicationException {
     public ControllerException() {
     }
 

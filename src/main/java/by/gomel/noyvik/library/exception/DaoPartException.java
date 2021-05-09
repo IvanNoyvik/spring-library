@@ -1,6 +1,6 @@
 package by.gomel.noyvik.library.exception;
 
-public class DaoPartException extends RuntimeException {
+public class DaoPartException extends ApplicationException {
 
     public DaoPartException() {
     }

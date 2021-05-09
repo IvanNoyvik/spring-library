@@ -11,4 +11,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     @Query("from Message m left join fetch m.user u join fetch u.authenticate left join fetch u.status")
     List<Message> findAllWithUserLink();
+
+    void removeAllByUserId(Long userId);
+
 }

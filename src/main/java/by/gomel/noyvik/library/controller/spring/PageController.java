@@ -75,7 +75,7 @@ public class PageController {
     }
 
     @GetMapping("/page/{jspPage}")
-    public ModelAndView registrationPage(HttpServletRequest request, @PathVariable String jspPage) {
+    public ModelAndView userAuthenticatePages(HttpServletRequest request, @PathVariable String jspPage) {
 
         ModelAndView modelAndView = new ModelAndView(jspPage);
 
@@ -102,8 +102,6 @@ public class PageController {
         setResp(modelAndView, request);
         return modelAndView;
     }
-
-
 
 
     @GetMapping("/book/{bookId}")
@@ -200,6 +198,12 @@ public class PageController {
             return new ModelAndView(MAIN_JSP, RESPONSE, ERROR_PROCESS);
         }
 
+    }
+
+    @GetMapping("/block")
+    public ModelAndView userAuthenticatePages() {
+        ModelAndView modelAndView = new ModelAndView(BLOCK_JSP);
+        return modelAndView;
     }
 
 

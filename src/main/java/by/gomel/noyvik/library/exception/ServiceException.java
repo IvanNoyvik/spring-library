@@ -1,6 +1,6 @@
 package by.gomel.noyvik.library.exception;
 
-public class ServiceException extends RuntimeException {
+public class ServiceException extends ApplicationException {
     public ServiceException() {
     }
 

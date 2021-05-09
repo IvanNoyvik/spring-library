@@ -1,13 +1,13 @@
 package by.gomel.noyvik.library.service.impl;
 
 import by.gomel.noyvik.library.exception.DaoPartException;
+import by.gomel.noyvik.library.exception.LockedLoginException;
 import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Authenticate;
 import by.gomel.noyvik.library.model.Role;
+import by.gomel.noyvik.library.model.Status;
 import by.gomel.noyvik.library.model.User;
-import by.gomel.noyvik.library.persistence.repository.RoleRepository;
-import by.gomel.noyvik.library.persistence.repository.StatusRepository;
-import by.gomel.noyvik.library.persistence.repository.UserRepository;
+import by.gomel.noyvik.library.persistence.repository.*;
 import by.gomel.noyvik.library.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Modifying;
@@ -29,6 +29,9 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final StatusRepository statusRepository;
     private final RoleRepository roleRepository;
+    private final OrderRepository orderRepository;
+    private final MessageRepository messageRepository;
+
 
 
     @Override
@@ -40,12 +43,14 @@ public class UserServiceImpl implements UserService {
 
         if (user != null) {
 
+            if (user.getStatus().getStatus().equalsIgnoreCase(LOCKED)) {
+                throw new LockedLoginException();
+            }
             if (user.getStatus().getStatus().equalsIgnoreCase(LIMITED) && user.getAuthenticate().getUnlockedDate().isBefore(LocalDate.now())) {
-
                 user.addStatus(statusRepository.findByStatus(OK));
                 userRepository.save(user);
-
             }
+
         }
         return user;
     }
@@ -151,34 +156,46 @@ public class UserServiceImpl implements UserService {
     }
 
     //
-//    @Override
-//    public boolean changeStatus(Long userId, String status, int duration) {
-//        try {
-//            User user = userDao.findById(userId);
-//            if (!user.getStatus().getStatus().equals(status)) {
-//
-//                if (status.equals(LOCKED) && !user.getOrders().isEmpty()) {
-//
-//                    orderDao.removeAllOrder(userId);
-//                    userDao.changeStatus(userId, status, duration);
-//
-//                } else {
-//
-//                    userDao.changeStatus(user, status, duration);
-//                }
-//
-//            }
-//        } catch (DaoPartException e) {
-//
-//            return false;
-//
-//        } catch (Exception e) {
-//            throw new ServiceException(e);
-//        }
-//
-//
-//        return true;
-//
-//    }
+    @Override
+    @Modifying
+    @Transactional
+    public boolean changeStatus(Long userId, String status, int duration) {
+//todo show Anton
+        try {
+
+            User user = userRepository.findFullUserById(userId);
+
+            if (!user.getStatus().getStatus().equals(status)) {
+
+                if (status.equals(LOCKED) && !user.getOrders().isEmpty()) {
+                    orderRepository.removeAllByUserId(userId);
+                    user.getOrders().clear();
+                }
+
+                if (status.equals(OK) && !user.getMessages().isEmpty()){
+                    messageRepository.removeAllByUserId(userId);
+                    user.getMessages().clear();
+                }
+
+                LocalDate unlockedDate = LocalDate.now().plusDays(duration);
+                Status newStatus = statusRepository.findByStatus(status);
+                user.getAuthenticate().setUnlockedDate(unlockedDate);
+                user.setStatus(newStatus);
+
+                userRepository.save(user);
+
+            }
+        } catch (DaoPartException e) {
+
+            return false;
+
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+
+
+        return true;
+
+    }
 
 }

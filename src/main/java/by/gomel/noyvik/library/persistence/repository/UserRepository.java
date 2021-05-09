@@ -29,6 +29,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query(value = "DELETE from USERS_ROLES where USERS_ID = :id", nativeQuery = true)
     void deleteConstraintFromUsersRolesTableByUserId(@Param("id") Long id);
 
+    @Query("from User u join fetch u.authenticate left join fetch u.messages left join fetch u.status left join fetch u.orders" +
+            " left join fetch u.roles where u.id = :userId")
+    User findFullUserById(@Param("userId") Long userId);
 
 //    User changeStatus(User user, String status, int duration);
 

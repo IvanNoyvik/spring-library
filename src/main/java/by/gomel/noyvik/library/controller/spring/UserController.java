@@ -1,5 +1,6 @@
 package by.gomel.noyvik.library.controller.spring;
 
+import by.gomel.noyvik.library.exception.LockedLoginException;
 import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Authenticate;
 import by.gomel.noyvik.library.model.User;
@@ -63,16 +64,23 @@ public class UserController extends ModelController {
 //todo return view validation
         }
 
-        User user = userService.login(authenticate);
+        try {
 
-        if (user == null) {
+            User user = userService.login(authenticate);
 
-            return new ModelAndView(REDIRECT_ACTION + LOGIN_JSP, RESPONSE, LOGIN_FAIL);
+            if (user == null) {
 
-        } else {
-            session.setAttribute(USER, user);
+                return new ModelAndView(REDIRECT_ACTION + LOGIN_JSP, RESPONSE, LOGIN_FAIL);
+
+            } else {
+                session.setAttribute(USER, user);
+            }
+            return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, LOGIN_OK + user.getName());
+
+        } catch (LockedLoginException e) {
+            return new ModelAndView(REDIRECT_ACTION + BLOCK_JSP);
+
         }
-        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, LOGIN_OK + user.getName());
 
     }
 
@@ -121,9 +129,26 @@ public class UserController extends ModelController {
 
         }
         return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, DELETE_USER_OK);
-
-
     }
 
+    @PostMapping(value = "/сhangeStatus")
+    public ModelAndView сhangeStatus(@RequestParam Long userId, @RequestParam String status,
+                                     @RequestParam(defaultValue = "0") int duration) {
+
+        if (duration >= 0 && duration <= 180){
+
+            try {
+
+                userService.changeStatus(userId, status, duration);
+                return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, CHANGE_STATUS_OK);
+
+            } catch (Exception e) {
+                return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, CHANGE_STATUS_FAIL);
+
+            }
+        }
+        return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, INVALID_DATA);
+
+    }
 
 }

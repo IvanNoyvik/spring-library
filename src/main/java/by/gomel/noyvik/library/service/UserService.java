@@ -25,6 +25,6 @@ public interface UserService {
     Map<User, Integer> findUserWithCountOverdueOrder();
 
     void deleteById(Long id);
-//
-//    boolean changeStatus(Long userId, String status, int duration);
+
+    boolean changeStatus(Long userId, String status, int duration);
 }

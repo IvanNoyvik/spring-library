@@ -58,7 +58,7 @@ public interface CommandConstant {
     String UNKNOWN_COMMAND = "UNKNOWN_COMMAND";
     String ERROR_PROCESS = "Incorrect or unsupported operations";
     String UNKNOWN_OPERATION = "Unknown or unsupported operations";
-    String PARSE_NUMBER_EXCEPTION = "You entered invalid data";
+    String INVALID_DATA = "You entered invalid data";
 
 
     //attributes

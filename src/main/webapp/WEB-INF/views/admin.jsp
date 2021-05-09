@@ -75,20 +75,18 @@
 
                             <div class="product_info">
                                 <c:if test="${!order.user.status.status.equalsIgnoreCase('Limited') and order.user.id ne sessionScope.user.id}">
-                                    <form accept-charset="UTF-8" action="<c:url value="/front"/>" method="post">
+                                    <form accept-charset="UTF-8" action="<c:url value="/сhangeStatus"/>" method="post">
                                         <label>Duration
                                             <input name="duration" type="text" class="duration"
                                                    required="" placeholder="in days..." pattern="^0*[1-9]\d*$"/>
                                         </label>
-                                        <input name="command" type="hidden" value="ChangeStatus"/>
                                         <input name="userId" type="hidden" value="${order.user.id}"/>
                                         <input name="status" type="hidden" value="Limited"/>
                                         <input class="submit-limit" type="submit" value="Limited"/>
                                     </form>
                                 </c:if>
                                 <c:if test="${!order.user.status.status.equalsIgnoreCase('Locked') and order.user.id ne sessionScope.user.id}">
-                                    <form accept-charset="UTF-8" action="<c:url value="/front"/>" method="post">
-                                        <input name="command" type="hidden" value="ChangeStatus"/>
+                                    <form accept-charset="UTF-8" action="<c:url value="/сhangeStatus"/>" method="post">
                                         <input name="userId" type="hidden" value="${order.user.id}"/>
                                         <input name="status" type="hidden" value="Locked"/>
                                         <input class="submit-lock" type="submit" value="Locked"/>
@@ -120,8 +118,7 @@
                             <div class="product_info">
                                     ${mess.content}
                             </div>
-                            <form accept-charset="UTF-8" action="<c:url value="/front"/>" method="post">
-                                <input name="command" type="hidden" value="ChangeStatus"/>
+                            <form accept-charset="UTF-8" action="<c:url value="/сhangeStatus"/>" method="post">
                                 <input name="userId" type="hidden" value="${mess.user.id}"/>
                                 <input name="status" type="hidden" value="OK"/>
                                 <input class="submit-unlock" type="submit" value="Unlocked"/>
@@ -163,9 +160,8 @@
                                         <c:when test="${userMap.key.status.status.equalsIgnoreCase('Locked')
                                                     or userMap.key.status.status.equalsIgnoreCase('Limited')}">
                                             <h3>
-                                                <form accept-charset="UTF-8" action="<c:url value="/front"/>"
+                                                <form accept-charset="UTF-8" action="<c:url value="/сhangeStatus"/>"
                                                       method="post">
-                                                    <input name="command" type="hidden" value="ChangeStatus"/>
                                                     <input name="userId" type="hidden" value="${userMap.key.id}"/>
                                                     <input name="status" type="hidden" value="OK"/>
                                                     <input class="submit-unlock" type="submit" value="Unlocked"/>
@@ -174,9 +170,8 @@
                                         </c:when>
                                         <c:otherwise>
                                             <h3>
-                                                <form accept-charset="UTF-8" action="<c:url value="/front"/>"
+                                                <form accept-charset="UTF-8" action="<c:url value="/сhangeStatus"/>"
                                                       method="post">
-                                                    <input name="command" type="hidden" value="ChangeStatus"/>
                                                     <input name="userId" type="hidden" value="${userMap.key.id}"/>
                                                     <input name="status" type="hidden" value="Locked"/>
                                                     <input class="submit-lock" type="submit" value="Locked"/>
@@ -191,14 +186,13 @@
                                         <c:when test="${userMap.key.status.status.equalsIgnoreCase('Locked')
                                                         or userMap.key.status.status.equalsIgnoreCase('OK')}">
                                             <h3>
-                                                <form accept-charset="UTF-8" action="<c:url value="/front"/>"
+                                                <form accept-charset="UTF-8" action="<c:url value="/сhangeStatus"/>"
                                                       method="post">
                                                     <label>
                                                         <input class="duration" name="duration" type="text"
                                                                required="" placeholder="in days..."
                                                                pattern="^0*[1-9]\d*$"/>
                                                     </label>
-                                                    <input name="command" type="hidden" value="ChangeStatus"/>
                                                     <input name="userId" type="hidden" value="${userMap.key.id}"/>
                                                     <input name="status" type="hidden" value="Limited"/>
                                                     <input class="submit-limit" type="submit" value="Limited"/>
@@ -207,9 +201,8 @@
                                         </c:when>
                                         <c:otherwise>
                                             <h3>
-                                                <form accept-charset="UTF-8" action="<c:url value="/front"/>"
+                                                <form accept-charset="UTF-8" action="<c:url value="/сhangeStatus"/>"
                                                       method="post">
-                                                    <input name="command" type="hidden" value="ChangeStatus"/>
                                                     <input name="userId" type="hidden" value="${userMap.key.id}"/>
                                                     <input name="status" type="hidden" value="Locked"/>
                                                     <input class="submit-lock" type="submit" value="Locked"/>
