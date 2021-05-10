@@ -1,7 +1,6 @@
 package by.gomel.noyvik.library.service.impl;
 
 import by.gomel.noyvik.library.exception.DaoPartException;
-import by.gomel.noyvik.library.exception.LockedLoginException;
 import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Authenticate;
 import by.gomel.noyvik.library.model.Role;
@@ -43,9 +42,6 @@ public class UserServiceImpl implements UserService {
 
         if (user != null) {
 
-            if (user.getStatus().getStatus().equalsIgnoreCase(LOCKED)) {
-                throw new LockedLoginException();
-            }
             if (user.getStatus().getStatus().equalsIgnoreCase(LIMITED) && user.getAuthenticate().getUnlockedDate().isBefore(LocalDate.now())) {
                 user.addStatus(statusRepository.findByStatus(OK));
                 userRepository.save(user);

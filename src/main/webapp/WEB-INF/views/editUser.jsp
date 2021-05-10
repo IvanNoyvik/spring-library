@@ -68,6 +68,11 @@
                 </div>
 
                 <div class="login100-form-social flex-c-m">
+                    <c:if test="${requestScope.errors != null}">
+                        <c:forEach var="error" items="${requestScope.errors}">
+                            <p/><h3 class="error">${error}</h3>
+                        </c:forEach>
+                    </c:if>
 
 
                     <li><a href="<c:url value="/profile"/>" class="login100-form-social-item flex-c-m bg1 m-r-5">Back

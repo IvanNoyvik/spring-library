@@ -86,9 +86,11 @@
                     <c:if test="${!empty requestScope.resp}">
                         <span class="error"><c:out value="${requestScope.resp}"/></span>
                     </c:if>
-                    <form:errors path="login" cssClass="error"/>
-                    <form:errors path="password" cssClass="error"/>
-                    <form:errors path="email" cssClass="error"/>
+                    <c:if test="${requestScope.errors != null}">
+                        <c:forEach var="error" items="${requestScope.errors}">
+                            <p><h3 class="error">${error}</h3>
+                        </c:forEach>
+                    </c:if>
                 </div>
 
                 <div class="login100-form-social flex-c-m">

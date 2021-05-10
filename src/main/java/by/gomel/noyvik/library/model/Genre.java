@@ -23,8 +23,6 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "{validation.genre.NotEmpty.message}")
-    @NotBlank(message = "{validation.genre.NotEmpty.message}")
     @NotEmpty(message = "{validation.genre.NotEmpty.message}")
     private String genre;
 

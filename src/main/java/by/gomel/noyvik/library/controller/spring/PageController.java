@@ -201,9 +201,13 @@ public class PageController {
     }
 
     @GetMapping("/block")
-    public ModelAndView userAuthenticatePages() {
+    public ModelAndView blockPages() {
         return new ModelAndView(BLOCK_JSP);
     }
 
+    @GetMapping("/error")
+    public ModelAndView errorPages() {
+        return new ModelAndView(ERROR_JSP);
+    }
 
 }

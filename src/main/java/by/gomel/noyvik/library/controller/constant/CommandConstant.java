@@ -122,6 +122,9 @@ public interface CommandConstant {
     String EDIT_BOOK_JSP = "editBook";
     String ADD_BOOK_JSP = "addBook";
     String BOOK_CONTENT_JSP = "bookContent";
+    String ERROR_JSP = "error";
+    String PAGE = "page/";
+
 
 
 }

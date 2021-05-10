@@ -5,8 +5,11 @@ import by.gomel.noyvik.library.model.Authenticate;
 import by.gomel.noyvik.library.model.User;
 import by.gomel.noyvik.library.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,39 +18,41 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
 
 @Controller
 @RequiredArgsConstructor
-public class UserController extends ModelController {
+public class UserController {
 
     private final UserService userService;
 
-//    private final OrderService orderService;
-//    private final MessageService messageService;
+    @Autowired
+    protected MessageSource messageSource;
 
 
     @PostMapping(value = "/registration")
-    public ModelAndView registration(@Valid @ModelAttribute User user, BindingResult br) {
+    public ModelAndView registration(@Valid @ModelAttribute User user, @Valid @ModelAttribute Authenticate authenticate, BindingResult br) {
 
         if (br.hasErrors()) {
-
-//            new ModelAndView(REDIRECT_ACTION+REGISTRATION_JSP, "error", br);
-            return new ModelAndView(REDIRECT_ACTION + REGISTRATION_JSP, "error", br);
-
+            List<String> errors = br.getFieldErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
+            return new ModelAndView(REGISTRATION_JSP, "errors", errors);
         }
+
         try {
 
+            user.addAuthenticate(authenticate);
             userService.createNewUser(user);
 
         } catch (ServiceException e) {
 
-            return new ModelAndView(REDIRECT_ACTION + REGISTRATION_JSP, RESPONSE, USER_EXISTS);
+            return new ModelAndView(REDIRECT_ACTION + PAGE + REGISTRATION_JSP, RESPONSE, USER_EXISTS);
 
 
         } catch (Exception e) {
-            return new ModelAndView(REDIRECT_ACTION + REGISTRATION_JSP, RESPONSE, REGISTRATION_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + PAGE + REGISTRATION_JSP, RESPONSE, REGISTRATION_FAIL);
 
         }
         return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, REGISTRATION_OK);
@@ -59,8 +64,8 @@ public class UserController extends ModelController {
 
 
         if (br.hasErrors()) {
-
-//todo return view validation
+            List<String> errors = br.getFieldErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
+            return new ModelAndView(LOGIN_JSP, "errors", errors);
         }
 
 
@@ -68,7 +73,7 @@ public class UserController extends ModelController {
 
         if (user == null) {
 
-            return new ModelAndView(REDIRECT_ACTION + LOGIN_JSP, RESPONSE, LOGIN_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + PAGE + LOGIN_JSP, RESPONSE, LOGIN_FAIL);
 
         } else {
             session.setAttribute(USER, user);
@@ -97,7 +102,8 @@ public class UserController extends ModelController {
 
 
         if (br.hasErrors()) {
-//            return setErrorsInModelAndView(br, modelAndView, viewName, EDIT_USER_JSP);
+            List<String> errors = br.getFieldErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
+            return new ModelAndView(EDIT_USER_JSP, "errors", errors);
         }
 
         try {
@@ -108,7 +114,7 @@ public class UserController extends ModelController {
             userService.updateUser(userForUpdate);
 
         } catch (Exception e) {
-            return new ModelAndView(REDIRECT_ACTION + EDIT_USER_JSP, RESPONSE, EDIT_USER_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + PAGE + EDIT_USER_JSP, RESPONSE, EDIT_USER_FAIL);
 
         }
         return new ModelAndView(REDIRECT_ACTION + PROFILE_JSP, RESPONSE, EDIT_USER_OK);

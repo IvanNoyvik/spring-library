@@ -18,25 +18,14 @@
 
     <div id="templatemo_header">
         <div id="templatemo_special_offers">
-            <p>
-                <c:if test="${!empty requestScope.resp}">
-                    <span class="resp"><c:out value="${requestScope.resp}"/></span>
-                </c:if>
-            </p>
-            <c:if test="${requestScope.errors != null}">
-                <c:forEach var="error" items="${requestScope.errors}">
-                    <p><h3 class="error">${error}</h3>
-                </c:forEach>
-            </c:if>
-
+            <p> <h2>System error</h2>
         </div>
 
 
         <div id="templatemo_new_books">
-            <p>
-            <h2>Your account is blocked</h2>
-            <p>
-            <li><a href="<c:url value="/logout"/>" class="current">Logout</a></li>
+            <p> <h3>Try again or</h3>
+            <p> <h3>sent message to admin</h3>
+            <li><a href="<c:url value="/main"/>" class="current">Return to main</a></li>
         </div>
     </div>
 
@@ -56,11 +45,11 @@
 
         <div id="templatemo_content_right">
 
-            <h2>Send an unlock request to the administrator</h2>
+            <h2>Send message to administrator</h2>
             <form accept-charset="UTF-8" action="<c:url value="/sentMessage"/>" method="post">
                 <input name="user.id" value="${sessionScope.user.id}" type="hidden"/>
                 <fieldset>
-                    <textarea name="content" cols="30" rows="5">Enter text ... max 255 chars</textarea><br/>
+                    <textarea name="content" cols="30" rows="5">Describe the problem ... max 255 chars</textarea><br/>
                     <input type="submit" value="Sent"/> <br/>
                 </fieldset>
             </form>

@@ -56,19 +56,19 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
-            <form class="login100-form validate-form" action="/registration" method="post">
+            <form class="login100-form validate-form" action="<c:url value="/registration"/>" method="post">
 					<span class="login100-form-title p-b-43">
 						Login to continue
 					</span>
 
                 <div class="wrap-input100 validate-input" data-validate="Valid login is: aBv3_09c">
-                    <input class="input100" type="text" name="authenticate.login" <%--pattern="[A-Za-z_0-9]{3,40}"--%>>
+                    <input class="input100" type="text" name="login" <%--pattern="[A-Za-z_0-9]{3,40}"--%>>
                     <span class="focus-input100"></span>
                     <span class="label-input100">Login</span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" name="authenticate.password" <%--pattern="[A-Za-z0-9]{1,40}"--%>>
+                    <input class="input100" type="password" name="password" <%--pattern="[A-Za-z0-9]{1,40}"--%>>
                     <span class="focus-input100"></span>
                     <span class="label-input100">Password</span>
                 </div>
@@ -93,9 +93,11 @@
                     <c:if test="${!empty requestScope.resp}">
                         <span class="error"><c:out value="${requestScope.resp}"/></span>
                     </c:if>
-                    <form:errors path="authenticate.login" cssClass="error"/>
-                    <form:errors path="authenticate.password" cssClass="error"/>
-                    <form:errors path="email" cssClass="error"/>
+                    <c:if test="${requestScope.errors != null}">
+                        <c:forEach var="error" items="${requestScope.errors}">
+                            <p><h3 class="error">${error}</h3>
+                        </c:forEach>
+                    </c:if>
                 </div>
 
                 <div class="login100-form-social flex-c-m">
