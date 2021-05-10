@@ -3,7 +3,6 @@ package by.gomel.noyvik.library.service.impl;
 import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Book;
 import by.gomel.noyvik.library.model.Order;
-import by.gomel.noyvik.library.model.User;
 import by.gomel.noyvik.library.persistence.repository.BookRepository;
 import by.gomel.noyvik.library.persistence.repository.OrderRepository;
 import by.gomel.noyvik.library.persistence.repository.UserRepository;
@@ -50,17 +49,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(rollbackFor = {ServiceException.class/*, Exception.class*/})
+    @Transactional(rollbackFor = {ServiceException.class, Exception.class})
     @Modifying
-    public Order addOrder(Long bookId, Long userId, int duration) {
+    public Order addOrder(Order order) {
+
+        Long bookId = order.getBook().getId();
+        Long userId = order.getUser().getId();
 
         Book book = bookRepository.findById(bookId).orElseThrow(() -> new ServiceException("book not find"));
 
         if (book.getQuantity() > 0 && !userHaveBook(bookId, userId)) {
-
-            User user = userRepository.findById(userId).orElseThrow(() -> new ServiceException("user not find"));
-
-            Order order = new Order(LocalDate.now(), duration, book, user);
 
             order = orderRepository.save(order);
 

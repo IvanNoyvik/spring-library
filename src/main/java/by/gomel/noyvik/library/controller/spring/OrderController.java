@@ -27,19 +27,17 @@ public class OrderController {
 
 
     @PostMapping(value = "/getOrder")
-    public ModelAndView addOrder(@RequestParam("bookId") Long bookId, @RequestParam("userId") Long userId,
-                                 @Valid @ModelAttribute Order order, BindingResult br) {
+    public ModelAndView addOrder(@Valid @ModelAttribute Order order, BindingResult br) {
 
 
         if (br.hasErrors()) {
             List<String> errors = br.getFieldErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
-            return new ModelAndView(MAIN_JSP, "errors", errors);
+            return new ModelAndView(REDIRECT_ACTION+MAIN_JSP, "errors", errors);
         }
 
         try {
 
-            Integer duration = order.getDuration();
-            orderService.addOrder(bookId, userId, duration);
+            orderService.addOrder(order);
 
         } catch (ServiceException e) {
             return new ModelAndView(REDIRECT_ACTION+MAIN_JSP, RESPONSE, ERROR_PROCESS);

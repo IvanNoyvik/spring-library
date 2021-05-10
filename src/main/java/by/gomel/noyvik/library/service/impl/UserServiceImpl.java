@@ -96,35 +96,6 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-
-    //
-//    @Override
-//    public User registration(String login, String password, String name, String email) {
-//
-//        if (!isExists(login)) {
-//
-//            try {
-//
-//                Authenticate authenticate = new Authenticate(login, password);
-//                User user = new User(name, email);
-//                user.addAuthenticate(authenticate);
-//
-//                Status status = statusDao.getOkStatus();
-//                user.addStatus(status);
-//
-//                return userDao.save(user);
-//
-//            } catch (Exception e) {
-//                throw new ServiceException(e);
-//            }
-//
-//        }
-//
-//        return null;
-//
-//    }
-//
-//
     @Override
     public Map<User, Integer> findUserWithCountOverdueOrder() {
 

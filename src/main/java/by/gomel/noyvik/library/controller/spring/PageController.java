@@ -31,8 +31,12 @@ public class PageController {
     private void setResp(ModelAndView modelAndView, HttpServletRequest request) {
 
         String resp = request.getParameter(RESPONSE);
+        String errors = request.getParameter("errors");
         if (resp != null) {
-            modelAndView.addObject("resp", resp);
+            modelAndView.addObject(RESPONSE, resp);
+        }
+        if (errors != null) {
+            modelAndView.addObject("errors", errors);
         }
     }
 

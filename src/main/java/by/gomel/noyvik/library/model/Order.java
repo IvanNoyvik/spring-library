@@ -21,7 +21,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "DATE_RECEIVING")
-    private LocalDate dateReceiving;
+    private LocalDate dateReceiving = LocalDate.now();
 
     @Positive( message = "{validation.order.duration.message}")
     @Max(value = 180, message = "{validation.order.duration.message}")

@@ -15,7 +15,7 @@ public interface BookService {
 
     boolean findByTitleAndAuthor(String title, String author);
 
-    Book save(String title, String description, int quantity, String[] genres, String author);
+    Book save(Book book);
 
     Book update(Book book);
 

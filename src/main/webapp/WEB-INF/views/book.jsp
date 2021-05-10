@@ -113,8 +113,8 @@
                                            required="" placeholder="(1-180)in days..."
                                            pattern="^0*[1-9]\d*$"/>
                                 </label>
-                                <input name="bookId" type="hidden" value="${book.id}"/>
-                                <input name="userId" type="hidden" value="${sessionScope.user.id}"/>
+                                <input name="book.id" type="hidden" value="${book.id}"/>
+                                <input name="user.id" type="hidden" value="${sessionScope.user.id}"/>
                                 <input type="submit" value="Add in my library"/>
                             </form>
 

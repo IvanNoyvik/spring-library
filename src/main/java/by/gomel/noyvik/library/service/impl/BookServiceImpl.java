@@ -79,9 +79,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book save(String title, String description, int quantity, String[] genreName, String authorName) {
-
-        if (!bookRepository.existsByTitleAndAuthorAuthor(title, authorName)) {
+    public Book save(Book book) {
+//todo!!!!!!!!!!!!!!!!!!!!!!1
+        if (!bookRepository.existsByTitleAndAuthorAuthor(book.getTitle(), book.getAuthor().getAuthor())) {
 
             try {
                 Book book = new Book(title, description, quantity);

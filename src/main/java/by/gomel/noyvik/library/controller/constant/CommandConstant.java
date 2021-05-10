@@ -2,7 +2,6 @@ package by.gomel.noyvik.library.controller.constant;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public interface CommandConstant {
 
@@ -13,14 +12,9 @@ public interface CommandConstant {
     String REDIRECT_ACTION = "redirect:/";
 
 
-    String COMMAND_PATH = "by.gomel.noyvik.library.controller.commands.%sCommand";
-    String ATTRIBUTE_SETTER_PATH = "by.gomel.noyvik.library.controller.attribute.%sAttributeSetter";
-
-
 
     String LOGIN_REGEX = "[a-zA-Z_0-9]{3,40}";
     String PASSWORD_REGEX = "[a-zA-Z0-9]{1,40}";
-    Pattern LOGIN_PATTERN = Pattern.compile(LOGIN_REGEX);
     //command
 
     //resp message
@@ -64,13 +58,9 @@ public interface CommandConstant {
     //attributes
     // param
     String ID = "id";
-    String COMMAND = "command";
-    String FORWARD = "forward";
-
 
     String ROLE_USER = "User";
     String ROLE_ADMIN = "Administrator";
-
     String USER = "user";
     String USERS = "users";
     String USER_ID = "userId";

@@ -25,8 +25,6 @@ public class BookController {
 
     private final BookService bookService;
     private final UserService userService;
-//    private final OrderService orderService;
-//    private final MessageService messageService;
 
 
     @PostMapping(value = "/editBook")
@@ -36,7 +34,7 @@ public class BookController {
 
         if (br.hasErrors()) {
             List<String> errors = br.getFieldErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
-            return new ModelAndView(EDIT_BOOK_JSP, "errors", errors);
+            return new ModelAndView(REDIRECT_ACTION + EDIT_BOOK_JSP, "errors", errors);
         }
 
         if (user != null && userService.isAdministrator(user)) {
@@ -78,5 +76,38 @@ public class BookController {
         return bookService.findImageById(id);
 
     }
+
+    @PostMapping(value = "/addBook")
+    public ModelAndView addBook(@Valid @ModelAttribute Book book, BindingResult br,
+                                 @SessionAttribute User user) {
+
+//todo !!!!!!!!!!!!1 fagot
+        if (br.hasErrors()) {
+            List<String> errors = br.getFieldErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
+            return new ModelAndView(REDIRECT_ACTION + ADD_BOOK_JSP, "errors", errors);
+        }
+
+        if (user != null && userService.isAdministrator(user)) {
+
+            try {
+
+                bookService.save(book);
+
+            } catch (Exception e) {
+
+                return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), RESPONSE, EDIT_BOOK_FAIL);
+
+            }
+
+            return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), RESPONSE, EDIT_BOOK_OK);
+
+        }
+
+
+        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, ERROR_PROCESS);
+
+
+    }
+
 
 }

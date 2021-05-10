@@ -18,7 +18,7 @@ public interface OrderService  {
 
     boolean userHaveBook(Long bookId, Long userId);
 
-    Order addOrder(Long bookId, Long userId, int duration);
+    Order addOrder(Order order);
 
     boolean returnOrder(Long id, Long bookId);
 }
