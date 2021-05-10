@@ -25,7 +25,8 @@
             </p>
             <c:if test="${requestScope.errors != null}">
                 <c:forEach var="error" items="${requestScope.errors}">
-                    <p><h3 class="error">${error}</h3>
+                    <p>
+                    <h3 class="error">${error}</h3>
                 </c:forEach>
             </c:if>
 

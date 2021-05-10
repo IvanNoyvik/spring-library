@@ -7,12 +7,15 @@ import by.gomel.noyvik.library.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
 
@@ -32,8 +35,8 @@ public class BookController {
 
 
         if (br.hasErrors()) {
-
-//            return setErrorsInModelAndView(br, modelAndView, viewName, EDIT_USER_JSP);
+            List<String> errors = br.getFieldErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
+            return new ModelAndView(EDIT_BOOK_JSP, "errors", errors);
         }
 
         if (user != null && userService.isAdministrator(user)) {

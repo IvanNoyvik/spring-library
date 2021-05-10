@@ -107,7 +107,7 @@
                         <h3>${requestScope.book.quantity} pcs in stock</h3>
 
                         <c:if test="${!empty sessionScope.user and (sessionScope.user.status.status eq 'OK') and !requestScope.haveBook}">
-                            <form accept-charset="UTF-8" action="<c:url value="/addOrder"/>" method="post">
+                            <form accept-charset="UTF-8" action="<c:url value="/getOrder"/>" method="post">
                                 <label>Duration
                                     <input class="duration-main" name="duration" type="text"
                                            required="" placeholder="(1-180)in days..."

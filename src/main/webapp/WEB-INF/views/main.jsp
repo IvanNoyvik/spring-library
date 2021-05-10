@@ -21,8 +21,12 @@
                 <c:if test="${!empty resp and resp != null}">
                     <span class="resp"><c:out value="${resp}"/></span>
                 </c:if>
-
             </p>
+            <c:if test="${requestScope.errors != null}">
+                <c:forEach var="error" items="${requestScope.errors}">
+                    <p><h3 class="error">${error}</h3>
+                </c:forEach>
+            </c:if>
         </div>
 
 
@@ -77,7 +81,7 @@
                             <c:if test="${(book.quantity > 0)}">
                                 <h3>${book.quantity} pcs in stock</h3>
                                 <c:if test="${!empty sessionScope.user and (sessionScope.user.status.status eq 'OK')}">
-                                    <form accept-charset="UTF-8" action="<c:url value="/addOrder"/>" method="post">
+                                    <form accept-charset="UTF-8" action="<c:url value="/getOrder"/>" method="post">
                                         <label>Duration
                                             <input class="duration-main" name="duration" type="text"
                                                    required="" placeholder="(1-180)in days..."

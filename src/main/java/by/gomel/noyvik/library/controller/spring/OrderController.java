@@ -6,12 +6,15 @@ import by.gomel.noyvik.library.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
 
@@ -19,20 +22,18 @@ import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
 @RequiredArgsConstructor
 public class OrderController {
 
-//    private final BookService bookService;
-//    private final UserService userService;
     private final OrderService orderService;
-//    private final MessageService messageService;
 
 
 
-    @PostMapping(value = "/addOrder")
+    @PostMapping(value = "/getOrder")
     public ModelAndView addOrder(@RequestParam("bookId") Long bookId, @RequestParam("userId") Long userId,
                                  @Valid @ModelAttribute Order order, BindingResult br) {
 
 
         if (br.hasErrors()) {
-//            return setErrorsInModelAndView(br, modelAndView, viewName, MAIN_JSP);
+            List<String> errors = br.getFieldErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
+            return new ModelAndView(MAIN_JSP, "errors", errors);
         }
 
         try {
@@ -69,32 +70,5 @@ public class OrderController {
         return new ModelAndView(REDIRECT_ACTION+MAIN_JSP, RESPONSE, RETURN_ORDER_OK);
 
     }
-
-
-
-
-
-
-
-
-
-
-// show books image
-//        long bookId = Long.parseLong(request.getParameter(BOOK_ID));
-//        byte[] image = PROVIDER_SERVICE.getBookService().findImageById(bookId);
-//
-//        if (image != null) {
-//
-//            try (ServletOutputStream outputStream = response.getOutputStream()) {
-//                outputStream.write(image);
-//            }
-//
-//        } else {
-//
-//            response.sendRedirect(request.getContextPath() + NO_IMAGE);
-//        }
-//
-//
-//    }
 
 }
