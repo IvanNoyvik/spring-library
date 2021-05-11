@@ -10,8 +10,8 @@ import java.io.IOException;
 
 import static by.gomel.noyvik.library.util.constant.ApplicationConstant.*;
 
-@WebFilter(urlPatterns = {"/", "/main", "/page/*", "/main/*", "/profile", "/book/*", "/bookContent/*"}, dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD})
-public class BanBlockedFilter implements Filter {
+@WebFilter(urlPatterns = {"/getOrder"}, dispatcherTypes = {DispatcherType.REQUEST})
+public class LimitedUserFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -26,8 +26,9 @@ public class BanBlockedFilter implements Filter {
         if (session != null) {
 
             User user = (User) session.getAttribute(USER);
-            if (user != null && user.getStatus().getStatus().equals(LOCKED)) {
-                request.getServletContext().getRequestDispatcher("/" + BLOCK_JSP).forward(request, response);
+            if (user != null && user.getStatus().getStatus().equals(LIMITED)) {
+                request.setAttribute(RESPONSE, "You can't take the book");
+                request.getServletContext().getRequestDispatcher("/" + MAIN_JSP).forward(request, response);
             }
 
         }

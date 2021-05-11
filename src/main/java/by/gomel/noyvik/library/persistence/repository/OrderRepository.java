@@ -19,11 +19,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("from Order o left join fetch o.user u left join fetch u.status join fetch u.authenticate left join fetch o.book")
     List<Order> findAllWithUserAuthenticateAndBook();
 
-
-//    List<Order> findAllOverdueOrder();
-
-//    boolean findByBookIdAndUserId(Long bookId, Long userId);
-
     boolean existsByBookIdAndUserId(Long bookId, Long userId);
 
     List<Order> findByUserIdAndDateReceivingBefore(Long userId, LocalDate date);

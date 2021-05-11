@@ -12,8 +12,6 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<User, Long> {
 
 
-//    List<Object[]> findAllWithOrder();
-
     @Query("from User u left join fetch u.authenticate a left join fetch u.status left join fetch u.roles " +
             "where a.login = :login and a.password = :password")
     User findByLoginAndPassword(@Param("login") String login, @Param("password") String password);
@@ -32,9 +30,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("from User u join fetch u.authenticate left join fetch u.messages left join fetch u.status left join fetch u.orders" +
             " left join fetch u.roles where u.id = :userId")
     User findFullUserById(@Param("userId") Long userId);
-
-//    User changeStatus(User user, String status, int duration);
-
-//    User changeStatus(Long userId, String status, int duration);
 
 }

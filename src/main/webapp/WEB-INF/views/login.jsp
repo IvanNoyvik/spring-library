@@ -88,14 +88,16 @@
                     </c:if>
                     <c:if test="${requestScope.errors != null}">
                         <c:forEach var="error" items="${requestScope.errors}">
-                            <p><h3 class="error">${error}</h3>
+                            <p>
+                            <h3 class="error">${error}</h3>
                         </c:forEach>
                     </c:if>
                 </div>
 
                 <div class="login100-form-social flex-c-m">
 
-                    <li><a href="<c:url value="/page/registration"/>" class="login100-form-social-item flex-c-m bg1 m-r-5">Registration</a>
+                    <li><a href="<c:url value="/page/registration"/>"
+                           class="login100-form-social-item flex-c-m bg1 m-r-5">Registration</a>
                     </li>
 
                     <li><a href="<c:url value="/main"/>" class="login100-form-social-item flex-c-m bg2 m-r-5">Back to

@@ -8,8 +8,6 @@ import java.util.Map;
 public interface UserService {
 
 
-
-
     User login(Authenticate authenticate);
 
     boolean isExists(String login);
@@ -20,8 +18,6 @@ public interface UserService {
 
     boolean isAdministrator(User user);
 
-//    User registration(String login, String password, String name, String email);
-//
     Map<User, Integer> findUserWithCountOverdueOrder();
 
     void deleteById(Long id);

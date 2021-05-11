@@ -18,7 +18,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Message> findAll() {
-       return messageRepository.findAllWithUserLink();
+        return messageRepository.findAllWithUserLink();
     }
 
     @Override

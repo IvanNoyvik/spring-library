@@ -62,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
 
             order = orderRepository.save(order);
 
-            bookRepository.changeQuantityByBookId(bookId,-1);
+            bookRepository.changeQuantityByBookId(bookId, -1);
 
             return order;
 

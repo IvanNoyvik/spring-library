@@ -23,10 +23,9 @@ public class Order {
     @Column(name = "DATE_RECEIVING")
     private LocalDate dateReceiving = LocalDate.now();
 
-    @Positive( message = "{validation.order.duration.message}")
+    @Positive(message = "{validation.order.duration.message}")
     @Max(value = 180, message = "{validation.order.duration.message}")
     private int duration;
-
 
 
     @ManyToOne(fetch = FetchType.LAZY)

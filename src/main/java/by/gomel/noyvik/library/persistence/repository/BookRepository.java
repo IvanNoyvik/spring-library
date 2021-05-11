@@ -16,8 +16,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("select b.image from Book b where b.id = :id")
     byte[] findImageById(@Param("id") Long id);
 
-//    void addImage(Long id, byte[] image);
-
 
     @Query("from Book b left join fetch b.author")
     @Override
@@ -28,7 +26,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Modifying
     @Transactional
     @Query("update Book b set b.quantity = (b.quantity + :quantity) where b.id = :id")
-    void changeQuantityByBookId(@Param("id") Long id,@Param("quantity") int quantity);
+    void changeQuantityByBookId(@Param("id") Long id, @Param("quantity") int quantity);
 
 
     @Override

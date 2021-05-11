@@ -18,13 +18,13 @@ public class GenreController {
     private final GenreService genreService;
 
     @PostMapping("addGenre")
-    public ModelAndView addGenre(@ModelAttribute Genre genre){
+    public ModelAndView addGenre(@ModelAttribute Genre genre) {
 
         try {
 
             genreService.addGenre(genre);
 
-        }catch (ServiceException e){
+        } catch (ServiceException e) {
 
             return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, GENRE_EXISTS);
         } catch (Exception e) {

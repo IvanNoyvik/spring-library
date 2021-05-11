@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="text" name="email" >
+                    <input class="input100" type="text" name="email">
                     <span class="focus-input100"></span>
                     <span class="label-input100">New email</span>
 
@@ -70,7 +70,8 @@
                 <div class="login100-form-social flex-c-m">
                     <c:if test="${requestScope.errors != null}">
                         <c:forEach var="error" items="${requestScope.errors}">
-                            <p/><h3 class="error">${error}</h3>
+                            <p/>
+                            <h3 class="error">${error}</h3>
                         </c:forEach>
                     </c:if>
 

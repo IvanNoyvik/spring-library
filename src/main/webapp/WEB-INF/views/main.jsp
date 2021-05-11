@@ -24,7 +24,8 @@
             </p>
             <c:if test="${requestScope.errors != null}">
                 <c:forEach var="error" items="${requestScope.errors}">
-                    <p><h3 class="error">${error}</h3>
+                    <p>
+                    <h3 class="error">${error}</h3>
                 </c:forEach>
             </c:if>
         </div>
@@ -65,12 +66,12 @@
                                          height="100"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template" width="100"
+                                    <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template"
+                                         width="100"
                                          height="100"/>
                                 </c:otherwise>
                             </c:choose>
                         </div>
-
 
 
                         <div class="product_info">
@@ -105,7 +106,7 @@
 
                 </c:forEach>
 
-                <c:forEach var="page" begin="1" end="${requestScope.countPage}" >
+                <c:forEach var="page" begin="1" end="${requestScope.countPage}">
                     <a href="<c:url value="/main/${page-1}"/>">${page}</a>
                 </c:forEach>
 

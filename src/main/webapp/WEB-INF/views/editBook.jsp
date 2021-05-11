@@ -24,7 +24,8 @@
             </p>
             <c:if test="${requestScope.errors != null}">
                 <c:forEach var="error" items="${requestScope.errors}">
-                    <p><h3 class="error">${error}</h3>
+                    <p>
+                    <h3 class="error">${error}</h3>
                 </c:forEach>
             </c:if>
         </div>
@@ -62,11 +63,13 @@
                         <div>
                             <c:choose>
                                 <c:when test="${!empty requestScope.book.image}">
-                                    <img src="<c:url value="/getImage/${requestScope.book.id}"/>" alt="CSS Template" width="100"
+                                    <img src="<c:url value="/getImage/${requestScope.book.id}"/>" alt="CSS Template"
+                                         width="100"
                                          height="100"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template" width="100"
+                                    <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template"
+                                         width="100"
                                          height="100"/>
                                 </c:otherwise>
                             </c:choose>

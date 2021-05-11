@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -58,29 +58,29 @@
         <div class="wrap-login100">
             <form class="login100-form validate-form" action="<c:url value="/registration"/>" method="post">
 					<span class="login100-form-title p-b-43">
-						Login to continue
+						Registration to continue
 					</span>
 
                 <div class="wrap-input100 validate-input" data-validate="Valid login is: aBv3_09c">
-                    <input class="input100" type="text" name="login" <%--pattern="[A-Za-z_0-9]{3,40}"--%>>
+                    <input class="input100" type="text" name="login" pattern="[A-Za-z_0-9]{3,40}">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Login</span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" name="password" <%--pattern="[A-Za-z0-9]{1,40}"--%>>
+                    <input class="input100" type="password" name="password" pattern="[A-Za-z0-9]{1,40}">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Password</span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="name is required">
-                    <input class="input100" type="text" name="name" <%--pattern="[A-Za-zА-Яа-яЁё0-9]{3,40}"--%>>
+                    <input class="input100" type="text" name="name">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Name</span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="text" name="email" >
+                    <input class="input100" type="text" name="email">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Email</span>
                 </div>
@@ -95,7 +95,8 @@
                     </c:if>
                     <c:if test="${requestScope.errors != null}">
                         <c:forEach var="error" items="${requestScope.errors}">
-                            <p><h3 class="error">${error}</h3>
+                            <p>
+                            <h3 class="error">${error}</h3>
                         </c:forEach>
                     </c:if>
                 </div>

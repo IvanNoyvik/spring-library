@@ -1,16 +1,11 @@
 package by.gomel.noyvik.library.util.constant;
 
-import java.util.Arrays;
-import java.util.List;
-
 public interface ApplicationConstant {
 
     String POSTFIX = ".jsp";
     String PREFIX = "/";
-    String TARGET = "target";
     String RESPONSE = "resp";
     String REDIRECT_ACTION = "redirect:/";
-
 
 
     String LOGIN_REGEX = "[a-zA-Z_0-9]{3,40}";
@@ -49,9 +44,7 @@ public interface ApplicationConstant {
     String EDIT_BOOK_OK = "Book changed";
     String EDIT_BOOK_FAIL = "Failed to change data";
     String BLOCK = "Your account is blocked";
-    String UNKNOWN_COMMAND = "UNKNOWN_COMMAND";
     String ERROR_PROCESS = "Incorrect or unsupported operations";
-    String UNKNOWN_OPERATION = "Unknown or unsupported operations";
     String INVALID_DATA = "You entered invalid data";
 
 
@@ -63,41 +56,23 @@ public interface ApplicationConstant {
     String ROLE_ADMIN = "Administrator";
     String USER = "user";
     String USERS = "users";
-    String USER_ID = "userId";
-    String LOGIN = "login";
-    String PASSWORD = "password";
-    String NAME = "name";
-    String EMAIL = "email";
 
     String MESSAGES = "messages";
 
     String BOOKS = "books";
     String BOOK = "book";
-    String BOOK_ID = "bookId";
     String HAVE_BOOK = "haveBook";
-    String TITLE = "title";
-    String GENRE = "genre";
     String GENRES = "genres";
-    String AUTHOR = "author";
     String AUTHORS = "authors";
-    String QUANTITY = "quantity";
-    String IMAGE = "image";
-//    String NO_IMAGE = "/static/main/images/no_image.png";
+    //    String NO_IMAGE = "/static/main/images/no_image.png";
 //    String NO_IMAGE = "/../../static/main/images/no_image.png";
     String NO_IMAGE = "/image/no_image.png";
-    String DESCRIPTION = "description";
 
     String ORDERS = "orders";
-    String DAYS = "days";
-    String CONTEXT = "context";
 
-    String STATUS = "status";
     String OK = "OK";
     String LIMITED = "Limited";
     String LOCKED = "Locked";
-    List<String> STATUSES = Arrays.asList(OK, LIMITED, LOCKED);
-    String DURATION = "duration";
-
 
 
     //JSP
@@ -114,7 +89,6 @@ public interface ApplicationConstant {
     String BOOK_CONTENT_JSP = "bookContent";
     String ERROR_JSP = "error";
     String PAGE = "page/";
-
 
 
 }

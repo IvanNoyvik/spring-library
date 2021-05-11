@@ -39,7 +39,8 @@
 
                 <h1>${requestScope.book.title} <span>(${requestScope.book.author.author})</span></h1>
                 <h2>
-                    <c:out value="O_ops... The contents have gone somewhere. Maybe it's "/>        <a style="color: #3b5998" href="https://oz.by"><strong>here</strong></a>
+                    <c:out value="O_ops... The contents have gone somewhere. Maybe it's "/> <a style="color: #3b5998"
+                                                                                               href="https://oz.by"><strong>here</strong></a>
                 </h2>
             </c:if>
 

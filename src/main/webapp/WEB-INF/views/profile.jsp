@@ -70,11 +70,13 @@
                         <div>
                             <c:choose>
                                 <c:when test="${!empty order.book.image}">
-                                    <img src="<c:url value="/getImage/${order.book.id}"/>" alt="CSS Template" width="100"
+                                    <img src="<c:url value="/getImage/${order.book.id}"/>" alt="CSS Template"
+                                         width="100"
                                          height="100"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template" width="100"
+                                    <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template"
+                                         width="100"
                                          height="100"/>
                                 </c:otherwise>
                             </c:choose>
@@ -102,11 +104,11 @@
 
                             </c:if>
 
-<%--                            <div class="detail_button">--%>
-<%--                                <a--%>
-<%--                                &lt;%&ndash;                                        todo ReturnOrder&ndash;%&gt;--%>
-<%--                                    href="<c:url value="/returnOrder?id=${order.id}"/>">Return</a>--%>
-<%--                            </div>--%>
+                                <%--                            <div class="detail_button">--%>
+                                <%--                                <a--%>
+                                <%--                                &lt;%&ndash;                                        todo ReturnOrder&ndash;%&gt;--%>
+                                <%--                                    href="<c:url value="/returnOrder?id=${order.id}"/>">Return</a>--%>
+                                <%--                            </div>--%>
                             <div class="detail_button">
                                 <form action="<c:url value="/returnOrder"/>" method="post">
                                     <input type="hidden" value="${order.id}" name="id"/>

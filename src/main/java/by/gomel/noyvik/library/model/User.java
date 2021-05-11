@@ -54,9 +54,6 @@ public class User {
 
     }
 
-//    public User (String name, String email){
-//     todo
-//    }
 
     public void addAuthenticate(Authenticate authenticate) {
         this.authenticate = authenticate;

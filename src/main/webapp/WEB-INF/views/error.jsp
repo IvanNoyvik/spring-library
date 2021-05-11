@@ -18,13 +18,16 @@
 
     <div id="templatemo_header">
         <div id="templatemo_special_offers">
-            <p> <h2>System error</h2>
+            <p>
+            <h2>System error</h2>
         </div>
 
 
         <div id="templatemo_new_books">
-            <p> <h3>Try again or</h3>
-            <p> <h3>sent message to admin</h3>
+            <p>
+            <h3>Try again or</h3>
+            <p>
+            <h3>sent message to admin</h3>
             <li><a href="<c:url value="/main"/>" class="current">Return to main</a></li>
         </div>
     </div>
