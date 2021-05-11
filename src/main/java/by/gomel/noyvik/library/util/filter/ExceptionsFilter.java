@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-import static by.gomel.noyvik.library.controller.constant.CommandConstant.ERROR_JSP;
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.ERROR_JSP;
 
 @WebFilter(urlPatterns = "/*", dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ERROR})
 public class ExceptionsFilter implements Filter {

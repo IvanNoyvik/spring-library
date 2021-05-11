@@ -1,12 +1,10 @@
-package by.gomel.noyvik.library.controller.spring;
+package by.gomel.noyvik.library.controller;
 
 import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Authenticate;
 import by.gomel.noyvik.library.model.User;
 import by.gomel.noyvik.library.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -21,17 +19,13 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.*;
 
 @Controller
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-    @Autowired
-    protected MessageSource messageSource;
-
 
     @PostMapping(value = "/registration")
     public ModelAndView registration(@Valid @ModelAttribute User user, @Valid @ModelAttribute Authenticate authenticate, BindingResult br) {

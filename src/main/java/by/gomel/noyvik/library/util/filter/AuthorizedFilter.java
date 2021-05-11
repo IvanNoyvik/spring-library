@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.*;
 
 @WebFilter(urlPatterns = {"/editBook/*", "/admin", "/addBook"}, dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD})
 public class AuthorizedFilter implements Filter {

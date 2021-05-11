@@ -67,20 +67,10 @@
 
                         <h1>${order.book.title} (${order.book.author.author}) </h1>
 
-<%--                        <c:url value="/front" var="image">--%>
-<%--                            <c:param name="bookId" value="${order.book.id}"/>--%>
-<%--                            <c:param name="command" value="GetImage"/>--%>
-<%--                        </c:url>--%>
-<%--                        <div>--%>
-<%--                            <img src="${image}" alt="CSS Template" width="100"--%>
-<%--                                 height="100"/>--%>
-<%--                        </div>--%>
-
-                            <%--todo проверіть работаетлі без запроса, when be image--%>
                         <div>
                             <c:choose>
                                 <c:when test="${!empty order.book.image}">
-                                    <img src="${order.book.image}" alt="CSS Template" width="100"
+                                    <img src="<c:url value="/getImage/${order.book.id}"/>" alt="CSS Template" width="100"
                                          height="100"/>
                                 </c:when>
                                 <c:otherwise>

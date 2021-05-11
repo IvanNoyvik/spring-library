@@ -1,6 +1,5 @@
 package by.gomel.noyvik.library.service.impl;
 
-import by.gomel.noyvik.library.exception.DaoPartException;
 import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Author;
 import by.gomel.noyvik.library.model.Book;
@@ -22,8 +21,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import static by.gomel.noyvik.library.controller.constant.CommandConstant.NO_IMAGE;
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.BOOK_EXISTS;
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.NO_IMAGE;
 
 @Service
 @RequiredArgsConstructor
@@ -55,7 +56,7 @@ public class BookServiceImpl implements BookService {
             //todo evaluate work, but NPE (newer use)
             try (InputStream in = getClass().getResourceAsStream(NO_IMAGE)) {
                 return IOUtils.toByteArray(in);
-            }catch (Exception e) {
+            } catch (Exception e) {
                 throw new ServiceException(e);
             }
         }
@@ -79,24 +80,34 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Modifying
+    @Transactional
     public Book save(Book book) {
-//todo!!!!!!!!!!!!!!!!!!!!!!1
+
         if (!bookRepository.existsByTitleAndAuthorAuthor(book.getTitle(), book.getAuthor().getAuthor())) {
 
-            try {
-                Book book = new Book(title, description, quantity);
-                Author author = authorRepository.findByAuthor(authorName);
-                book.setAuthor(author);
-//                return bookRepository.save(book, genreName);
-                return null;
-            } catch (DaoPartException e) {
-                throw new SecurityException();
+            Author author = authorRepository.findByAuthor(book.getAuthor().getAuthor());
+            book.setAuthor(author);
+
+            if (book.getGenres().size() == 1) {
+
+                Genre genre = genreRepository.findByGenre(book.getGenres().stream().findFirst().orElseThrow(ServiceException::new).getGenre());
+                book.getGenres().clear();
+                book.addGenre(genre);
+
+            } else {
+
+                switchGenres(book);
             }
+
+            return bookRepository.save(book);
+
         } else {
-            return null;
+            throw new ServiceException(BOOK_EXISTS);
         }
 
     }
+
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
@@ -114,7 +125,7 @@ public class BookServiceImpl implements BookService {
             }
 
 
-            if (oldBook.getGenres().containsAll(book.getGenres())) {
+            if (oldBook.getGenres().equals(book.getGenres())) {
                 book.setGenres(oldBook.getGenres());
             } else {
 //todo show Anton
@@ -125,20 +136,9 @@ public class BookServiceImpl implements BookService {
                     }
                 }
 
-                List<Genre> allGenre = genreRepository.findAll();
-                String[] newGenreInString = book.getGenres().stream().map(Genre::getGenre).toArray(String[]::new);
-                book.setGenres(new HashSet<>());
-
-                for (Genre genre : allGenre) {
-                    for (String genreStr : newGenreInString) {
-                        if (genreStr.equals(genre.getGenre())) {
-                            book.addGenre(genre);//todo when add genre do BD req
-                            break;
-                        }
-                    }
-                }
+                switchGenres(book);
             }
-
+            book.setImage(oldBook.getImage());
             return bookRepository.save(book);
 
         } catch (Exception e) {
@@ -151,5 +151,20 @@ public class BookServiceImpl implements BookService {
     public Book findBookById(Long bookId) {
 
         return bookRepository.findFullBookById(bookId);
+    }
+
+    private void switchGenres(Book book) {
+        List<Genre> allGenre = genreRepository.findAll();
+        Set<Genre> newGenres = book.getGenres();
+        book.setGenres(new HashSet<>());
+
+        for (Genre genre : allGenre) {
+            for (Genre newGenre : newGenres) {
+                if (newGenre.equals(genre)) {
+                    book.addGenre(genre);//todo when add genre do BD req
+                    break;
+                }
+            }
+        }
     }
 }

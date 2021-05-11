@@ -1,4 +1,4 @@
-package by.gomel.noyvik.library.controller.spring;
+package by.gomel.noyvik.library.controller;
 
 import by.gomel.noyvik.library.model.Message;
 import by.gomel.noyvik.library.service.MessageService;
@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.*;
 
 @Controller
 @RequiredArgsConstructor

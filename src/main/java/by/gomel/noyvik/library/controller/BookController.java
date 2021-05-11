@@ -1,4 +1,4 @@
-package by.gomel.noyvik.library.controller.spring;
+package by.gomel.noyvik.library.controller;
 
 import by.gomel.noyvik.library.model.Book;
 import by.gomel.noyvik.library.model.User;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.*;
 
 @Controller
 @RequiredArgsConstructor

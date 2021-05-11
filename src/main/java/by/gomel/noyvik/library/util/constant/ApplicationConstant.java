@@ -1,9 +1,9 @@
-package by.gomel.noyvik.library.controller.constant;
+package by.gomel.noyvik.library.util.constant;
 
 import java.util.Arrays;
 import java.util.List;
 
-public interface CommandConstant {
+public interface ApplicationConstant {
 
     String POSTFIX = ".jsp";
     String PREFIX = "/";

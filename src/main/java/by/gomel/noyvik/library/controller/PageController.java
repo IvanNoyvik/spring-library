@@ -1,8 +1,7 @@
-package by.gomel.noyvik.library.controller.spring;
+package by.gomel.noyvik.library.controller;
 
 import by.gomel.noyvik.library.model.*;
 import by.gomel.noyvik.library.service.*;
-import by.gomel.noyvik.library.util.CurrentDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
-import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,7 +22,6 @@ public class PageController {
     private final BookService bookService;
     private final UserService userService;
     private final OrderService orderService;
-    private final RoleService roleService;//todo listener
     private final MessageService messageService;
     private final GenreService genreService;
     private final AuthorService authorService;
@@ -59,13 +57,6 @@ public class PageController {
     public ModelAndView mainPage(HttpServletRequest request) {
 
         ModelAndView modelAndView = new ModelAndView(MAIN_JSP);
-
-
-        if (request.getServletContext().getAttribute("now") == null) {
-            request.getServletContext().setAttribute("now", new CurrentDate());
-            request.getServletContext().setAttribute("admin", roleService.getRole(ROLE_ADMIN));
-        } //todo listener
-
 
         Page<Book> pageBooks = bookService.findPageBooks(0);
         int countPage = pageBooks.getTotalPages();

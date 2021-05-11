@@ -1,6 +1,5 @@
 package by.gomel.noyvik.library.service.impl;
 
-import by.gomel.noyvik.library.exception.DaoPartException;
 import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Authenticate;
 import by.gomel.noyvik.library.model.Role;
@@ -19,7 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.*;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +29,6 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final OrderRepository orderRepository;
     private final MessageRepository messageRepository;
-
 
 
     @Override
@@ -53,13 +51,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isExists(String login) {
-        User user;
-        try {
 
-            user = userRepository.findByAuthenticateLogin(login);
-        } catch (DaoPartException e) {
-            throw new ServiceException(e);
-        }
+        User user = userRepository.findByAuthenticateLogin(login);
         return user != null;
     }
 
@@ -139,7 +132,7 @@ public class UserServiceImpl implements UserService {
                     user.getOrders().clear();
                 }
 
-                if (status.equals(OK) && !user.getMessages().isEmpty()){
+                if (status.equals(OK) && !user.getMessages().isEmpty()) {
                     messageRepository.removeAllByUserId(userId);
                     user.getMessages().clear();
                 }
@@ -152,10 +145,6 @@ public class UserServiceImpl implements UserService {
                 userRepository.save(user);
 
             }
-        } catch (DaoPartException e) {
-
-            return false;
-
         } catch (Exception e) {
             throw new ServiceException(e);
         }

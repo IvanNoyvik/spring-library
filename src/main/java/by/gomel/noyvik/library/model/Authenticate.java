@@ -7,8 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
-import static by.gomel.noyvik.library.controller.constant.CommandConstant.LOGIN_REGEX;
-import static by.gomel.noyvik.library.controller.constant.CommandConstant.PASSWORD_REGEX;
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.LOGIN_REGEX;
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.PASSWORD_REGEX;
 
 @NoArgsConstructor
 @Setter

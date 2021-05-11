@@ -1,4 +1,4 @@
-package by.gomel.noyvik.library.controller.spring;
+package by.gomel.noyvik.library.controller;
 
 import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Author;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import static by.gomel.noyvik.library.controller.constant.CommandConstant.*;
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.*;
 
 @Controller
 @RequiredArgsConstructor
