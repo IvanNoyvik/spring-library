@@ -1,5 +1,6 @@
 package by.gomel.noyvik.library.controller;
 
+import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Book;
 import by.gomel.noyvik.library.model.User;
 import by.gomel.noyvik.library.service.BookService;
@@ -13,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,32 +46,31 @@ public class BookController {
             } catch (Exception e) {
 
                 return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), RESPONSE, EDIT_BOOK_FAIL);
-
             }
-
             return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), RESPONSE, EDIT_BOOK_OK);
-
         }
 
-
         return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, ERROR_PROCESS);
-
-
     }
 
 
     @PostMapping("/addImage")
     public ModelAndView addImage(@RequestParam Long id, @RequestParam("image") MultipartFile image) {
 
-        bookService.addImage(id, image);
+        try {
+
+            bookService.addImage(id, image);
+        } catch (ServiceException e){
+            return new ModelAndView(REDIRECT_ACTION + EDIT_BOOK_JSP + "/" + id, RESPONSE, EDIT_BOOK_FAIL);
+        }
 
         return new ModelAndView(REDIRECT_ACTION + EDIT_BOOK_JSP + "/" + id, RESPONSE, EDIT_BOOK_OK);
-
     }
 
 
     @GetMapping("/getImage/{id}")
-    public @ResponseBody byte[] getImage(@PathVariable Long id) throws IOException {
+    public @ResponseBody
+    byte[] getImage(@PathVariable Long id) {
 
         return bookService.findImageById(id);
 
@@ -79,9 +78,8 @@ public class BookController {
 
     @PostMapping(value = "/addBook")
     public ModelAndView addBook(@Valid @ModelAttribute Book book, BindingResult br,
-                                 @SessionAttribute User user) {
+                                @SessionAttribute User user) {
 
-//todo !!!!!!!!!!!!1 fagot
         if (br.hasErrors()) {
             List<String> errors = br.getFieldErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
             return new ModelAndView(REDIRECT_ACTION + ADD_BOOK_JSP, "errors", errors);
@@ -90,24 +88,15 @@ public class BookController {
         if (user != null && userService.isAdministrator(user)) {
 
             try {
-
                 bookService.save(book);
-
             } catch (Exception e) {
 
                 return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), RESPONSE, EDIT_BOOK_FAIL);
-
             }
 
             return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), RESPONSE, EDIT_BOOK_OK);
-
         }
 
-
         return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, ERROR_PROCESS);
-
-
     }
-
-
 }

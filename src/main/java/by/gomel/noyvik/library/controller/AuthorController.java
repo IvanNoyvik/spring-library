@@ -18,23 +18,17 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @PostMapping("addAuthor")
-    public ModelAndView addAuthor(@ModelAttribute Author author){
+    public ModelAndView addAuthor(@ModelAttribute Author author) {
 
         try {
-
             authorService.addAuthor(author);
-        }catch (ServiceException e){
 
+        } catch (ServiceException e) {
             return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, AUTHOR_EXISTS);
-
         } catch (Exception e) {
-
             return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, ADD_AUTHOR_FAIL);
-
         }
-
         return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, ADD_AUTHOR_OK);
-
     }
 
 }

@@ -34,5 +34,4 @@ public class MessageController {
         return new ModelAndView(REDIRECT_ACTION + BLOCK_JSP);
 
     }
-
 }

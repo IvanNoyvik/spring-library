@@ -24,8 +24,6 @@ public class OrderController {
 
     private final OrderService orderService;
 
-
-
     @PostMapping(value = "/getOrder")
     public ModelAndView addOrder(@Valid @ModelAttribute Order order, BindingResult br) {
 

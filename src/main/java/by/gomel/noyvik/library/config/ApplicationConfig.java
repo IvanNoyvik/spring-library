@@ -9,26 +9,10 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 @ComponentScan("by.gomel.noyvik.library.config")
 public class ApplicationConfig {
 
-//    @Bean
-//    public MessageSource messageSource() {
-//        ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-//        source.setBasename("messages");
-//        return source;
-//    }
-//
-//    @Bean
-//    public Validator getValidator() {
-//        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
-//        validator.setValidationMessageSource(messageSource());
-//        return validator;
-//
-//    }
 
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-//        multipartResolver.setMaxUploadSize(100000);
-        return multipartResolver;
+        return new CommonsMultipartResolver();
     }
 
 

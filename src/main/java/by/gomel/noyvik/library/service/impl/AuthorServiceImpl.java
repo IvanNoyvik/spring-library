@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.AUTHOR_EXISTS;
+
 @Service
 @RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
@@ -21,14 +23,13 @@ public class AuthorServiceImpl implements AuthorService {
         if (!isExists(author.getAuthor())) {
             authorRepository.save(author);
         } else {
-            throw new ServiceException();
+            throw new ServiceException(AUTHOR_EXISTS);
         }
     }
 
 
     @Override
     public boolean isExists(String authorStr) {
-
         return authorRepository.findByAuthor(authorStr) != null;
     }
 

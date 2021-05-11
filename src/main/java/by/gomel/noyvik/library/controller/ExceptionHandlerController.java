@@ -10,7 +10,6 @@ import static by.gomel.noyvik.library.util.constant.ApplicationConstant.*;
 @ControllerAdvice
 public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 
-
     @ExceptionHandler(value = {Exception.class})
     protected ModelAndView handleConflict() {
         return new ModelAndView(ERROR_JSP);

@@ -13,7 +13,7 @@ public interface BookService {
 
     void addImage(Long id, MultipartFile file);
 
-    boolean findByTitleAndAuthor(String title, String author);
+    boolean isExists(String title, String author);
 
     Book save(Book book);
 

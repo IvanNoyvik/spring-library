@@ -74,7 +74,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean findByTitleAndAuthor(String title, String author) {
+    public boolean isExists(String title, String author) {
 
         return !title.isEmpty() && !author.isEmpty() && bookRepository.existsByTitleAndAuthorAuthor(title, author);
     }
@@ -84,7 +84,7 @@ public class BookServiceImpl implements BookService {
     @Transactional
     public Book save(Book book) {
 
-        if (!bookRepository.existsByTitleAndAuthorAuthor(book.getTitle(), book.getAuthor().getAuthor())) {
+        if (!isExists(book.getTitle(), book.getAuthor().getAuthor())) {
 
             Author author = authorRepository.findByAuthor(book.getAuthor().getAuthor());
             book.setAuthor(author);

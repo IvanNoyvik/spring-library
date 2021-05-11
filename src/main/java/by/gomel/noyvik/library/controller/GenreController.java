@@ -27,16 +27,11 @@ public class GenreController {
         }catch (ServiceException e){
 
             return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, GENRE_EXISTS);
-
-
         } catch (Exception e) {
 
             return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, ADD_GENRE_FAIL);
-
         }
 
         return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, ADD_GENRE_OK);
-
     }
-
 }
