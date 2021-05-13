@@ -30,7 +30,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
 
     @Override
-    @Query(value = "SELECT b FROM Book b LEFT JOIN FETCH b.author",
+    @Query(value = "from Book b left join fetch b.author",
             countQuery = "select count(b) from Book b")
     Page<Book> findAll(Pageable pageable);
 

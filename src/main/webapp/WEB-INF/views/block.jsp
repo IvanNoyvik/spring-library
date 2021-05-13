@@ -45,6 +45,18 @@
 
         <div id="templatemo_content_left">
             <div class="templatemo_content_left_section">
+                <h1>Your messages</h1>
+                <c:if test="${!empty requestScope.messages}">
+                    <c:forEach items="${requestScope.messages}" var="mess">
+                        <div class="templatemo_product_box">
+                            <span style="font-size:13px; font-style: italic">${mess.dateSent}:</span>
+                            <div class="product_info">
+                                    ${mess.content}
+                            </div>
+                        </div>
+
+                    </c:forEach>
+                </c:if>
 
             </div>
             <div class="templatemo_content_left_section">

@@ -3,7 +3,7 @@ package by.gomel.noyvik.library.service;
 import by.gomel.noyvik.library.model.Authenticate;
 import by.gomel.noyvik.library.model.User;
 
-import java.util.Map;
+import java.util.List;
 
 public interface UserService {
 
@@ -12,15 +12,13 @@ public interface UserService {
 
     boolean isExists(String login);
 
-    User createNewUser(User user);
+    void createNewUser(User user);
 
-    User updateUser(User userForUpdate);
+    void updateUser(User userForUpdate);
 
-    boolean isAdministrator(User user);
-
-    Map<User, Integer> findUserWithCountOverdueOrder();
+    List<User> findAllUserWithOrder();
 
     void deleteById(Long id);
 
-    boolean changeStatus(Long userId, String status, int duration);
+    void changeStatus(Long userId, String status, int duration);
 }

@@ -45,11 +45,19 @@
         <div id="templatemo_content_left">
 
             <div class="templatemo_content_left_section">
-                <c:if test="${sessionScope.user.roles.contains(applicationScope.admin)}">
-                    <div class="buy_now_button"><a class="buy_now_button"
-                                                   href="<c:url value="/admin"/>">Admin panel</a>
-                    </div>
+                <h1>Your messages</h1>
+                <c:if test="${!empty requestScope.messages}">
+                    <c:forEach items="${requestScope.messages}" var="mess">
+                        <div class="templatemo_product_box">
+                            <span style="font-size:13px; font-style: italic">${mess.dateSent}:</span>
+                            <div class="product_info">
+                                    ${mess.content}
+                            </div>
+                        </div>
+
+                    </c:forEach>
                 </c:if>
+
             </div>
 
             <div class="templatemo_content_left_section"></div>
@@ -104,11 +112,6 @@
 
                             </c:if>
 
-                                <%--                            <div class="detail_button">--%>
-                                <%--                                <a--%>
-                                <%--                                &lt;%&ndash;                                        todo ReturnOrder&ndash;%&gt;--%>
-                                <%--                                    href="<c:url value="/returnOrder?id=${order.id}"/>">Return</a>--%>
-                                <%--                            </div>--%>
                             <div class="detail_button">
                                 <form action="<c:url value="/returnOrder"/>" method="post">
                                     <input type="hidden" value="${order.id}" name="id"/>

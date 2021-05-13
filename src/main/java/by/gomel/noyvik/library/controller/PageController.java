@@ -7,11 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 import static by.gomel.noyvik.library.util.constant.ApplicationConstant.*;
 
@@ -79,10 +79,9 @@ public class PageController {
     }
 
     @GetMapping("/profile")
-    public ModelAndView profilePage(HttpServletRequest request) {
+    public ModelAndView profilePage(@SessionAttribute User user, HttpServletRequest request) {
 
         ModelAndView modelAndView = new ModelAndView(PROFILE_JSP);
-        User user = (User) request.getSession().getAttribute(USER);
 
         if (user == null) {
             modelAndView.addObject(RESPONSE, ERROR_PROCESS);
@@ -93,6 +92,9 @@ public class PageController {
         Long userId = user.getId();
         List<Order> orders = orderService.findByUserId(userId);
         modelAndView.addObject(ORDERS, orders);
+
+        List<Message> messages = messageService.findAllByUserId(userId);
+        request.setAttribute(MESSAGES, messages);
 
         setResp(modelAndView, request);
         return modelAndView;
@@ -113,7 +115,7 @@ public class PageController {
             boolean haveBook = orderService.userHaveBook(bookId, user.getId());
             request.setAttribute(HAVE_BOOK, haveBook);
 
-            if (userService.isAdministrator(user)) {
+            if (user.isAdministrator()) {
                 List<Order> orders = orderService.findByBookId(bookId);
                 request.setAttribute(ORDERS, orders);
 
@@ -175,13 +177,13 @@ public class PageController {
         ModelAndView modelAndView = new ModelAndView(ADMIN_JSP);
 
         User user = (User) request.getSession().getAttribute(USER);
-        if (user != null && userService.isAdministrator(user)) {
+        if (user != null && user.isAdministrator()) {
 
             List<Order> orders = orderService.findAllOverdueOrder();
             request.setAttribute(ORDERS, orders);
 
-            Map<User, Integer> userWithCountOverdueOrder = userService.findUserWithCountOverdueOrder();
-            request.setAttribute(USERS, userWithCountOverdueOrder);
+            List<User> usersWithOrder = userService.findAllUserWithOrder();
+            request.setAttribute(USERS, usersWithOrder);
 
             List<Message> messages = messageService.findAll();
             request.setAttribute(MESSAGES, messages);
@@ -196,8 +198,14 @@ public class PageController {
     }
 
     @GetMapping("/block")
-    public ModelAndView blockPages() {
-        return new ModelAndView(BLOCK_JSP);
+    public ModelAndView blockPages(@SessionAttribute User user) {
+        if (user != null && user.getStatus().getStatus().equals(LOCKED)){
+
+            List<Message> messages = messageService.findAllByUserId(user.getId());
+            return new ModelAndView(BLOCK_JSP, MESSAGES, messages);
+        }
+        return new ModelAndView(ERROR_JSP);
+
     }
 
     @GetMapping("/error")

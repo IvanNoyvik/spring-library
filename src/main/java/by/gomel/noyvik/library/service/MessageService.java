@@ -10,4 +10,6 @@ public interface MessageService {
     List<Message> findAll();
 
     void save(Message message);
+
+    List<Message> findAllByUserId(Long userId);
 }

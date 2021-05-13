@@ -16,7 +16,7 @@ public class ApplicationStartUpListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
-        sce.getServletContext().setAttribute("now", new CurrentDate());//todo work only one day
+        sce.getServletContext().setAttribute("now", new CurrentDate());
         sce.getServletContext().setAttribute("admin", new Role(ROLE_ADMIN));
 
     }

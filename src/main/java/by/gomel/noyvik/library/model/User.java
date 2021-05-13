@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.ROLE_ADMIN;
+
 @NoArgsConstructor
 @Setter
 @Getter
@@ -51,6 +53,19 @@ public class User {
     public User(String name, String email) {
         this.name = name;
         this.email = email;
+
+    }
+
+
+    public int getCountOverdueOrder() {
+        return (int) orders.stream().
+                filter(o -> o.getDateReceiving().plusDays(o.getDuration()).isBefore(LocalDate.now()))
+                .count();
+    }
+
+    public boolean isAdministrator() {
+
+            return roles.stream().map(Role::getRole).anyMatch(s -> s.equalsIgnoreCase(ROLE_ADMIN));
 
     }
 
@@ -104,12 +119,6 @@ public class User {
     public void removeOrder(Order order) {
         orders.remove(order);
         order.setUser(null);
-    }
-
-    public int getCountOverdueOrder() {
-        return (int) orders.stream().
-                filter(o -> o.getDateReceiving().plusDays(o.getDuration()).isBefore(LocalDate.now()))
-                .count();
     }
 
 }

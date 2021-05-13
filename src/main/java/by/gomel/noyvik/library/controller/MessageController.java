@@ -32,6 +32,5 @@ public class MessageController {
 
         messageService.save(message);
         return new ModelAndView(REDIRECT_ACTION + BLOCK_JSP);
-
     }
 }

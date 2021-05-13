@@ -40,7 +40,11 @@
 
         <div id="templatemo_content_left">
             <div class="templatemo_content_left_section">
-
+                <c:if test="${sessionScope.user.roles.contains(applicationScope.admin)}">
+                    <div class="buy_now_button"><a class="buy_now_button"
+                                                   href="<c:url value="/admin"/>">Admin panel</a>
+                    </div>
+                </c:if>
             </div>
             <div class="templatemo_content_left_section">
 

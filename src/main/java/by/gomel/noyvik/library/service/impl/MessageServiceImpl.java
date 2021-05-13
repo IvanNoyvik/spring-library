@@ -28,4 +28,9 @@ public class MessageServiceImpl implements MessageService {
 
         messageRepository.save(message);
     }
+
+    @Override
+    public List<Message> findAllByUserId(Long userId) {
+        return messageRepository.findAllByUserId(userId);
+    }
 }

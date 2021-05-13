@@ -9,7 +9,6 @@ import by.gomel.noyvik.library.persistence.repository.BookRepository;
 import by.gomel.noyvik.library.persistence.repository.GenreRepository;
 import by.gomel.noyvik.library.service.BookService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,13 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import static by.gomel.noyvik.library.util.constant.ApplicationConstant.BOOK_EXISTS;
-import static by.gomel.noyvik.library.util.constant.ApplicationConstant.NO_IMAGE;
 
 @Service
 @RequiredArgsConstructor
@@ -51,15 +48,8 @@ public class BookServiceImpl implements BookService {
 
             return image;
 
-        } else {
-
-            //todo evaluate work, but NPE (newer use)
-            try (InputStream in = getClass().getResourceAsStream(NO_IMAGE)) {
-                return IOUtils.toByteArray(in);
-            } catch (Exception e) {
-                throw new ServiceException(e);
-            }
         }
+        throw new ServiceException("Image not find");
     }
 
     @Override

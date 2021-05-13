@@ -18,13 +18,13 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     User findByAuthenticateLogin(String login);
 
-    @Query("SELECT distinct u from User u left join fetch u.status " +
+    @Query("select distinct u from User u left join fetch u.status " +
             "left join fetch u.authenticate left join fetch u.orders order by u.status.id desc")
     List<User> findAllWithOrder();
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE from USERS_ROLES where USERS_ID = :id", nativeQuery = true)
+    @Query(value = "DELETE FROM USERS_ROLES WHERE USERS_ID = :id", nativeQuery = true)
     void deleteConstraintFromUsersRolesTableByUserId(@Param("id") Long id);
 
     @Query("from User u join fetch u.authenticate left join fetch u.messages left join fetch u.status left join fetch u.orders" +

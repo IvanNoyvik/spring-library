@@ -37,7 +37,7 @@ public class BookController {
             return new ModelAndView(REDIRECT_ACTION + EDIT_BOOK_JSP, "errors", errors);
         }
 
-        if (user != null && userService.isAdministrator(user)) {
+        if (user != null && user.isAdministrator()) {
 
             try {
 
@@ -85,7 +85,7 @@ public class BookController {
             return new ModelAndView(REDIRECT_ACTION + ADD_BOOK_JSP, "errors", errors);
         }
 
-        if (user != null && userService.isAdministrator(user)) {
+        if (user != null && user.isAdministrator()) {
 
             try {
                 bookService.save(book);

@@ -92,14 +92,6 @@
                                         <input class="submit-lock" type="submit" value="Locked"/>
                                     </form>
                                 </c:if>
-                                    <%--                                <c:if test="${!order.user.status.status.equalsIgnoreCase('OK')}">--%>
-                                    <%--                                    <form accept-charset="UTF-8" action="<c:url value="/front"/>" method="post">--%>
-                                    <%--                                        <input name="command" type="hidden" value="ChangeStatus"/>--%>
-                                    <%--                                        <input name="userId" type="hidden" value="${order.user.id}"/>--%>
-                                    <%--                                        <input name="status" type="hidden" value="OK"/>--%>
-                                    <%--                                        <input class="submit-unlock" type="submit" value="Unlocked"/>--%>
-                                    <%--                                    </form>--%>
-                                    <%--                                </c:if>--%>
 
                             </div>
 
@@ -148,21 +140,21 @@
                         <th class="table-width"><h2>Delete User</h2></th>
 
                     </tr>
-                    <c:forEach items="${requestScope.users}" var="userMap">
-                        <c:if test="${userMap.key.id ne sessionScope.user.id}">
+                    <c:forEach items="${requestScope.users}" var="user">
+                        <c:if test="${user.id ne sessionScope.user.id}">
                             <tr>
-                                <td><h3>${userMap.key.authenticate.login}</h3></td>
-                                <td class="table-text-center"><h3>${userMap.key.status.status}</h3></td>
-                                <td class="table-text-center"><h3>${userMap.value}</h3></td>
+                                <td><h3>${user.authenticate.login}</h3></td>
+                                <td class="table-text-center"><h3>${user.status.status}</h3></td>
+                                <td class="table-text-center"><h3>${user.countOverdueOrder}</h3></td>
 
                                 <td class="table-text-center">
                                     <c:choose>
-                                        <c:when test="${userMap.key.status.status.equalsIgnoreCase('Locked')
-                                                    or userMap.key.status.status.equalsIgnoreCase('Limited')}">
+                                        <c:when test="${user.status.status.equalsIgnoreCase('Locked')
+                                                    or user.status.status.equalsIgnoreCase('Limited')}">
                                             <h3>
                                                 <form accept-charset="UTF-8" action="<c:url value="/сhangeStatus"/>"
                                                       method="post">
-                                                    <input name="userId" type="hidden" value="${userMap.key.id}"/>
+                                                    <input name="userId" type="hidden" value="${user.id}"/>
                                                     <input name="status" type="hidden" value="OK"/>
                                                     <input class="submit-unlock" type="submit" value="Unlocked"/>
                                                 </form>
@@ -172,7 +164,7 @@
                                             <h3>
                                                 <form accept-charset="UTF-8" action="<c:url value="/сhangeStatus"/>"
                                                       method="post">
-                                                    <input name="userId" type="hidden" value="${userMap.key.id}"/>
+                                                    <input name="userId" type="hidden" value="${user.id}"/>
                                                     <input name="status" type="hidden" value="Locked"/>
                                                     <input class="submit-lock" type="submit" value="Locked"/>
                                                 </form>
@@ -183,8 +175,8 @@
 
                                 <td class="table-text-center">
                                     <c:choose>
-                                        <c:when test="${userMap.key.status.status.equalsIgnoreCase('Locked')
-                                                        or userMap.key.status.status.equalsIgnoreCase('OK')}">
+                                        <c:when test="${user.status.status.equalsIgnoreCase('Locked')
+                                                        or user.status.status.equalsIgnoreCase('OK')}">
                                             <h3>
                                                 <form accept-charset="UTF-8" action="<c:url value="/сhangeStatus"/>"
                                                       method="post">
@@ -193,7 +185,7 @@
                                                                required="" placeholder="in days..."
                                                                pattern="^0*[1-9]\d*$"/>
                                                     </label>
-                                                    <input name="userId" type="hidden" value="${userMap.key.id}"/>
+                                                    <input name="userId" type="hidden" value="${user.id}"/>
                                                     <input name="status" type="hidden" value="Limited"/>
                                                     <input class="submit-limit" type="submit" value="Limited"/>
                                                 </form>
@@ -203,7 +195,7 @@
                                             <h3>
                                                 <form accept-charset="UTF-8" action="<c:url value="/сhangeStatus"/>"
                                                       method="post">
-                                                    <input name="userId" type="hidden" value="${userMap.key.id}"/>
+                                                    <input name="userId" type="hidden" value="${user.id}"/>
                                                     <input name="status" type="hidden" value="Locked"/>
                                                     <input class="submit-lock" type="submit" value="Locked"/>
                                                 </form>
@@ -215,7 +207,7 @@
                                     <h3>
                                         <form accept-charset="UTF-8" action="<c:url value="/deleteUser"/>"
                                               method="post">
-                                            <input name="id" type="hidden" value="${userMap.key.id}"/>
+                                            <input name="id" type="hidden" value="${user.id}"/>
                                             <input class="submit-delete" type="submit" value="Delete"/>
                                         </form>
                                     </h3>
