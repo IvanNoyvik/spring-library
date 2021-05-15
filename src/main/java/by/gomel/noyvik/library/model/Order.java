@@ -5,7 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 
 @EqualsAndHashCode(exclude = {"book", "user"})
@@ -21,12 +21,11 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "DATE_RECEIVING")
-    private LocalDate dateReceiving;
+    private LocalDate dateReceiving = LocalDate.now();
 
-    @Min(value = 1, message = "validation.order.duration.message")
-    @Max(value = 180, message = "validation.order.duration.message")
+    @Positive(message = "{validation.order.duration.message}")
+    @Max(value = 180, message = "{validation.order.duration.message}")
     private int duration;
-
 
 
     @ManyToOne(fetch = FetchType.LAZY)

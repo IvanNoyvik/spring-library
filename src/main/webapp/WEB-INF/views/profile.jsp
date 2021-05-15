@@ -18,8 +18,8 @@
     <div id="templatemo_header">
         <div id="templatemo_special_offers">
             <p>
-                <c:if test="${!empty requestScope.resp}">
-                    <span class="resp"><c:out value="${requestScope.resp}"/></span>
+                <c:if test="${!empty requestScope.answer}">
+                    <span class="answer"><c:out value="${requestScope.answer}"/></span>
                 </c:if>
             </p>
         </div>
@@ -33,7 +33,8 @@
                     <li>You name: ${sessionScope.user.name}</li>
                     <li>You email: ${sessionScope.user.email}</li>
                 </ul>
-                <a href="<c:url value="/editUser.jsp" />" style="margin-left: 50px;">Edit profile...</a>
+
+                <a href="<c:url value="/page/editUser" />" style="margin-left: 50px;">Edit profile...</a>
             </c:if>
 
         </div>
@@ -44,13 +45,19 @@
         <div id="templatemo_content_left">
 
             <div class="templatemo_content_left_section">
-                <c:if test="${sessionScope.user.roles.contains(applicationScope.admin)}">
-                    <form action="<c:url value="/front"/>" method="get">
-                        <input type="hidden" name="command" value="Forward"/>
-                        <input type="hidden" name="forward" value="admin"/>
-                        <h1><input type="submit" value="Admin panel"/></h1>
-                    </form>
+                <h1>Your messages</h1>
+                <c:if test="${!empty requestScope.messages}">
+                    <c:forEach items="${requestScope.messages}" var="mess">
+                        <div class="templatemo_product_box">
+                            <span style="font-size:13px; font-style: italic">${mess.dateSent}:</span>
+                            <div class="product_info">
+                                    ${mess.content}
+                            </div>
+                        </div>
+
+                    </c:forEach>
                 </c:if>
+
             </div>
 
             <div class="templatemo_content_left_section"></div>
@@ -68,24 +75,16 @@
 
                         <h1>${order.book.title} (${order.book.author.author}) </h1>
 
-<%--                        <c:url value="/front" var="image">--%>
-<%--                            <c:param name="bookId" value="${order.book.id}"/>--%>
-<%--                            <c:param name="command" value="GetImage"/>--%>
-<%--                        </c:url>--%>
-<%--                        <div>--%>
-<%--                            <img src="${image}" alt="CSS Template" width="100"--%>
-<%--                                 height="100"/>--%>
-<%--                        </div>--%>
-
-                            <%--todo проверіть работаетлі без запроса, when be image--%>
                         <div>
                             <c:choose>
-                                <c:when test="${!empty book.image}">
-                                    <img src="${book.image}" alt="CSS Template" width="100"
+                                <c:when test="${!empty order.book.image}">
+                                    <img src="<c:url value="/getImage/${order.book.id}"/>" alt="CSS Template"
+                                         width="100"
                                          height="100"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template" width="100"
+                                    <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template"
+                                         width="100"
                                          height="100"/>
                                 </c:otherwise>
                             </c:choose>
@@ -98,9 +97,7 @@
                                 <h3>Book is expired
                                     return the book to the library</h3>
 
-                                <div class="detail_button"><a
-                                        href="<c:url value="/front?command=ReturnOrder&id=${order.id}"/>">Return</a>
-                                </div>
+
                             </c:if>
                             <c:if test="${applicationScope.now.now() < order.dateReceiving.plusDays(order.duration)}">
                                 <h3> Expected return date: ${order.dateReceiving.plusDays(order.duration)} </h3>
@@ -108,20 +105,20 @@
                                     days
                                     left </h3>
 
-                                <c:url value="/front" var="bookContent">
-                                    <c:param name="command" value="Forward"/>
-                                    <c:param name="forward" value="bookContent"/>
-                                    <c:param name="bookId" value="${order.book.id}"/>
-                                </c:url>
+
                                 <div class="buy_now_button"><a class="buy_now_button"
-                                                               href="<c:out value="${bookContent}"/>">Read</a>
+                                                               href="<c:url value="/bookContent/${order.book.id}"/>">Read</a>
                                 </div>
 
-                                <div class="detail_button"><a
-                                        href="<c:url value="/front?command=ReturnOrder&id=${order.id}"/>">Return
-                                    book</a>
-                                </div>
                             </c:if>
+
+                            <div class="detail_button">
+                                <form action="<c:url value="/returnOrder"/>" method="post">
+                                    <input type="hidden" value="${order.id}" name="id"/>
+                                    <input type="hidden" value="${order.book.id}" name="bookId"/>
+                                    <input type="submit" value="Return"/>
+                                </form>
+                            </div>
                         </div>
                     </div>
 

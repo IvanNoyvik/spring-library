@@ -2,12 +2,9 @@ package by.gomel.noyvik.library.model;
 
 
 import lombok.*;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,22 +24,20 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "validation.book.title.NotEmpty.message")
-    @NotBlank(message = "validation.book.title.NotEmpty.message")
-    @NotEmpty(message = "validation.book.title.NotEmpty.message")
+    @NotEmpty(message = "{validation.book.title.NotEmpty.message}")
     private String title;
 
     private String description;
     private byte[] image;
 
-    @Min(value = 0, message = "validation.book.quantity.PositiveOrZero.message")
+    @PositiveOrZero(message = "{validation.book.quantity.PositiveOrZero.message}")
     private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AUTHORS_ID", referencedColumnName = "ID")
     private Author author;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     private Set<Genre> genres = new HashSet<>();
 
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY,

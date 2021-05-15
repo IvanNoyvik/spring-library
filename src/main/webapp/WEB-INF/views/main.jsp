@@ -18,11 +18,16 @@
     <div id="templatemo_header">
         <div id="templatemo_special_offers">
             <p>
-                <c:if test="${!empty resp and resp != null}">
-                    <span class="resp"><c:out value="${resp}"/></span>
+                <c:if test="${!empty answer and answer != null}">
+                    <span class="answer"><c:out value="${answer}"/></span>
                 </c:if>
-
             </p>
+            <c:if test="${requestScope.errors != null}">
+                <c:forEach var="error" items="${requestScope.errors}">
+                    <p>
+                    <h3 class="error">${error}</h3>
+                </c:forEach>
+            </c:if>
         </div>
 
 
@@ -35,7 +40,11 @@
 
         <div id="templatemo_content_left">
             <div class="templatemo_content_left_section">
-
+                <c:if test="${sessionScope.user.roles.contains(applicationScope.admin)}">
+                    <div class="buy_now_button"><a class="buy_now_button"
+                                                   href="<c:url value="/admin"/>">Admin panel</a>
+                    </div>
+                </c:if>
             </div>
             <div class="templatemo_content_left_section">
 
@@ -54,26 +63,19 @@
 
                         <h1>${book.title} <span>(${book.author.author})</span></h1>
 
-<%--todo проверіть работаетлі без запроса, when be image--%>
                         <div>
                             <c:choose>
                                 <c:when test="${!empty book.image}">
-                                    <img src="${book.image}" alt="CSS Template" width="100"
+                                    <img src="<c:url value="/getImage/${book.id}"/>" alt="CSS Template" width="100"
                                          height="100"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template" width="100"
+                                    <img src="<c:url value="/static/main/images/no_image.png"/>" alt="CSS Template"
+                                         width="100"
                                          height="100"/>
                                 </c:otherwise>
                             </c:choose>
                         </div>
-<%--                        <c:url value="/getImage" var="image">--%>
-<%--                            <c:param name="bookId" value="${book.id}"/>--%>
-<%--                        </c:url>--%>
-<%--                        <div>--%>
-<%--                            <img src="${image}" alt="CSS Template" width="100"--%>
-<%--                                 height="100"/>--%>
-<%--                        </div>--%>
 
 
                         <div class="product_info">
@@ -84,14 +86,14 @@
                             <c:if test="${(book.quantity > 0)}">
                                 <h3>${book.quantity} pcs in stock</h3>
                                 <c:if test="${!empty sessionScope.user and (sessionScope.user.status.status eq 'OK')}">
-                                    <form accept-charset="UTF-8" action="<c:url value="/front"/>" method="post">
+                                    <form accept-charset="UTF-8" action="<c:url value="/getOrder"/>" method="post">
                                         <label>Duration
-                                            <input class="duration-main" name="days" type="text"
+                                            <input class="duration-main" name="duration" type="text"
                                                    required="" placeholder="(1-180)in days..."
                                                    pattern="^0*[1-9]\d*$"/>
                                         </label>
-                                        <input name="command" type="hidden" value="AddOrder"/>
-                                        <input name="bookId" type="hidden" value="${book.id}"/>
+                                        <input name="book.id" type="hidden" value="${book.id}"/>
+                                        <input name="user.id" type="hidden" value="${sessionScope.user.id}"/>
                                         <input type="submit" value="Add in my library"/>
                                     </form>
 
@@ -99,12 +101,7 @@
                                 </c:if>
                             </c:if>
 
-                            <c:url value="/front" var="bookInfo">
-                                <c:param name="command" value="Forward"/>
-                                <c:param name="forward" value="book"/>
-                                <c:param name="bookId" value="${book.id}"/>
-                            </c:url>
-                            <div class="detail_button"><a href="<c:out value="${bookInfo}"/>">Detail</a></div>
+                            <div class="detail_button"><a href="<c:url value="/book/${book.id}"/>">Detail</a></div>
 
 
                         </div>
@@ -113,7 +110,7 @@
 
                 </c:forEach>
 
-                <c:forEach var="page" begin="1" end="${requestScope.countPage}" >
+                <c:forEach var="page" begin="1" end="${requestScope.countPage}">
                     <a href="<c:url value="/main/${page-1}"/>">${page}</a>
                 </c:forEach>
 

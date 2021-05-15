@@ -22,10 +22,10 @@
             <c:if test="${empty sessionScope.user}">
                 <!-- LOGIN -->
 
-                <li><a href="<c:url value="/login"/>" class="current">Login</a></li>
+                <li><a href="<c:url value="/page/login"/>" class="current">Login</a></li>
 
                 <!-- REGISTR -->
-                <li><a href="<c:url value="/registration"/>" class="current">Registration</a></li>
+                <li><a href="<c:url value="/page/registration"/>" class="current">Registration</a></li>
             </c:if>
 
 

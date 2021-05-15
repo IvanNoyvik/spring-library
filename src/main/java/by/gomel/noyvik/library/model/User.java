@@ -1,13 +1,17 @@
 package by.gomel.noyvik.library.model;
 
 import lombok.*;
-import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static by.gomel.noyvik.library.util.constant.ApplicationConstant.ROLE_ADMIN;
 
 @NoArgsConstructor
 @Setter
@@ -23,9 +27,10 @@ public class User {
     private Long id;
     private String name;
 
-    @Email(message = "validation.email.Email.message")
+    @Email(message = "{validation.email.Email.message}")
     private String email;
 
+    @Valid
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private Authenticate authenticate;
@@ -53,9 +58,19 @@ public class User {
 
     }
 
-//    public User (String name, String email){
-//     todo
-//    }
+
+    public int getCountOverdueOrder() {
+        return (int) orders.stream().
+                filter(o -> o.getDateReceiving().plusDays(o.getDuration()).isBefore(LocalDate.now()))
+                .count();
+    }
+
+    public boolean isAdministrator() {
+
+            return roles.stream().map(Role::getRole).anyMatch(s -> s.equalsIgnoreCase(ROLE_ADMIN));
+
+    }
+
 
     public void addAuthenticate(Authenticate authenticate) {
         this.authenticate = authenticate;

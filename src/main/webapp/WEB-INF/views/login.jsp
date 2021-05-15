@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -39,17 +40,6 @@
 
 </head>
 
-<%--<c:import url="/WEB-INF/jsp/head.jsp" />--%>
-
-<%--<br>--%>
-<%--<form action="/front" method="post">--%>
-<%--  <p> <input name="login" type="text"/> </p>   <br />--%>
-<%--    <p>  <input name="password" type="password"/> </p><br />--%>
-<%--    <p>  <input name="name" type="text"/> </p><br />--%>
-<%--    <input name="command" type="hidden" value="Registration" datafld="Registration" />--%>
-<%--    <p> <input type="submit" value="Registration"/></p>--%>
-<%--</form>--%>
-
 
 <body style="background-color: #d7cece;">
 
@@ -64,14 +54,14 @@
 
 
                 <div class="wrap-input100 validate-input" data-validate="Valid login is: aBv3_09c">
-                    <input class="input100" type="text" name="login" <%--pattern="[A-Za-z_0-9]{3,40}"--%>>
+                    <input class="input100" type="text" name="login" pattern="[A-Za-z_0-9]{3,40}">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Login</span>
                 </div>
 
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" name="password" <%--pattern="[A-Za-z0-9]{1,40}"--%>>
+                    <input class="input100" type="password" name="password" pattern="[A-Za-z0-9]{1,40}">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Password</span>
                 </div>
@@ -82,14 +72,17 @@
                 </div>
 
                 <div class="text-center p-t-46 p-b-20">
-                    <c:if test="${!empty requestScope.resp}">
-                        <span class="error"><c:out value="${requestScope.resp}"/></span>
+                    <c:if test="${!empty requestScope.answer}">
+                        <span class="error"><c:out value="${requestScope.answer}"/></span>
                     </c:if>
+                    <span class="error"><form:errors path="authenticate.login" /></span>
+                    <span class="error"><form:errors path="authenticate.password" /></span>
                 </div>
 
                 <div class="login100-form-social flex-c-m">
 
-                    <li><a href="<c:url value="/registration"/>" class="login100-form-social-item flex-c-m bg1 m-r-5">Registration</a>
+                    <li><a href="<c:url value="/page/registration"/>"
+                           class="login100-form-social-item flex-c-m bg1 m-r-5">Registration</a>
                     </li>
 
                     <li><a href="<c:url value="/main"/>" class="login100-form-social-item flex-c-m bg2 m-r-5">Back to

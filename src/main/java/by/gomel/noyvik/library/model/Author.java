@@ -1,11 +1,9 @@
 package by.gomel.noyvik.library.model;
 
 import lombok.*;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,15 +20,12 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "validation.author.NotEmpty.message")
-    @NotBlank(message = "validation.author.NotEmpty.message")
-    @NotEmpty(message = "validation.author.NotEmpty.message")
+    @NotEmpty(message = "{validation.author.NotEmpty.message}")
     private String author;
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Book> books = new HashSet<>();
-
 
     public Author(String author) {
         this.author = author;

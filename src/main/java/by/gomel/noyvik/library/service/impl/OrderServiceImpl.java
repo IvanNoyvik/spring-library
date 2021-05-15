@@ -1,12 +1,16 @@
 package by.gomel.noyvik.library.service.impl;
 
 import by.gomel.noyvik.library.exception.ServiceException;
+import by.gomel.noyvik.library.model.Book;
 import by.gomel.noyvik.library.model.Order;
-import by.gomel.noyvik.library.model.User;
+import by.gomel.noyvik.library.persistence.repository.BookRepository;
 import by.gomel.noyvik.library.persistence.repository.OrderRepository;
+import by.gomel.noyvik.library.persistence.repository.UserRepository;
 import by.gomel.noyvik.library.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +21,8 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
-//    private final BookDao bookDao = PROVIDER_DAO.getBookDao();
+    private final BookRepository bookRepository;
+    private final UserRepository userRepository;
 
 
     @Override
@@ -33,36 +38,55 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> findAllOverdueOrder() {
 
-        List<Order> orders = orderRepository.findAll();
+        List<Order> orders = orderRepository.findAllWithUserAuthenticateAndBook();
 
         return getOverdueOrders(orders);
     }
 
     @Override
     public boolean userHaveBook(Long bookId, Long userId) {
-        return orderRepository.findByBookIdAndUserId(bookId, userId);
+        return orderRepository.existsByBookIdAndUserId(bookId, userId);
     }
 
     @Override
-    public Order addOrder(User user, Long bookID, int duration) {
+    @Transactional(rollbackFor = {ServiceException.class, Exception.class})
+    @Modifying
+    public Order addOrder(Order order) {
 
-//        Book book = bookDao.findById(bookID);
-//
-//        if (book.getQuantity() > 0 && !userHaveBook(bookID, user.getId())) {
-//            Order order = new Order(LocalDate.now(), duration, book, user);
-//
-//            Order newOrder = orderDao.save(order);
-//
-//            book.setQuantity(book.getQuantity() - 1);
-//            bookDao.update(book);
-//
-//            return newOrder;
-//
-//        } else {
+        Long bookId = order.getBook().getId();
+        Long userId = order.getUser().getId();
+
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new ServiceException("book not find"));
+
+        if (book.getQuantity() > 0 && !userHaveBook(bookId, userId)) {
+
+            order = orderRepository.save(order);
+
+            bookRepository.changeQuantityByBookId(bookId, -1);
+
+            return order;
+
+        } else {
 
             throw new ServiceException();
 
-//        }
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = ServiceException.class)
+    @Modifying
+    public boolean returnOrder(Long id, Long bookId) {
+
+        try {
+            bookRepository.changeQuantityByBookId(bookId, 1);
+            orderRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+
+            throw new ServiceException(e);
+        }
+
     }
 
     private List<Order> getOverdueOrders(List<Order> orders) {
