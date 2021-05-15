@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
     public void changeStatus(Long userId, String status, int duration) {
 
         try {
-// todo modulMap from view
+
             User user = userRepository.findFullUserById(userId);
 
             if (!user.getStatus().getStatus().equals(status)) {

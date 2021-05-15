@@ -118,9 +118,8 @@ public class BookServiceImpl implements BookService {
             if (oldBook.getGenres().equals(book.getGenres())) {
                 book.setGenres(oldBook.getGenres());
             } else {
-//todo show Anton
                 while (!oldBook.getGenres().isEmpty()) {
-                    for (Genre genre : oldBook.getGenres()) {//todo when remove genre do BD req
+                    for (Genre genre : oldBook.getGenres()) {
                         oldBook.removeGenre(genre);
                         break;
                     }
@@ -151,7 +150,7 @@ public class BookServiceImpl implements BookService {
         for (Genre genre : allGenre) {
             for (Genre newGenre : newGenres) {
                 if (newGenre.equals(genre)) {
-                    book.addGenre(genre);//todo when add genre do BD req
+                    book.addGenre(genre);
                     break;
                 }
             }
