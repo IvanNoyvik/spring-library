@@ -24,11 +24,11 @@ public class AuthorController {
             authorService.addAuthor(author);
 
         } catch (ServiceException e) {
-            return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, AUTHOR_EXISTS);
+            return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, ANSWER, AUTHOR_EXISTS);
         } catch (Exception e) {
-            return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, ADD_AUTHOR_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, ANSWER, ADD_AUTHOR_FAIL);
         }
-        return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, ADD_AUTHOR_OK);
+        return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, ANSWER, ADD_AUTHOR_OK);
     }
 
 }

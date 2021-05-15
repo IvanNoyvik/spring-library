@@ -3,16 +3,15 @@ package by.gomel.noyvik.library.util.constant;
 public interface ApplicationConstant {
 
     String POSTFIX = ".jsp";
-    String PREFIX = "/";
-    String RESPONSE = "resp";
+    String PREFIX = "/WEB-INF/views/";
+    String ANSWER = "answer";
     String REDIRECT_ACTION = "redirect:/";
 
 
     String LOGIN_REGEX = "[a-zA-Z_0-9]{3,40}";
     String PASSWORD_REGEX = "[a-zA-Z0-9]{1,40}";
-    //command
 
-    //resp message
+    //answer message
     String LOGIN_OK = "Hello ";
     String LOGIN_FAIL = "Wrong log or pass";
     String REGISTRATION_FAIL = "Failed to registration";
@@ -22,8 +21,6 @@ public interface ApplicationConstant {
     String ADD_ORDER_OK = "The book has been placed in your library";
     String RETURN_ORDER_FAIL = "Book return fail";
     String RETURN_ORDER_OK = "The book is returned to the library";
-    String SENT_MESSAGE_OK = "Message sent";
-    String SENT_MESSAGE_FAIL = "Sending message error";
     String ADD_BOOK_FAIL = "Failed to add book";
     String ADD_BOOK_OK = "Book added";
     String BOOK_EXISTS = "This book already exists";
@@ -43,7 +40,6 @@ public interface ApplicationConstant {
     String EDIT_USER_FAIL = "Failed to change data";
     String EDIT_BOOK_OK = "Book changed";
     String EDIT_BOOK_FAIL = "Failed to change data";
-    String BLOCK = "Your account is blocked";
     String ERROR_PROCESS = "Incorrect or unsupported operations";
     String INVALID_DATA = "You entered invalid data";
 
@@ -64,10 +60,6 @@ public interface ApplicationConstant {
     String HAVE_BOOK = "haveBook";
     String GENRES = "genres";
     String AUTHORS = "authors";
-    //    String NO_IMAGE = "/static/main/images/no_image.png";
-//    String NO_IMAGE = "/../../static/main/images/no_image.png";
-    String NO_IMAGE = "/image/no_image.png";
-
     String ORDERS = "orders";
 
     String OK = "OK";

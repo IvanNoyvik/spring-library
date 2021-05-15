@@ -18,8 +18,8 @@
     <div id="templatemo_header">
         <div id="templatemo_special_offers">
             <p>
-                <c:if test="${!empty resp and resp != null}">
-                    <span class="resp"><c:out value="${resp}"/></span>
+                <c:if test="${!empty answer and answer != null}">
+                    <span class="answer"><c:out value="${answer}"/></span>
                 </c:if>
             </p>
             <c:if test="${requestScope.errors != null}">

@@ -3,6 +3,7 @@ package by.gomel.noyvik.library.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class User {
     @Email(message = "{validation.email.Email.message}")
     private String email;
 
+    @Valid
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private Authenticate authenticate;

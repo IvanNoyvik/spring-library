@@ -19,8 +19,8 @@
     <div id="admin_header">
         <div id="admin_special_offers">
             <p>
-                <c:if test="${!empty requestScope.resp}">
-                    <span class="resp"><c:out value="${requestScope.resp}"/></span>
+                <c:if test="${!empty requestScope.answer}">
+                    <span class="answer"><c:out value="${requestScope.answer}"/></span>
                 </c:if>
             </p>
         </div>
@@ -110,12 +110,13 @@
                             <div class="product_info">
                                     ${mess.content}
                             </div>
-                            <form accept-charset="UTF-8" action="<c:url value="/сhangeStatus"/>" method="post">
-                                <input name="userId" type="hidden" value="${mess.user.id}"/>
-                                <input name="status" type="hidden" value="OK"/>
-                                <input class="submit-unlock" type="submit" value="Unlocked"/>
-                            </form>
-
+                            <c:if test="${mess.user.status.status.equals('Locked')}">
+                                <form accept-charset="UTF-8" action="<c:url value="/сhangeStatus"/>" method="post">
+                                    <input name="userId" type="hidden" value="${mess.user.id}"/>
+                                    <input name="status" type="hidden" value="OK"/>
+                                    <input class="submit-unlock" type="submit" value="Unlocked"/>
+                                </form>
+                            </c:if>
                         </div>
 
                     </c:forEach>

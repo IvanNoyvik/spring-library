@@ -28,10 +28,10 @@ public class PageController {
 
     private void setResp(ModelAndView modelAndView, HttpServletRequest request) {
 
-        String resp = request.getParameter(RESPONSE);
+        String answer = request.getParameter(ANSWER);
         String errors = request.getParameter("errors");
-        if (resp != null) {
-            modelAndView.addObject(RESPONSE, resp);
+        if (answer != null) {
+            modelAndView.addObject(ANSWER, answer);
         }
         if (errors != null) {
             modelAndView.addObject("errors", errors);
@@ -84,7 +84,7 @@ public class PageController {
         ModelAndView modelAndView = new ModelAndView(PROFILE_JSP);
 
         if (user == null) {
-            modelAndView.addObject(RESPONSE, ERROR_PROCESS);
+            modelAndView.addObject(ANSWER, ERROR_PROCESS);
             modelAndView.setViewName(REDIRECT_ACTION + MAIN_JSP);
             return modelAndView;
         }
@@ -192,7 +192,7 @@ public class PageController {
             return modelAndView;
         } else {
 
-            return new ModelAndView(MAIN_JSP, RESPONSE, ERROR_PROCESS);
+            return new ModelAndView(MAIN_JSP, ANSWER, ERROR_PROCESS);
         }
 
     }

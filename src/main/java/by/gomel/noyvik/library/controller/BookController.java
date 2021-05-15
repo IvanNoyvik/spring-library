@@ -4,7 +4,6 @@ import by.gomel.noyvik.library.exception.ServiceException;
 import by.gomel.noyvik.library.model.Book;
 import by.gomel.noyvik.library.model.User;
 import by.gomel.noyvik.library.service.BookService;
-import by.gomel.noyvik.library.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -24,7 +23,6 @@ import static by.gomel.noyvik.library.util.constant.ApplicationConstant.*;
 public class BookController {
 
     private final BookService bookService;
-    private final UserService userService;
 
 
     @PostMapping(value = "/editBook")
@@ -45,12 +43,12 @@ public class BookController {
 
             } catch (Exception e) {
 
-                return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), RESPONSE, EDIT_BOOK_FAIL);
+                return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), ANSWER, EDIT_BOOK_FAIL);
             }
-            return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), RESPONSE, EDIT_BOOK_OK);
+            return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), ANSWER, EDIT_BOOK_OK);
         }
 
-        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, ERROR_PROCESS);
+        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, ANSWER, ERROR_PROCESS);
     }
 
 
@@ -60,11 +58,11 @@ public class BookController {
         try {
 
             bookService.addImage(id, image);
-        } catch (ServiceException e){
-            return new ModelAndView(REDIRECT_ACTION + EDIT_BOOK_JSP + "/" + id, RESPONSE, EDIT_BOOK_FAIL);
+        } catch (ServiceException e) {
+            return new ModelAndView(REDIRECT_ACTION + EDIT_BOOK_JSP + "/" + id, ANSWER, EDIT_BOOK_FAIL);
         }
 
-        return new ModelAndView(REDIRECT_ACTION + EDIT_BOOK_JSP + "/" + id, RESPONSE, EDIT_BOOK_OK);
+        return new ModelAndView(REDIRECT_ACTION + EDIT_BOOK_JSP + "/" + id, ANSWER, EDIT_BOOK_OK);
     }
 
 
@@ -91,12 +89,12 @@ public class BookController {
                 bookService.save(book);
             } catch (Exception e) {
 
-                return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), RESPONSE, ADD_BOOK_FAIL);
+                return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), ANSWER, ADD_BOOK_FAIL);
             }
 
-            return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), RESPONSE, ADD_BOOK_OK);
+            return new ModelAndView(REDIRECT_ACTION + BOOK_JSP + "/" + book.getId(), ANSWER, ADD_BOOK_OK);
         }
 
-        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, ERROR_PROCESS);
+        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, ANSWER, ERROR_PROCESS);
     }
 }

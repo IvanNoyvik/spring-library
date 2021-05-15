@@ -27,7 +27,7 @@ public class LimitedUserFilter implements Filter {
 
             User user = (User) session.getAttribute(USER);
             if (user != null && user.getStatus().getStatus().equals(LIMITED)) {
-                request.setAttribute(RESPONSE, "You can't take the book");
+                request.setAttribute(ANSWER, "You can't take the book");
                 request.getServletContext().getRequestDispatcher("/" + MAIN_JSP).forward(request, response);
             }
 

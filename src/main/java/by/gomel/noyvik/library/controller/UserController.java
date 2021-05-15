@@ -30,28 +30,28 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(value = "/registration")
-    public ModelAndView registration(@Valid @ModelAttribute User user, @Valid @ModelAttribute Authenticate authenticate, BindingResult br) {
+    @Validated
+    public ModelAndView registration(@Valid @ModelAttribute User user, /*@Valid @ModelAttribute Authenticate authenticate, */BindingResult br) {
 
         if (br.hasErrors()) {
-            List<String> errors = br.getFieldErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
-            return new ModelAndView(REGISTRATION_JSP, "errors", errors);
+            return new ModelAndView(REGISTRATION_JSP, "user", user);
         }
 
         try {
 
-            user.addAuthenticate(authenticate);
+            user.addAuthenticate(user.getAuthenticate());
             userService.createNewUser(user);
 
         } catch (ServiceException e) {
 
-            return new ModelAndView(REDIRECT_ACTION + PAGE + REGISTRATION_JSP, RESPONSE, USER_EXISTS);
+            return new ModelAndView(REDIRECT_ACTION + PAGE + REGISTRATION_JSP, ANSWER, USER_EXISTS);
 
 
         } catch (Exception e) {
-            return new ModelAndView(REDIRECT_ACTION + PAGE + REGISTRATION_JSP, RESPONSE, REGISTRATION_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + PAGE + REGISTRATION_JSP, ANSWER, REGISTRATION_FAIL);
 
         }
-        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, REGISTRATION_OK);
+        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, ANSWER, REGISTRATION_OK);
 
     }
 
@@ -60,8 +60,7 @@ public class UserController {
 
 
         if (br.hasErrors()) {
-            List<String> errors = br.getFieldErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
-            return new ModelAndView(LOGIN_JSP, "errors", errors);
+            return new ModelAndView(LOGIN_JSP, "authenticate", authenticate);
         }
 
 
@@ -69,7 +68,7 @@ public class UserController {
 
         if (user == null) {
 
-            return new ModelAndView(REDIRECT_ACTION + PAGE + LOGIN_JSP, RESPONSE, LOGIN_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + PAGE + LOGIN_JSP, ANSWER, LOGIN_FAIL);
 
         } else {
             session.setAttribute(USER, user);
@@ -80,7 +79,7 @@ public class UserController {
             return new ModelAndView(REDIRECT_ACTION + BLOCK_JSP);
         }
 
-        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, LOGIN_OK + user.getName());
+        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, ANSWER, LOGIN_OK + user.getName());
 
     }
 
@@ -110,10 +109,10 @@ public class UserController {
             userService.updateUser(userForUpdate);
 
         } catch (Exception e) {
-            return new ModelAndView(REDIRECT_ACTION + PAGE + EDIT_USER_JSP, RESPONSE, EDIT_USER_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + PAGE + EDIT_USER_JSP, ANSWER, EDIT_USER_FAIL);
 
         }
-        return new ModelAndView(REDIRECT_ACTION + PROFILE_JSP, RESPONSE, EDIT_USER_OK);
+        return new ModelAndView(REDIRECT_ACTION + PROFILE_JSP, ANSWER, EDIT_USER_OK);
 
 
     }
@@ -126,10 +125,10 @@ public class UserController {
             userService.deleteById(id);
 
         } catch (Exception e) {
-            return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, DELETE_USER_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, ANSWER, DELETE_USER_FAIL);
 
         }
-        return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, DELETE_USER_OK);
+        return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, ANSWER, DELETE_USER_OK);
     }
 
     @PostMapping(value = "/сhangeStatus")
@@ -141,14 +140,14 @@ public class UserController {
             try {
 
                 userService.changeStatus(userId, status, duration);
-                return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, CHANGE_STATUS_OK);
+                return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, ANSWER, CHANGE_STATUS_OK);
 
             } catch (Exception e) {
-                return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, CHANGE_STATUS_FAIL);
+                return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, ANSWER, CHANGE_STATUS_FAIL);
 
             }
         }
-        return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, RESPONSE, INVALID_DATA);
+        return new ModelAndView(REDIRECT_ACTION + ADMIN_JSP, ANSWER, INVALID_DATA);
 
     }
 

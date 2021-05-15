@@ -19,8 +19,8 @@
 
         <div id="templatemo_special_offers">
             <p>
-                <c:if test="${!empty requestScope.resp}">
-                    <span class="resp"><c:out value="${requestScope.resp}"/></span>
+                <c:if test="${!empty requestScope.answer}">
+                    <span class="answer"><c:out value="${requestScope.answer}"/></span>
                 </c:if>
             </p>
         </div>

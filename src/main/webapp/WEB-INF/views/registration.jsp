@@ -62,13 +62,13 @@
 					</span>
 
                 <div class="wrap-input100 validate-input" data-validate="Valid login is: aBv3_09c">
-                    <input class="input100" type="text" name="login" pattern="[A-Za-z_0-9]{3,40}">
+                    <input class="input100" type="text" name="authenticate.login" pattern="[A-Za-z_0-9]{3,40}">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Login</span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" name="password" pattern="[A-Za-z0-9]{1,40}">
+                    <input class="input100" type="password" name="authenticate.password" pattern="[A-Za-z0-9]{1,40}">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Password</span>
                 </div>
@@ -90,15 +90,12 @@
                 </div>
 
                 <div class="text-center p-t-46 p-b-20">
-                    <c:if test="${!empty requestScope.resp}">
-                        <span class="error"><c:out value="${requestScope.resp}"/></span>
+                    <c:if test="${!empty requestScope.answer}">
+                        <span class="error"><c:out value="${requestScope.answer}"/></span>
                     </c:if>
-                    <c:if test="${requestScope.errors != null}">
-                        <c:forEach var="error" items="${requestScope.errors}">
-                            <p>
-                            <h3 class="error">${error}</h3>
-                        </c:forEach>
-                    </c:if>
+                            <span class="error"><form:errors path="user.authenticate.login" /></span>
+                            <span class="error"><form:errors path="user.authenticate.password" /></span>
+                            <span class="error"><form:errors path="user.email" /></span>
                 </div>
 
                 <div class="login100-form-social flex-c-m">

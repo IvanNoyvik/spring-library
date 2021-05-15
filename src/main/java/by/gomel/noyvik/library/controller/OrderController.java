@@ -38,14 +38,14 @@ public class OrderController {
             orderService.addOrder(order);
 
         } catch (ServiceException e) {
-            return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, ERROR_PROCESS);
+            return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, ANSWER, ERROR_PROCESS);
 
 
         } catch (Exception e) {
-            return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, ADD_ORDER_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, ANSWER, ADD_ORDER_FAIL);
 
         }
-        return new ModelAndView(REDIRECT_ACTION + PROFILE_JSP, RESPONSE, ADD_ORDER_OK);
+        return new ModelAndView(REDIRECT_ACTION + PROFILE_JSP, ANSWER, ADD_ORDER_OK);
 
     }
 
@@ -60,10 +60,10 @@ public class OrderController {
 
         } catch (ServiceException e) {
 
-            return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, RETURN_ORDER_FAIL);
+            return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, ANSWER, RETURN_ORDER_FAIL);
 
         }
-        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, RESPONSE, RETURN_ORDER_OK);
+        return new ModelAndView(REDIRECT_ACTION + MAIN_JSP, ANSWER, RETURN_ORDER_OK);
 
     }
 
