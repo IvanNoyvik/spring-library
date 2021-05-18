@@ -70,7 +70,6 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    @Modifying
     @Transactional
     public Book save(Book book) {
 
@@ -100,8 +99,7 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    @Transactional(rollbackFor = ServiceException.class)
-    @Modifying
+    @Transactional
     public Book update(Book book) {
 
         try {

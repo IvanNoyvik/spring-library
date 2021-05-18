@@ -18,11 +18,13 @@
         <jsp-api.version>2.2</jsp-api.version>
         <jstl.version>1.2</jstl.version>
 
+        <validator.version>5.4.3.Final</validator.version>
+        <hibernate-validator.version>6.0.10.Final</hibernate-validator.version>
         <hibernate-hikaricp.version>5.4.30.Final</hibernate-hikaricp.version>
         <h2.version>1.4.200</h2.version>
 
         <lombok.version>1.18.18</lombok.version>
-        <validator.version>5.4.3.Final</validator.version>
+        <commons-fileupload.version>1.4</commons-fileupload.version>
     </properties>
 
     <packaging>war</packaging>
@@ -49,7 +51,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.0.10.Final</version>
+            <version>${hibernate-validator.version}</version>
         </dependency>
 
         <dependency>
@@ -83,13 +85,10 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
-
-
-
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>1.4</version>
+            <version>${commons-fileupload.version}</version>
         </dependency>
     </dependencies>
 

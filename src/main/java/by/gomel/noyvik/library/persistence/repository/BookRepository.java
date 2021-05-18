@@ -24,7 +24,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     boolean existsByTitleAndAuthorAuthor(String title, String author);
 
     @Modifying
-    @Transactional
     @Query("update Book b set b.quantity = (b.quantity + :quantity) where b.id = :id")
     void changeQuantityByBookId(@Param("id") Long id, @Param("quantity") int quantity);
 
@@ -38,7 +37,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Book findFullBookById(@Param("bookId") Long bookId);
 
 
-    @Transactional
     @Modifying
     @Query("update Book set image = :image where id = :id")
     void imageBulkUpdate(@Param("id") Long id, @Param("image") byte[] image);

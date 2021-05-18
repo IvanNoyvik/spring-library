@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,7 +22,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findAllWithOrder();
 
     @Modifying
-    @Transactional
     @Query(value = "DELETE FROM USERS_ROLES WHERE USERS_ID = :id", nativeQuery = true)
     void deleteConstraintFromUsersRolesTableByUserId(@Param("id") Long id);
 

@@ -9,7 +9,6 @@ import by.gomel.noyvik.library.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -54,8 +53,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
-    @Modifying
+    @Transactional
     public void createNewUser(User user) {
 
         if (isExists(user.getAuthenticate().getLogin())) {
@@ -85,7 +83,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Modifying
     @Transactional
     public void deleteById(Long id) {
 
@@ -94,9 +91,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    //
     @Override
-    @Modifying
     @Transactional
     public void changeStatus(Long userId, String status, int duration) {
 

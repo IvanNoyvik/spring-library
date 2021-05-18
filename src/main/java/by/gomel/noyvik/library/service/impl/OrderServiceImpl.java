@@ -49,8 +49,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(rollbackFor = {ServiceException.class, Exception.class})
-    @Modifying
+    @Transactional
     public Order addOrder(Order order) {
 
         Long bookId = order.getBook().getId();
@@ -74,8 +73,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(rollbackFor = ServiceException.class)
-    @Modifying
+    @Transactional
     public boolean returnOrder(Long id, Long bookId) {
 
         try {
